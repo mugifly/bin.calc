@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">bin.Calc</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="baseMode_dec">dec</string>
+    <string name="baseMode_bin">bin</string>
+    <string name="baseMode_hex">hex</string>
+
+</resources>
