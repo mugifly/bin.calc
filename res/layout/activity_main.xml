@@ -13,12 +13,13 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	
-	        <Button
-	            android:id="@+id/button1"
+	        <ToggleButton
+	            android:id="@+id/ToggleButton1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
-	            android:background="@drawable/button"
-	            android:text="@string/baseMode_bin" />
+	            android:background="@drawable/toggle_basetype"
+	            android:textOn="@string/baseMode_bin"
+	            android:textOff="@string/baseMode_bin" />
 	
 	        <EditText
 	            android:id="@+id/editText1"
