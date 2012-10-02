@@ -58,7 +58,7 @@ public class MainActivity extends SherlockActivity {
 	 */
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
-				
+		
 		ToggleButton tb_bin = (ToggleButton) findViewById(R.id.toggle_basetype_bin);
 		ToggleButton tb_dec = (ToggleButton) findViewById(R.id.toggle_basetype_dec);
 		ToggleButton tb_hex = (ToggleButton) findViewById(R.id.toggle_basetype_hex);

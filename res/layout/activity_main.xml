@@ -10,6 +10,7 @@
 		
 	    <TableRow
 	        android:id="@+id/tableRow_basetype_dec"
+	        android:background="@drawable/basetype_line"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	
