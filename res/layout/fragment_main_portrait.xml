@@ -27,7 +27,7 @@
 	            android:id="@+id/editText_basetype_dec"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext"
+	            android:background="@drawable/edittext_baseinput"
 	            android:inputType="numberDecimal" />
 	
 	    </TableRow>
@@ -50,7 +50,7 @@
 	            android:id="@+id/editText_basetype_bin"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext"
+	            android:background="@drawable/edittext_baseinput"
 	            android:inputType="number" />
 	
 	    </TableRow>
@@ -73,7 +73,7 @@
 	            android:id="@+id/editText_basetype_hex"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext"
+	            android:background="@drawable/edittext_baseinput"
 	            android:inputType="number" />
 	
 	    </TableRow>
