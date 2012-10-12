@@ -11,7 +11,7 @@
 		
 	    <TableRow
 	        android:id="@+id/tableRow_basetype_dec"
-	        android:background="@drawable/basetype_line"
+	        android:background="@drawable/basetype_line_default"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	
@@ -34,6 +34,7 @@
 	    
 	    <TableRow
 	        android:id="@+id/tableRow_basetype_bin"
+	        android:background="@drawable/basetype_line_default"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	
@@ -56,6 +57,7 @@
 	
 	    <TableRow
 	        android:id="@+id/tableRow_basetype_hex"
+	        android:background="@drawable/basetype_line_default"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	

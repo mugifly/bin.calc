@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.TableRow;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -21,7 +22,7 @@ public class MainFragment extends Fragment {
 	
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_main_portrait, container);
+		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
 		/* Event handler for Basetype toggles */
 		final ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
@@ -54,24 +55,47 @@ public class MainFragment extends Fragment {
 	}
 	
 	/**
+	 * calculate base-number
+	 */
+	public void calculate( ){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			
+		}
+	}
+	
+	/**
 	 * switch base-type
 	 * @param basetypeId	Base-type ID number
 	 */
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
-		
+		TableRow tr_bin = (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
+		TableRow tr_dec = (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
+		TableRow tr_hex = (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
 		ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
 		ToggleButton tb_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		ToggleButton tb_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
+		
+		tr_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tb_bin.setChecked(false);
 		tb_dec.setChecked(false);
 		tb_hex.setChecked(false);
+		
 		if(basetypeId == ID_BASETYPE_BIN){
 			tb_bin.setChecked(true);
+			tr_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 		}else if(basetypeId == ID_BASETYPE_DEC){
 			tb_dec.setChecked(true);
+			tr_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 		}else{
 			tb_hex.setChecked(true);
+			tr_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 		}
 	}
 }
