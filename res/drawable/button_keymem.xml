@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- pressed -->
+    <item android:state_pressed="true">
+		<shape xmlns:android="http://schemas.android.com/apk/res/android">
+			<solid android:color="#0099cc" />
+			<stroke android:width="0.5dp" android:color="#ffffff"/>
+		</shape>
+    </item>
+    <!-- released -->
+    <item android:state_pressed="false">
+		<shape xmlns:android="http://schemas.android.com/apk/res/android">
+			<solid android:color="#f2f2f2" />
+			<stroke android:width="0.5dp" android:color="#ffffff"/>
+			<padding
+				android:top="5dp"
+				android:bottom="5dp"
+				android:left="5dp"
+				android:right="5dp" />
+		</shape>
+	</item>
+</selector>
