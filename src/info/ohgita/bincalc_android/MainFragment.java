@@ -2,12 +2,18 @@ package info.ohgita.bincalc_android;
 
 import com.actionbarsherlock.R;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -20,6 +26,7 @@ public class MainFragment extends Fragment {
 	
 	View v = null;
 	
+	@SuppressLint("NewApi")
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
@@ -49,6 +56,43 @@ public class MainFragment extends Fragment {
 				}
 			}
 		});
+		
+		/* Event handler for Base-number editText */
+		final EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
+		final EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
+		final EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
+		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
+			@Override
+		    public void onFocusChange(View v, boolean isFocus) {
+		        if(isFocus)
+		        	switchBasetype(ID_BASETYPE_BIN);
+		    }
+		});
+		et_dec.setOnFocusChangeListener(new OnFocusChangeListener(){
+			@Override
+		    public void onFocusChange(View v, boolean isFocus) {
+		        if(isFocus)
+		        	switchBasetype(ID_BASETYPE_DEC);
+		    }
+		});
+		et_hex.setOnFocusChangeListener(new OnFocusChangeListener(){
+			@Override
+		    public void onFocusChange(View v, boolean isFocus) {
+		        if(isFocus)
+		        	switchBasetype(ID_BASETYPE_HEX);
+		    }
+		});
+		
+		/* hide a on-screen keyboard */
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	    	et_bin.setTextIsSelectable(true);
+	    	et_dec.setTextIsSelectable(true);
+	    	et_hex.setTextIsSelectable(true);
+		} else {
+		    et_bin.setInputType(0);
+		    et_dec.setInputType(0);
+		    et_hex.setInputType(0);
+		}
 		
 		/* return inflated view */
 		return v;
