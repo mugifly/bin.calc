@@ -31,7 +31,7 @@ public class MainFragment extends Fragment {
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
-		/* Event handler for Basetype toggles */
+		/* Event handler for Base-type ToggleButtons */
 		final ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
 		final ToggleButton tb_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		final ToggleButton tb_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
 			}
 		});
 		
-		/* Event handler for Base-number editText */
+		/* Event handler for Base-number EditTexts */
 		final EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
 		final EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
 		final EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
@@ -83,7 +83,7 @@ public class MainFragment extends Fragment {
 		    }
 		});
 		
-		/* hide a on-screen keyboard */
+		/* Hide a on-screen keyboard */
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    	et_bin.setTextIsSelectable(true);
 	    	et_dec.setTextIsSelectable(true);
@@ -112,6 +112,56 @@ public class MainFragment extends Fragment {
 	}
 	
 	/**
+	 * input base-number key
+	 * @param str input-Key
+	 */
+	public void inputBasenumber(String str){
+		
+	}
+	
+	/**
+	 * get current base-number(EditText) object
+	 */
+	public EditText getCurrent_Basenumber_EditText(){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (EditText) v.findViewById(R.id.editText_basetype_bin);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (EditText) v.findViewById(R.id.editText_basetype_dec);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (EditText) v.findViewById(R.id.editText_basetype_hex);
+		}
+		return null;
+	}
+	
+	/**
+	 * get current base-type ToggleButton object
+	 */
+	public ToggleButton getCurrent_Basetype_ToggleButton(){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
+		}
+		return null;
+	}
+	
+	/**
+	 * get current base-type(container) TableRow object
+	 */
+	public TableRow getCurrent_Basetype_TableRow(){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
+		}
+		return null;
+	}
+	
+	/**
 	 * switch base-type
 	 * @param basetypeId	Base-type ID number
 	 */
@@ -124,6 +174,7 @@ public class MainFragment extends Fragment {
 		ToggleButton tb_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		ToggleButton tb_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		
+		/* reset */
 		tr_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
@@ -131,15 +182,8 @@ public class MainFragment extends Fragment {
 		tb_dec.setChecked(false);
 		tb_hex.setChecked(false);
 		
-		if(basetypeId == ID_BASETYPE_BIN){
-			tb_bin.setChecked(true);
-			tr_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
-		}else if(basetypeId == ID_BASETYPE_DEC){
-			tb_dec.setChecked(true);
-			tr_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
-		}else{
-			tb_hex.setChecked(true);
-			tr_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
-		}
+		/* activate Base-type */
+		getCurrent_Basetype_ToggleButton().setChecked(true);
+		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 	}
 }
