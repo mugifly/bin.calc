@@ -26,8 +26,8 @@ public class MainActivity extends SherlockFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		setTheme(R.style.Theme_Sherlock_Light);
 		setContentView(R.layout.activity_main);
-		
 	}
 
 	@Override

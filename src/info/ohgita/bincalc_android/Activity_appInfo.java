@@ -15,6 +15,7 @@ public class Activity_appInfo extends SherlockActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		setTheme(R.style.Theme_Sherlock_Light);
 		setContentView(R.layout.activity_appinfo);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
