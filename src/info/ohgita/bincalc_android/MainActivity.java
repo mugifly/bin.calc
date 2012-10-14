@@ -11,16 +11,19 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.support.v4.app.FragmentManager;
 import android.view.WindowManager;
 
 public class MainActivity extends SherlockFragmentActivity {
 	
-	final static int MENU_ID_LOG = 100;
-	final static int MENU_ID_ABOUT = 200;
+	private static final int MENU_ID_LOG = 100;
+	private static final int MENU_ID_ABOUT = 200;
+	private static final int MENU_ID_ALLCLEAR = 300;
+	
+	FragmentManager fragmentManager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setTheme(R.style.Theme_Sherlock_Light);
 		setContentView(R.layout.activity_main);
+		
+		fragmentManager = getSupportFragmentManager();
 	}
 
 	@Override
@@ -37,17 +42,21 @@ public class MainActivity extends SherlockFragmentActivity {
 		sub_menu.getItem().setIcon(R.drawable.ic_action_overflow);
 		sub_menu.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
+		/* SubMenu > Log button */
 		sub_menu.add("Log");
 		
+		/* SubMenu > About button */
 		sub_menu.add(Menu.NONE, MENU_ID_ABOUT, Menu.NONE , R.string.menu_about);
 		
-		/* All clear button*/
-		menu.add("AllClear")
+		/* All-Clear button*/
+		menu.add(Menu.NONE, MENU_ID_ALLCLEAR, Menu.NONE, "AllClear")
 			.setIcon(R.drawable.button_allclear)
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
 		return true;
 	}
 	
+	@SuppressLint("NewApi")
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		boolean ret = true;
@@ -64,6 +73,10 @@ public class MainActivity extends SherlockFragmentActivity {
 		    intent.setAction(Intent.ACTION_VIEW);
 		    startActivity(intent);
 		    break;
+		case MENU_ID_ALLCLEAR:
+			ret = false;
+			MainFragment f = (MainFragment) fragmentManager.findFragmentById(R.id.fragment_Main);
+			f.inputAllClear();
 		}
 		return ret;
 	}

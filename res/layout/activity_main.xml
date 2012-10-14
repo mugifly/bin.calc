@@ -1,4 +1,6 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_Main"
+    android:name="info.ohgita.bincalc_android.MainFragment"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:name="info.ohgita.bincalc_android.MainFragment" />
+    android:tag="mainFragment" />
