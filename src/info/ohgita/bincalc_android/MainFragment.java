@@ -1,12 +1,12 @@
 package info.ohgita.bincalc_android;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +19,7 @@ import android.widget.TableRow;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class MainFragment extends Fragment implements OnClickListener {
+public class MainFragment extends SherlockFragment implements OnClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
@@ -115,12 +115,23 @@ public class MainFragment extends Fragment implements OnClickListener {
 	 * calculate base-number
 	 */
 	public void calculate( ){
+		String value = getCurrent_Basenumber_EditText().getText().toString();
+		EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
+		EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
+		EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
+		
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			
+			//TODO not implemented
+			et_dec.setText(value);
+			et_dec.setText(value);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			
+			//TODO not implemented
+			et_bin.setText(value);
+			et_hex.setText(value);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			
+			//TODO not implemented
+			et_bin.setText(value);
+			et_dec.setText(value);
 		}
 	}
 	
@@ -138,7 +149,11 @@ public class MainFragment extends Fragment implements OnClickListener {
 	 */
 	public void inputBasenumber(String str){
 		EditText et = getCurrent_Basenumber_EditText();
-		et.setText(et.getText() + str);
+		if(et.getText().toString().contentEquals("0")){
+			et.setText(str);
+		}else{
+			et.setText(et.getText().toString() + str);
+		}
 		calculate();
 	}
 	
