@@ -207,35 +207,35 @@
 	        android:layout_weight="1" >
 
 	        <Button
-	            android:id="@+id/Button4"
+	            android:id="@+id/keyButton4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="4" />
 
 	        <Button
-	            android:id="@+id/Button5"
+	            android:id="@+id/keyButton5"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="5" />
 
 	        <Button
-	            android:id="@+id/Button6"
+	            android:id="@+id/keyButton6"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="6" />
 
 	        <Button
-	            android:id="@+id/ButtonMC"
+	            android:id="@+id/keyButtonMC"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keymem"
 	            android:text="MC" />
 
 	        <Button
-	            android:id="@+id/ButtonOpMp"
+	            android:id="@+id/keyButtonOpMp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
@@ -249,35 +249,35 @@
 	        android:layout_weight="1" >
 
 	        <Button
-	            android:id="@+id/Button1"
+	            android:id="@+id/keyButton1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="1" />
 
 	        <Button
-	            android:id="@+id/Button2"
+	            android:id="@+id/keyButton2"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="2" />
 
 	        <Button
-	            android:id="@+id/Button3"
+	            android:id="@+id/keyButton3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="3" />
 
 	        <Button
-	            android:id="@+id/ButtonMin"
+	            android:id="@+id/keyButtonMin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keymem"
 	            android:text="Min" />
 
 	        <Button
-	            android:id="@+id/ButtonOpMi"
+	            android:id="@+id/keyButtonOpMi"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
@@ -291,35 +291,35 @@
 	        android:layout_weight="1" >
 
 	        <Button
-	            android:id="@+id/Button0"
+	            android:id="@+id/keyButton0"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="0" />
 
 	        <Button
-	            android:id="@+id/ButtonPM"
+	            android:id="@+id/keyButtonPM"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="+/-" />
 
 	        <Button
-	            android:id="@+id/ButtonPo"
+	            android:id="@+id/keyButtonPo"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
 	            android:text="." />
 
 	        <Button
-	            android:id="@+id/ButtonOpPl"
+	            android:id="@+id/keyButtonOpPl"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
 	            android:text="+" />
 
 	        <Button
-	            android:id="@+id/ButtonEq"
+	            android:id="@+id/keyButtonEq"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"

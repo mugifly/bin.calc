@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -18,7 +19,7 @@ import android.widget.TableRow;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements OnClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
@@ -94,6 +95,18 @@ public class MainFragment extends Fragment {
 		    et_hex.setInputType(0);
 		}
 		
+		/* set Event-handler for key-buttons */
+		v.findViewById(R.id.keyButton0).setOnClickListener(this);
+		v.findViewById(R.id.keyButton1).setOnClickListener(this);
+		v.findViewById(R.id.keyButton2).setOnClickListener(this);
+		v.findViewById(R.id.keyButton3).setOnClickListener(this);
+		v.findViewById(R.id.keyButton4).setOnClickListener(this);
+		v.findViewById(R.id.keyButton5).setOnClickListener(this);
+		v.findViewById(R.id.keyButton6).setOnClickListener(this);
+		v.findViewById(R.id.keyButton7).setOnClickListener(this);
+		v.findViewById(R.id.keyButton8).setOnClickListener(this);
+		v.findViewById(R.id.keyButton9).setOnClickListener(this);
+		
 		/* return inflated view */
 		return v;
 	}
@@ -111,12 +124,22 @@ public class MainFragment extends Fragment {
 		}
 	}
 	
+	/** All-Clear calculator
+	 */
+	public void inputAllClear(){
+		EditText et = getCurrent_Basenumber_EditText();
+		et.setText("0");
+		calculate();
+	}
+	
 	/**
 	 * input base-number key
 	 * @param str input-Key
 	 */
 	public void inputBasenumber(String str){
-		
+		EditText et = getCurrent_Basenumber_EditText();
+		et.setText(et.getText() + str);
+		calculate();
 	}
 	
 	/**
@@ -185,5 +208,43 @@ public class MainFragment extends Fragment {
 		/* activate Base-type */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
 		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
+	}
+
+	/* Event-handler for buttons */
+	@Override
+	public void onClick(View v) {
+		/* Key-buttons (0-9) */
+		switch(v.getId()){
+			case R.id.keyButton0:
+				inputBasenumber("0");
+				break;
+			case R.id.keyButton1:
+				inputBasenumber("1");
+				break;
+			case R.id.keyButton2:
+				inputBasenumber("2");
+				break;
+			case R.id.keyButton3:
+				inputBasenumber("3");
+				break;
+			case R.id.keyButton4:
+				inputBasenumber("4");
+				break;
+			case R.id.keyButton5:
+				inputBasenumber("5");
+				break;
+			case R.id.keyButton6:
+				inputBasenumber("6");
+				break;
+			case R.id.keyButton7:
+				inputBasenumber("7");
+				break;
+			case R.id.keyButton8:
+				inputBasenumber("8");
+				break;
+			case R.id.keyButton9:
+				inputBasenumber("9");
+				break;
+		};
 	}
 }
