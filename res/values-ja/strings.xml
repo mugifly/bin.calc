@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">bin.Calc</string>
+    <string name="app_version">1.0.0</string>
+    <string name="app_author">(C)Masanori Ohgita (mugifly) - 2012.</string>
+    <string name="baseMode_dec">dec</string>
+    <string name="baseMode_bin">bin</string>
+    <string name="baseMode_hex">hex</string>
+    <string name="menu_pref">設定</string>
+    <string name="menu_log">履歴</string>
+    <string name="menu_about">このアプリについて</string>
+    <string name="activity_about_name">bin.Calcについて</string>
+    <string name="activity_pref_name">bin.Calcの設定</string>
+    <string name="pref_category_feedback">操作のフィードバック</string>
+    <string name="pref_item_keyVibration_key">keyVibration</string>
+    <string name="pref_item_keyVibration_title">キーのバイブレーション</string>
+    
+    <string name="activity_pref_experimental">実験的な機能</string>
+    <string name="pref_item_shuffle_clear_key">shuffleClear</string>
+    <string name="pref_item_shuffle_clear_title">シャッフルでAC</string>
+    <string name="pref_item_shuffle_clear_summary">端末を振ることでオールクリア(AC)</string>
+    
+</resources>

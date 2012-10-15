@@ -1,10 +1,6 @@
 package info.ohgita.bincalc_android;
 
-import com.actionbarsherlock.R;
-import com.actionbarsherlock.app.SherlockFragment;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,18 +8,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.SherlockFragment;
 
 public class MainFragment extends SherlockFragment implements OnClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
 	static int ID_BASETYPE_HEX =	300;
+	
+	int currentOperationModeId = -1;
+	static int ID_OPRMODE_PLUS = 1;
+	static int ID_OPRMODE_MINUS = 2;
+	static int ID_OPRMODE_MULTI = 3;
+	static int ID_OPRMODE_DIVIS = 4;
 	
 	View v = null;
 	
@@ -106,6 +110,12 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButton7).setOnClickListener(this);
 		v.findViewById(R.id.keyButton8).setOnClickListener(this);
 		v.findViewById(R.id.keyButton9).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonOpPl).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonOpMi).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonOpMp).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonOpDi).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
 		
 		/* return inflated view */
 		return v;
@@ -154,6 +164,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		}else{
 			et.setText(et.getText().toString() + str);
 		}
+		calculate();
+	}
+	
+	/**
+	 * input Operation key
+	 */
+	public void inputOpr(int oprmodeId){
+		
+	}
+	
+	/**
+	 * input equall key
+	 */
+	public void inputEquall(){
 		calculate();
 	}
 	
@@ -228,8 +252,8 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	/* Event-handler for buttons */
 	@Override
 	public void onClick(View v) {
-		/* Key-buttons (0-9) */
 		switch(v.getId()){
+			/* Key-buttons (0-9) */
 			case R.id.keyButton0:
 				inputBasenumber("0");
 				break;
@@ -259,6 +283,25 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 				break;
 			case R.id.keyButton9:
 				inputBasenumber("9");
+				break;
+			
+			/* operator-button */
+			case R.id.keyButtonOpPl:
+				inputOpr(ID_OPRMODE_PLUS);
+				break;
+			case R.id.keyButtonOpMi:
+				inputOpr(ID_OPRMODE_MINUS);
+				break;
+			case R.id.keyButtonOpMp:
+				inputOpr(ID_OPRMODE_MULTI);
+				break;
+			case R.id.keyButtonOpDi:
+				inputOpr(ID_OPRMODE_DIVIS);
+				break;
+			
+			/* Equall-button */
+			case R.id.keyButtonEq:
+				inputEquall();
 				break;
 		};
 	}

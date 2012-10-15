@@ -1,25 +1,19 @@
 package info.ohgita.bincalc_android;
 
 import android.os.Bundle;
-import android.view.WindowManager;
-import android.webkit.WebView;
 import com.actionbarsherlock.R;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-public class Activity_appInfo extends SherlockActivity {
+public class Activity_preference extends SherlockPreferenceActivity {
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		setTheme(R.style.Theme_Sherlock_Light);
-		setContentView(R.layout.activity_appinfo);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		/* load license-page to webView */
-		WebView wv = (WebView)findViewById(R.id.webView_license);
-		wv.loadUrl("file:///android_asset/license.html");
+		addPreferencesFromResource(R.xml.preference);
 	}
 	
 	@Override  
