@@ -108,41 +108,47 @@
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="A" />
 
 	       <Button
 	           android:id="@+id/keyButtonB"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
-	            android:background="@drawable/button_keynum"
+	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="B" />
 
 	       <Button
 	           android:id="@+id/keyButtonC"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
-	            android:background="@drawable/button_keynum"
+	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="C" />
 
 	       <Button
 	           android:id="@+id/keyButtonD"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
-	            android:background="@drawable/button_keynum"
+	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="D" />
 
 	       <Button
 	           android:id="@+id/keyButtonE"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
-	            android:background="@drawable/button_keynum"
+	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="E" />
 
 	       <Button
 	           android:id="@+id/keyButtonF"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
-	            android:background="@drawable/button_keynum"
+	           android:background="@drawable/button_keynum"
+	           android:layout_weight="1"
 	           android:text="F" />
 
 		</TableRow>
@@ -309,7 +315,9 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="." />
+	            android:text="."
+	            android:textSize="20dp"
+	            android:textStyle="bold" />
 
 	        <Button
 	            android:id="@+id/keyButtonOpPl"
