@@ -1,8 +1,12 @@
 package info.ohgita.bincalc_android;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +33,11 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	static int ID_OPRMODE_MULTI = 3;
 	static int ID_OPRMODE_DIVIS = 4;
 	
+	boolean pref_keyVibration = false;
+	
 	View v = null;
+	
+	Vibrator vib;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -116,6 +124,13 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButtonOpDi).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
+		
+		/* initialize vibratation */
+		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+		
+		/* loading preferences */
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		pref_keyVibration = pref.getBoolean(getResources().getString(R.string.pref_item_keyVibration_key), false);
 		
 		/* return inflated view */
 		return v;
@@ -252,6 +267,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	/* Event-handler for buttons */
 	@Override
 	public void onClick(View v) {
+		if(pref_keyVibration){
+			vib.vibrate(300);
+		}
 		switch(v.getId()){
 			/* Key-buttons (0-9) */
 			case R.id.keyButton0:
