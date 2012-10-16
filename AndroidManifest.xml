@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="info.ohgita.bincalc_android"
+<manifest package="info.ohgita.bincalc_android"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -27,7 +26,7 @@
             android:label="@string/activity_about_name"
             android:windowSoftInputMode="stateHidden" android:theme="@style/AppTheme">
         </activity>
-        <activity android:label="@string/activity_pref_name" android:name="Activity_preference" android:theme="@style/AppTheme"></activity>
+        <activity android:label="@string/activity_pref_name" android:name="Activity_preference" android:theme="@style/Preference.PreferenceScreen"></activity>
     </application>
 
 </manifest>
