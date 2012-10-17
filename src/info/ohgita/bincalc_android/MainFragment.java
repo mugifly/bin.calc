@@ -121,7 +121,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
 			et_dec.setText(value);
-			et_dec.setText(value);
+			et_hex.setText(value);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
 			//TODO not implemented
 			et_bin.setText(value);
