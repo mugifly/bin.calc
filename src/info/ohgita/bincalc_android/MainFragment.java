@@ -254,13 +254,18 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		tr_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		
 		tb_type_bin.setChecked(false);
+		tb_type_bin.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		tb_type_dec.setChecked(false);
+		tb_type_dec.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		tb_type_hex.setChecked(false);
+		tb_type_hex.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		
 		/* activate Base-type */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
+		getCurrent_Basetype_ToggleButton().setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_active));
 		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 		getCurrent_Baseinput_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
+		
 	}
 
 	/* Event-handler for buttons */
