@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-        <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tableLayout_baseinputs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:stretchColumns="0" >
-
 
             <TableRow
                 android:id="@+id/tableRow_baseinput_dec"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@drawable/basetype_line_default" >
 
                 <EditText
@@ -30,7 +27,7 @@
             <TableRow
                 android:id="@+id/tableRow_baseinput_bin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/basetype_line_default" >
                 
                 <EditText
@@ -46,7 +43,7 @@
             <TableRow
                 android:id="@+id/tableRow_baseinput_hex"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:background="@drawable/basetype_line_default" >
 
                 <EditText

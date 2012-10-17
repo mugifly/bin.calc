@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
-		<shape xmlns:android="http://schemas.android.com/apk/res/android">
-			<solid android:color="#f9f9f9" />
-			<padding
-				android:top="12dp"
-				android:bottom="12dp"
-				android:left="18dp"
-				android:right="18dp" />
-		</shape>
-	</item>
-    <item android:state_focused="true">
-		<shape xmlns:android="http://schemas.android.com/apk/res/android">
-			<solid android:color="#f9f9f9" />
-			<padding
-				android:top="12dp"
-				android:bottom="12dp"
-				android:left="18dp"
-				android:right="18dp" />
-		</shape>
-	</item>
 	<item>
 		<shape xmlns:android="http://schemas.android.com/apk/res/android">
 			<solid android:color="#f9f9f9" />
+			<size android:height="49dp" />
 			<padding
 				android:top="12dp"
 				android:bottom="12dp"
