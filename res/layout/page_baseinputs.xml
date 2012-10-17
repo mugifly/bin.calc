@@ -9,6 +9,7 @@
             <TableRow
                 android:id="@+id/tableRow_baseinput_dec"
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:background="@drawable/basetype_line_default" >
 
                 <EditText
