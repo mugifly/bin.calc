@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tableLayout_baseinputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:stretchColumns="0" >
+
+
+            <TableRow
+                android:id="@+id/tableRow_baseinput_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/basetype_line_default" >
+
+                <EditText
+                    android:id="@+id/editText_baseinput_dec"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_baseinput"
+                    android:cursorVisible="false"
+                    android:editable="true"
+                    android:inputType="numberDecimal" >
+
+                    <requestFocus />
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow_baseinput_bin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/basetype_line_default" >
+                
+                <EditText
+                    android:id="@+id/editText_baseinput_bin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_baseinput"
+                    android:cursorVisible="false"
+                    android:editable="true"
+                    android:inputType="number" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow_baseinput_hex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/basetype_line_default" >
+
+                <EditText
+                    android:id="@+id/editText_baseinput_hex"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edittext_baseinput"
+                    android:cursorVisible="false"
+                    android:editable="true"
+                    android:inputType="number" />
+            </TableRow>
+
+        </TableLayout>
+	

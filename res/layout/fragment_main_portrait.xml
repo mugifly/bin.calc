@@ -4,89 +4,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:stretchColumns="1">
-		
-	    <TableRow
-	        android:id="@+id/tableRow_basetype_dec"
-	        android:background="@drawable/basetype_line_default"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	
-	        <ToggleButton
-	            android:id="@+id/toggle_basetype_dec"
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/toggle_basetype"
-	            android:textOn="@string/baseMode_dec"
-	            android:textOff="@string/baseMode_dec" />
-	
-	        <EditText
-	            android:id="@+id/editText_basetype_dec"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext_baseinput"
-	            android:cursorVisible="false"
-	            android:editable="true"
-	            android:inputType="numberDecimal" />
-	
-	    </TableRow>
-	    
-	    <TableRow
-	        android:id="@+id/tableRow_basetype_bin"
-	        android:background="@drawable/basetype_line_default"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	
-	        <ToggleButton
-	            android:id="@+id/toggle_basetype_bin"
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/toggle_basetype"
-	            android:textOn="@string/baseMode_bin"
-	            android:textOff="@string/baseMode_bin" />
-	
-	        <EditText
-	            android:id="@+id/editText_basetype_bin"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext_baseinput"
-	            android:cursorVisible="false"
-	            android:editable="true"
-	            android:inputType="number" />
-	
-	    </TableRow>
-	
-	    <TableRow
-	        android:id="@+id/tableRow_basetype_hex"
-	        android:background="@drawable/basetype_line_default"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content" >
-	
-	        <ToggleButton
-	            android:id="@+id/toggle_basetype_hex"
-	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/toggle_basetype"
-	            android:textOn="@string/baseMode_hex"
-	            android:textOff="@string/baseMode_hex" />
-	
-	        <EditText
-	            android:id="@+id/editText_basetype_hex"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            android:background="@drawable/edittext_baseinput"
-	            android:cursorVisible="false"
-	            android:editable="true"
-	            android:inputType="number" />
-	
-	    </TableRow>
-	
-	</TableLayout>
-	
-	<!--Keypad_-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tableLayout_basetypes"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TableRow
+                android:id="@+id/tableRow_basetype_dec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/basetype_line_default" >
+
+                <ToggleButton
+                    android:id="@+id/toggle_basetype_dec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/toggle_basetype"
+                    android:textOff="@string/baseMode_dec"
+                    android:textOn="@string/baseMode_dec" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow_basetype_bin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/basetype_line_default" >
+
+                <ToggleButton
+                    android:id="@+id/toggle_basetype_bin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/toggle_basetype"
+                    android:textOff="@string/baseMode_bin"
+                    android:textOn="@string/baseMode_bin" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow_basetype_hex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/basetype_line_default" >
+
+                <ToggleButton
+                    android:id="@+id/toggle_basetype_hex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/toggle_basetype"
+                    android:textOff="@string/baseMode_hex"
+                    android:textOn="@string/baseMode_hex" />
+            </TableRow>
+        </TableLayout>
+
+		<android.support.v4.view.ViewPager
+			android:layout_width="fill_parent"
+			android:layout_height="150dp"
+			android:id="@+id/baseinputsViewPager" />
+        
+    </LinearLayout>
 
 	<TableLayout
 	    xmlns:android="http://schemas.android.com/apk/res/android"

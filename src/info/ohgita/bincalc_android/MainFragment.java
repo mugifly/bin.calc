@@ -7,6 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,10 +41,18 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	
 	Vibrator vib;
 	
+	ViewPager calcdisplayViewpager;
+	
 	@SuppressLint("NewApi")
 	@Override
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {	
+		/* inflating Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
+		
+		/* calc-display */
+		ViewPager calcdisplayViewpager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
+       PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext());
+       calcdisplayViewpager.setAdapter(mPagerAdapter);
 		
 		/* Event handler for Base-type ToggleButtons */
 		final ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
@@ -71,7 +81,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		});
 		
 		/* Event handler for Base-number EditTexts */
-		final EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
+		/*final EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
 		final EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
 		final EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
 		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
@@ -95,8 +105,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		        	switchBasetype(ID_BASETYPE_HEX);
 		    }
 		});
-		
+		*/
 		/* Hide a on-screen keyboard */
+       /*
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    	et_bin.setTextIsSelectable(true);
 	    	et_dec.setTextIsSelectable(true);
@@ -105,9 +116,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		    et_bin.setInputType(0);
 		    et_dec.setInputType(0);
 		    et_hex.setInputType(0);
-		}
+		}*/
 		
 		/* set Event-handler for key-buttons */
+       
 		v.findViewById(R.id.keyButton0).setOnClickListener(this);
 		v.findViewById(R.id.keyButton1).setOnClickListener(this);
 		v.findViewById(R.id.keyButton2).setOnClickListener(this);
@@ -140,10 +152,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * calculate base-number
 	 */
 	public void calculate( ){
-		String value = getCurrent_Basenumber_EditText().getText().toString();
-		EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
-		EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
-		EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
+		String value = getCurrent_Baseinput_EditText().getText().toString();
+		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
+		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
+		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
 		
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
@@ -163,7 +175,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	/** All-Clear calculator
 	 */
 	public void inputAllClear(){
-		EditText et = getCurrent_Basenumber_EditText();
+		EditText et = getCurrent_Baseinput_EditText();
 		et.setText("0");
 		calculate();
 	}
@@ -173,7 +185,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * @param str input-Key
 	 */
 	public void inputBasenumber(String str){
-		EditText et = getCurrent_Basenumber_EditText();
+		EditText et = getCurrent_Baseinput_EditText();
 		if(et.getText().toString().contentEquals("0")){
 			et.setText(str);
 		}else{
@@ -197,15 +209,15 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	}
 	
 	/**
-	 * get current base-number(EditText) object
+	 * get current base-input EditText object
 	 */
-	public EditText getCurrent_Basenumber_EditText(){
+	public EditText getCurrent_Baseinput_EditText(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (EditText) v.findViewById(R.id.editText_basetype_bin);
+			return (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (EditText) v.findViewById(R.id.editText_basetype_dec);
+			return (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (EditText) v.findViewById(R.id.editText_basetype_hex);
+			return (EditText) v.findViewById(R.id.editText_baseinput_hex);
 		}
 		return null;
 	}
@@ -239,25 +251,50 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	}
 	
 	/**
+	 * get current base-input(container) TableRow object
+	 */
+	public TableRow getCurrent_Baseinput_TableRow(){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (TableRow) v.findViewById(R.id.tableRow_baseinput_bin);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (TableRow) v.findViewById(R.id.tableRow_baseinput_dec);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (TableRow) v.findViewById(R.id.tableRow_baseinput_hex);
+		}
+		return null;
+	}
+	
+	/**
 	 * switch base-type
 	 * @param basetypeId	Base-type ID number
 	 */
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
-		TableRow tr_bin = (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
-		TableRow tr_dec = (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
-		TableRow tr_hex = (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
-		ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
-		ToggleButton tb_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
-		ToggleButton tb_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		
-		/* reset */
-		tr_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tb_bin.setChecked(false);
-		tb_dec.setChecked(false);
-		tb_hex.setChecked(false);
+		TableRow tr_type_bin = (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
+		ToggleButton tb_type_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
+		TableRow tr_input_bin = (TableRow) v.findViewById(R.id.tableRow_baseinput_bin);
+		
+		TableRow tr_type_dec = (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
+		ToggleButton tb_type_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
+		TableRow tr_input_dec = (TableRow) v.findViewById(R.id.tableRow_baseinput_dec);
+		
+		TableRow tr_type_hex = (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
+		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
+		TableRow tr_input_hex = (TableRow) v.findViewById(R.id.tableRow_baseinput_hex);
+		
+		/* reset under-line (base-types & base-inputs) */
+		tr_type_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_type_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_type_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+
+		tr_input_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_input_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		tr_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		
+		tb_type_bin.setChecked(false);
+		tb_type_dec.setChecked(false);
+		tb_type_hex.setChecked(false);
 		
 		/* activate Base-type */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
