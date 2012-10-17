@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="150dp" >
 
         <TableLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,8 +65,8 @@
         </TableLayout>
 
 		<android.support.v4.view.ViewPager
-			android:layout_width="fill_parent"
-			android:layout_height="150dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
 			android:id="@+id/baseinputsViewPager" />
         
     </LinearLayout>

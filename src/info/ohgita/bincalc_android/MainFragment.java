@@ -41,7 +41,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	
 	Vibrator vib;
 	
-	ViewPager calcdisplayViewpager;
+	ViewPager baseinputsViewPager;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -49,10 +49,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		/* inflating Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
-		/* calc-display */
-		ViewPager calcdisplayViewpager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
+		/* baseinputsViewPager */
+		ViewPager baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
        PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext());
-       calcdisplayViewpager.setAdapter(mPagerAdapter);
+       baseinputsViewPager.setAdapter(mPagerAdapter);
 		
 		/* Event handler for Base-type ToggleButtons */
 		final ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
@@ -207,17 +207,17 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	public void inputEquall(){
 		calculate();
 	}
-	
+
 	/**
-	 * get current base-input EditText object
+	 * get current base-type(container) TableRow object
 	 */
-	public EditText getCurrent_Baseinput_EditText(){
+	public TableRow getCurrent_Basetype_TableRow(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (EditText) v.findViewById(R.id.editText_baseinput_bin);
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (EditText) v.findViewById(R.id.editText_baseinput_dec);
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (EditText) v.findViewById(R.id.editText_baseinput_hex);
+			return (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
 		}
 		return null;
 	}
@@ -237,20 +237,6 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	}
 	
 	/**
-	 * get current base-type(container) TableRow object
-	 */
-	public TableRow getCurrent_Basetype_TableRow(){
-		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
-		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
-		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
-		}
-		return null;
-	}
-	
-	/**
 	 * get current base-input(container) TableRow object
 	 */
 	public TableRow getCurrent_Baseinput_TableRow(){
@@ -263,7 +249,21 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * get current base-input EditText object
+	 */
+	public EditText getCurrent_Baseinput_EditText(){
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (EditText) v.findViewById(R.id.editText_baseinput_bin);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (EditText) v.findViewById(R.id.editText_baseinput_dec);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (EditText) v.findViewById(R.id.editText_baseinput_hex);
+		}
+		return null;
+	}
+
 	/**
 	 * switch base-type
 	 * @param basetypeId	Base-type ID number
@@ -299,6 +299,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		/* activate Base-type */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
 		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
+		getCurrent_Baseinput_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 	}
 
 	/* Event-handler for buttons */
