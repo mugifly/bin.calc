@@ -51,7 +51,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		
 		/* baseinputsViewPager */
 		ViewPager baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
-       PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext());
+       PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext(),this);
        baseinputsViewPager.setAdapter(mPagerAdapter);
 		
 		/* Event handler for Base-type ToggleButtons */
@@ -80,46 +80,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			}
 		});
 		
-		/* Event handler for Base-number EditTexts */
-		/*final EditText et_bin = (EditText) v.findViewById(R.id.editText_basetype_bin);
-		final EditText et_dec = (EditText) v.findViewById(R.id.editText_basetype_dec);
-		final EditText et_hex = (EditText) v.findViewById(R.id.editText_basetype_hex);
-		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		    public void onFocusChange(View v, boolean isFocus) {
-		        if(isFocus)
-		        	switchBasetype(ID_BASETYPE_BIN);
-		    }
-		});
-		et_dec.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		    public void onFocusChange(View v, boolean isFocus) {
-		        if(isFocus)
-		        	switchBasetype(ID_BASETYPE_DEC);
-		    }
-		});
-		et_hex.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		    public void onFocusChange(View v, boolean isFocus) {
-		        if(isFocus)
-		        	switchBasetype(ID_BASETYPE_HEX);
-		    }
-		});
-		*/
-		/* Hide a on-screen keyboard */
-       /*
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	    	et_bin.setTextIsSelectable(true);
-	    	et_dec.setTextIsSelectable(true);
-	    	et_hex.setTextIsSelectable(true);
-		} else {
-		    et_bin.setInputType(0);
-		    et_dec.setInputType(0);
-		    et_hex.setInputType(0);
-		}*/
-		
 		/* set Event-handler for key-buttons */
-       
 		v.findViewById(R.id.keyButton0).setOnClickListener(this);
 		v.findViewById(R.id.keyButton1).setOnClickListener(this);
 		v.findViewById(R.id.keyButton2).setOnClickListener(this);
