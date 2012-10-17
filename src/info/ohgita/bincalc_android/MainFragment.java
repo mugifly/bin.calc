@@ -268,7 +268,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(pref_keyVibration){
-			vib.vibrate(100);
+			vib.vibrate(50);
 		}
 		switch(v.getId()){
 			/* Key-buttons (0-9) */
