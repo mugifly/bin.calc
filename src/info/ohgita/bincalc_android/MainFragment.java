@@ -91,6 +91,12 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButton7).setOnClickListener(this);
 		v.findViewById(R.id.keyButton8).setOnClickListener(this);
 		v.findViewById(R.id.keyButton9).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonA).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonB).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonC).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonD).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonE).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonF).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonOpPl).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonOpMi).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonOpMp).setOnClickListener(this);
@@ -147,6 +153,12 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 */
 	public void inputBasenumber(String str){
 		EditText et = getCurrent_Baseinput_EditText();
+		
+		if(str.charAt(0) >= 'A' && selectedBasetypeId != ID_BASETYPE_HEX){
+			// if alphabet && BASETYPE is not HEX... cancel
+			return;
+		}
+		
 		if(et.getText().toString().contentEquals("0")){
 			et.setText(str);
 		}else{
@@ -305,6 +317,24 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 				break;
 			case R.id.keyButton9:
 				inputBasenumber("9");
+				break;
+			case R.id.keyButtonA:
+				inputBasenumber("A");
+				break;
+			case R.id.keyButtonB:
+				inputBasenumber("B");
+				break;
+			case R.id.keyButtonC:
+				inputBasenumber("C");
+				break;
+			case R.id.keyButtonD:
+				inputBasenumber("D");
+				break;
+			case R.id.keyButtonE:
+				inputBasenumber("E");
+				break;
+			case R.id.keyButtonF:
+				inputBasenumber("F");
 				break;
 			
 			/* operator-button */
