@@ -3,7 +3,7 @@
     <PreferenceCategory android:title="@string/pref_category_feedback">
         <CheckBoxPreference android:title="@string/pref_item_keyVibration_title" android:key="@string/pref_item_keyVibration_key"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/activity_pref_experimental">
+    <PreferenceCategory android:title="@string/pref_category_experimental">
         <CheckBoxPreference android:key="@string/pref_item_shuffle_clear_key" android:title="@string/pref_item_shuffle_clear_title" android:summary="@string/pref_item_shuffle_clear_summary"/>
     </PreferenceCategory>
     

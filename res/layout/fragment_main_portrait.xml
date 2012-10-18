@@ -186,7 +186,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="÷" />
+	            android:text="@string/main_keyButtonOpDi_text" />
 	    </TableRow>
 
 	    <TableRow
@@ -228,7 +228,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="×" />
+	            android:text="@string/main_keyButtonOpMp_text" />
 	    </TableRow>
 
 	    <TableRow
@@ -270,7 +270,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="-" />
+	            android:text="@string/main_keyButtonOpMi_text" />
 	    </TableRow>
 
 	    <TableRow
@@ -291,14 +291,14 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="+/-" />
+	            android:text="@string/main_keyButtonPM_text" />
 
 	        <Button
 	            android:id="@+id/keyButtonPo"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="."
+	            android:text="@string/main_keyButtonPo_text"
 	            android:textSize="20dp"
 	            android:textStyle="bold" />
 
@@ -307,14 +307,14 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="+" />
+	            android:text="@string/main_keyButtonOpPl_text" />
 
 	        <Button
 	            android:id="@+id/keyButtonEq"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="=" />
+	            android:text="@string/main_keyButtonEq_text" />
 	    </TableRow>
 	</TableLayout>
 

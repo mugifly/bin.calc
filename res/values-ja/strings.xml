@@ -14,9 +14,17 @@
     <string name="pref_item_keyVibration_key">keyVibration</string>
     <string name="pref_item_keyVibration_title">キーのバイブレーション</string>
     
-    <string name="activity_pref_experimental">実験的な機能</string>
+    <string name="pref_category_experimental">実験的な機能</string>
     <string name="pref_item_shuffle_clear_key">shuffleClear</string>
     <string name="pref_item_shuffle_clear_title">シャッフルでAC</string>
     <string name="pref_item_shuffle_clear_summary">端末を振ることでオールクリア(AC)</string>
+    
+    <string name="main_keyButtonOpPl_text">+</string>
+    <string name="main_keyButtonOpMi_text">-</string>
+    <string name="main_keyButtonOpMp_text">×</string>
+    <string name="main_keyButtonOpDi_text">÷</string>
+    <string name="main_keyButtonEq_text">=</string>
+    <string name="main_keyButtonPM_text">+/-</string>
+    <string name="main_keyButtonPo_text">.</string>
     
 </resources>

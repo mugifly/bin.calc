@@ -54,7 +54,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		sub_menu.add(Menu.NONE, MENU_ID_ABOUT, Menu.NONE , R.string.menu_about);
 		
 		/* All-Clear button*/
-		menu.add(Menu.NONE, MENU_ID_ALLCLEAR, Menu.NONE, "AllClear")
+		menu.add(Menu.NONE, MENU_ID_ALLCLEAR, Menu.NONE, "All-clear")
 			.setIcon(R.drawable.button_allclear)
 			.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		
