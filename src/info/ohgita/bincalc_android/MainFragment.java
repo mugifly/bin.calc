@@ -35,7 +35,11 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	static int ID_OPRMODE_MULTI = 3;
 	static int ID_OPRMODE_DIVIS = 4;
 	
+	int DEFAULT_VIBRATION_MSEC = 25;
+	
 	boolean pref_keyVibration = false;
+	
+	Calculator calc;
 	
 	View v = null;
 	
@@ -104,6 +108,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
 		
+		/* inialize calculator class */
+		calc = new Calculator();
+		
 		/* initialize vibratation */
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 		
@@ -123,7 +130,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-		
+		value = calc.calc("2+9*5+(3--2)");// DEBUG
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
 			et_dec.setText(value);
@@ -171,7 +178,25 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * input Operation key
 	 */
 	public void inputOpr(int oprmodeId){
+		EditText et = getCurrent_Baseinput_EditText();
 		
+		String str = "";
+		if(oprmodeId == ID_OPRMODE_PLUS){
+			str = "+";
+		} else if(oprmodeId == ID_OPRMODE_MINUS){
+			str = "-";
+		} else if(oprmodeId == ID_OPRMODE_MULTI){
+			str = "*";
+		} else if(oprmodeId == ID_OPRMODE_DIVIS){
+			str = "/";
+		}
+		
+		if(et.getText().toString().contentEquals("0")){
+			
+		}else{
+			et.setText(et.getText().toString() + str);
+		}
+		calculate();
 	}
 	
 	/**
@@ -286,7 +311,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if(pref_keyVibration){
-			vib.vibrate(50);
+			vib.vibrate(DEFAULT_VIBRATION_MSEC);
 		}
 		switch(v.getId()){
 			/* Key-buttons (0-9) */
