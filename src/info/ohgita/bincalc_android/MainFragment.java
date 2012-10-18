@@ -260,7 +260,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		tr_type_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_type_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_type_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-
+		if(tr_input_bin == null){ // FIXME! fixed temporally now
+			return;
+		}
 		tr_input_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_input_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
 		tr_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
