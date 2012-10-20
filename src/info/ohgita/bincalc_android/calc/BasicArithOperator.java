@@ -3,6 +3,8 @@ package info.ohgita.bincalc_android.calc;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import android.util.Log;
+
 /**
  * Basic arithmetic operation class
  * @author masanori
@@ -22,24 +24,50 @@ public class BasicArithOperator {
 	 * @param (LinkedList list) 
 	 * @return (String) resultant value
 	 */
-	public String calculation(LinkedList<String> l){
-		list = l;
-		eval(list.iterator());
-		return list.get(0).toString();
+	public String calculation(LinkedList<String> linkedList){
+		list = linkedList;
+		Log.i("binCalc","calculation(...) "+list.toString());
+		return eval(list.iterator());
 	}
 	
 	protected String eval(Iterator<String> iter){
-		int i = 0, result = 0;
+		Log.i("binCalc", " eval(...)");
+		int i = 0;
+		double result = 0;
+		String beforeStr = "";
 		while(iter.hasNext()){
 			String str = iter.next();
+			Log.i("binCalc","  * str: "+str + " - result = "+result);
 			if(str.contentEquals("(")){
-				eval(iter);
-			} else {
-				
+				Iterator<String> it = iter;
+				str = eval(it);
+			}else if(str.contentEquals(")")){
+				Log.i("binCalc","  * break");
+				break;
 			}
+			
+			if(beforeStr.contentEquals("+")){
+				Log.i("binCalc","    * "+result+" += "+str);
+				result += Double.parseDouble(str);
+			}else if(beforeStr.contentEquals("-")){
+				Log.i("binCalc","    * "+result+" -= "+str);
+				result -= Double.parseDouble(str);
+			}else if(beforeStr.contentEquals("*")){
+				Log.i("binCalc","    * "+result+" *= "+str);
+				result *= Double.parseDouble(str);
+			}else if(beforeStr.contentEquals("/")){
+				Log.i("binCalc","    * "+result+" /= "+str);
+				result /= Double.parseDouble(str);
+			}else if(beforeStr.length() == 0){
+				Log.i("binCalc","    * "+result+" = "+str);
+				result = Double.parseDouble(str);
+			}
+			iter.remove();
+			beforeStr = str;
 			i++;
 		}
-		return null;
+		Log.i("binCalc", " * return("+result+")");
+		return Double.toString(result);
 	}
 	
 	/**
