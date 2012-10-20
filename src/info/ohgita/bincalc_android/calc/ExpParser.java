@@ -26,7 +26,7 @@ public class ExpParser {
 		/* initialize stack and buffer */
 		stack = new Stack<String>();
 		buf = new String();
-		int flagInBracket = -1;
+		int flagInBracket = 0;
 
 		for (int i = 0; i < exp.length(); i++) {
 			char c = exp.charAt(i);
@@ -34,34 +34,35 @@ public class ExpParser {
 			if(buf.contentEquals(")")){
 				_bufPush();
 			}
-
-			if (c == '(') {
-				flagInBracket = 0;
-			}
+			
 			if (c == ')') {
-				if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
+				if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
 					_bufPush();
 					stack.push(")");
-					flagInBracket = -1;
+					flagInBracket--;
 				}
 				_bufPush();
 			}
-
+			
 			if (c == '*' || c == '/'){ // multiplication and division is into bracket
 				if(_returnStackLastChar() == ')'){
 					_bufPush();
 					_chunkBeforeInsert("(");
+					flagInBracket++;
 				}else{
-					Log.i("binCalc","Ins (");
+					Log.i("binCalc","D "+stack.toString());
+					Log.i("binCalc","InsA (");
 					stack.push("(");
 					_bufPush();
+					flagInBracket++;
 				}
 				
-				if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
+				/*if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
 					_bufPush();
+					Log.i("binCalc","InsC )");
 					stack.push(")");
-				}
-				flagInBracket = 1;
+					flagInBracket--;
+				}*/
 			}
 			if (c == '+' || c == '-') {
 				// if operator..
@@ -71,20 +72,21 @@ public class ExpParser {
 					// if operators continued... (processing for
 					// negative-number)
 					_bufPush();
+					Log.i("binCalc","InsB (");
 					buf = buf + "(";
 					_bufPush();
-					flagInBracket = 1;
+					flagInBracket++;
 				} else if (buf.contentEquals("(")) {
 					_bufPush();
 					flagInBracket = 0;
-				} else if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
-					_bufPush();
+				} //else if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
+				/*	_bufPush();
+					Log.i("binCalc","InsD )");
 					buf = buf + ")";
 					_bufPush();
-					flagInBracket = -1;
-				} else {
+					flagInBracket--;
+				}*/ else {
 					_bufPush();
-					flagInBracket = -1;
 				}
 			} else {
 				// if not operator...
@@ -105,9 +107,10 @@ public class ExpParser {
 
 		// Push a remaining buffer to stack
 		if (buf.length() > 0) {
-			if (flagInBracket == 1) {
+			while (flagInBracket > 0) {
 				_bufPush();
 				buf += ")";
+				flagInBracket--;
 			}
 			_bufPush();
 		}
