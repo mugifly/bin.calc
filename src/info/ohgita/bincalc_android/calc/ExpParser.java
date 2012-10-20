@@ -60,14 +60,14 @@ public class ExpParser {
 			}else if (c == '+' || c == '-') {
 				// if plus or minus operator...
 				
-				_bufPush();
-				
 				if (buf.contentEquals("+") || buf.contentEquals("-")	|| buf.contentEquals("*") || buf.contentEquals("/")) {
+					_bufPush();
 					// if operators continued...  it into bracket (for negative-number)
 					buf += "(";
 					_bufPush();
 					flagInBracket++;
 				}
+				_bufPush();
 				
 			} else {
 				// if not operator...
