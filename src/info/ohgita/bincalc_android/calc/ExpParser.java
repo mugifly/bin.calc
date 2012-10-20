@@ -22,87 +22,75 @@ public class ExpParser {
 
 	public Stack<String> parseToStack(String exp) {
 		// TODO I will rewrite it completely :p
-
+		
 		/* initialize stack and buffer */
 		stack = new Stack<String>();
 		buf = new String();
 		int flagInBracket = 0;
-
+		
 		for (int i = 0; i < exp.length(); i++) {
 			char c = exp.charAt(i);
 			
-			if(buf.contentEquals(")")){
-				_bufPush();
-			}
-			
 			if (c == ')') {
-				if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
-					_bufPush();
+				// if close-bracket...
+				
+				_bufPush();
+				
+				while (flagInBracket > 0) {
+					// if bracket has been already opening, its all closed now.
 					stack.push(")");
 					flagInBracket--;
 				}
-				_bufPush();
-			}
-			
-			if (c == '*' || c == '/'){ // multiplication and division is into bracket
+				
+			} else if (c == '*' || c == '/'){
+				// if multiplication or division operator... it into bracket
 				if(_returnStackLastChar() == ')'){
 					_bufPush();
 					_chunkBeforeInsert("(");
 					flagInBracket++;
 				}else{
-					Log.i("binCalc","D "+stack.toString());
-					Log.i("binCalc","InsA (");
 					stack.push("(");
 					_bufPush();
 					flagInBracket++;
 				}
 				
-				/*if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
-					_bufPush();
-					Log.i("binCalc","InsC )");
-					stack.push(")");
-					flagInBracket--;
-				}*/
-			}
-			if (c == '+' || c == '-') {
-				// if operator..
+			}else if (c == '+' || c == '-') {
+				// if plus or minus operator...
 				
-				if (buf.contentEquals("+") || buf.contentEquals("-")
-						|| buf.contentEquals("*") || buf.contentEquals("/")) {
-					// if operators continued... (processing for
-					// negative-number)
+				if (buf.contentEquals("+") || buf.contentEquals("-")	|| buf.contentEquals("*") || buf.contentEquals("/")) {
+					// if operators continued...  it into bracket (for negative-number)
 					_bufPush();
-					Log.i("binCalc","InsB (");
 					buf = buf + "(";
 					_bufPush();
 					flagInBracket++;
-				} else if (buf.contentEquals("(")) {
-					_bufPush();
-					flagInBracket = 0;
-				} //else if (flagInBracket > 0) {// if bracket has been already opening, its closed now.
-				/*	_bufPush();
-					Log.i("binCalc","InsD )");
-					buf = buf + ")";
-					_bufPush();
-					flagInBracket--;
-				}*/ else {
+					
+				} else {
 					_bufPush();
 				}
+				
 			} else {
 				// if not operator...
+				
 				if (buf.contentEquals("(")) {
+					// if open-bracket has been already in the buffer...
 					_bufPush();
 				}
+				
 				if (_returnStackLastChar() != '('
 						&& (buf.contentEquals("+") || buf.contentEquals("-")
-								|| buf.contentEquals("*") || buf
-									.contentEquals("/"))) {
+							|| buf.contentEquals("*") || buf.contentEquals("/"))
+					) {
 					_bufPush();
 				}
 			}
-
+			
 			// Add char to buf
 			buf += c;
+			
+			if(c == ')'){// if close-bracket... push to Stack, immediately.  
+				_bufPush();
+			}
+			
 		}
 
 		// Push a remaining buffer to stack
