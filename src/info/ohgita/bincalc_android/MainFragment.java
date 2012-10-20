@@ -131,21 +131,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-		Log.i("binCalc","2+(4+5*6)/(7--8+-1)*1");//DEBUG
-		value = calc.calc("2+(4+5*6)/(7--8+-1)*1");// DEBUG 
+		String resValue = calc.calc(value);
 		Log.i("binCalc",value);
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
-			et_dec.setText(value);
-			et_hex.setText(value);
+			et_dec.setText(resValue);
+			et_hex.setText(resValue);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
 			//TODO not implemented
-			et_bin.setText(value);
-			et_hex.setText(value);
+			et_bin.setText(resValue);
+			et_hex.setText(resValue);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
 			//TODO not implemented
-			et_bin.setText(value);
-			et_dec.setText(value);
+			et_bin.setText(resValue);
+			et_dec.setText(resValue);
 		}
 	}
 	
