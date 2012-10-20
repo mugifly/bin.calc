@@ -9,6 +9,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -130,7 +131,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-		value = calc.calc("2+9*5+(3--2)");// DEBUG
+		Log.i("binCalc","2+(a+b*c)/(d-e)+1");// DEBUG
+		value = calc.calc("2+(a+b*c)/(d-e)+1");// DEBUG
+		Log.i("binCalc",value);
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
 			et_dec.setText(value);

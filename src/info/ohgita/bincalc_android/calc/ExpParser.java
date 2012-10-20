@@ -6,7 +6,10 @@ package info.ohgita.bincalc_android.calc;
  * 
  */
 
+import java.util.Iterator;
 import java.util.Stack;
+
+import android.util.Log;
 
 public class ExpParser {
 
@@ -27,16 +30,42 @@ public class ExpParser {
 
 		for (int i = 0; i < exp.length(); i++) {
 			char c = exp.charAt(i);
-
-			if (c == '(') {
-				flagInBracket = 2;
-			}
-			if (c == ')') {
+			
+			if(buf.contentEquals(")")){
 				_bufPush();
 			}
 
-			if (c == '+' || c == '-' || c == '*' || c == '/') {
+			if (c == '(') {
+				flagInBracket = 0;
+			}
+			if (c == ')') {
+				if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
+					_bufPush();
+					stack.push(")");
+					flagInBracket = -1;
+				}
+				_bufPush();
+			}
+
+			if (c == '*' || c == '/'){ // multiplication and division is into bracket
+				if(_returnStackLastChar() == ')'){
+					_bufPush();
+					_chunkBeforeInsert("(");
+				}else{
+					Log.i("binCalc","Ins (");
+					stack.push("(");
+					_bufPush();
+				}
+				
+				if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
+					_bufPush();
+					stack.push(")");
+				}
+				flagInBracket = 1;
+			}
+			if (c == '+' || c == '-') {
 				// if operator..
+				
 				if (buf.contentEquals("+") || buf.contentEquals("-")
 						|| buf.contentEquals("*") || buf.contentEquals("/")) {
 					// if operators continued... (processing for
@@ -47,8 +76,8 @@ public class ExpParser {
 					flagInBracket = 1;
 				} else if (buf.contentEquals("(")) {
 					_bufPush();
-					flagInBracket = 2;
-				} else if (flagInBracket == 1) {
+					flagInBracket = 0;
+				} else if (flagInBracket == 1) {// if bracket has been already opening, its closed now.
 					_bufPush();
 					buf = buf + ")";
 					_bufPush();
@@ -85,7 +114,7 @@ public class ExpParser {
 
 		return stack;
 	}
-
+	
 	protected char _returnStackLastChar() {
 		if (stack.empty() == true) {
 			return '\n';
@@ -96,7 +125,46 @@ public class ExpParser {
 	}
 
 	protected void _bufPush() {
-		stack.push(buf);
-		buf = "";
+		if(buf.length() != 0){
+			stack.push(buf);
+			buf = "";
+		}
+	}
+	
+	protected void _chunkBeforeInsert(String insertStr){
+		int bracket_num = 0, insert_position = 0;
+		
+		// find before the last chunk
+		for(int i=stack.size()-1; i>=0; i--){
+			if(stack.get(i).contentEquals(")")){
+				bracket_num++;
+			}else if(stack.get(i).contentEquals("(")){
+				bracket_num--;
+				if(bracket_num == 0){// if found before position...
+					insert_position = i;
+					break;
+				}
+			}
+		}
+		
+		// Making the new Stack, and insert the insertStr in found position.
+		Stack<String> newStack = new Stack<String>();
+		Iterator<String> iter = stack.iterator();
+		int i = 0;
+		
+		while(iter.hasNext()){
+			String str = iter.next();
+			if(i == insert_position){
+				newStack.push(insertStr);
+			}
+			newStack.push(str);
+			i++;
+		}
+		
+		// replace old Stack with new Stack
+		Log.i("binCalc","_chunkBeforeInsert(...)");
+		Log.i("binCalc","  * old = "+stack.toString());
+		Log.i("binCalc","  * new = "+newStack.toString());
+		stack = newStack;
 	}
 }
