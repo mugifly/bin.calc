@@ -28,6 +28,7 @@ public class ExpParser {
 		buf = new String();
 		int flagInBracket = 0;
 		
+		/* processing every one character from mathematical-expression  */
 		for (int i = 0; i < exp.length(); i++) {
 			char c = exp.charAt(i);
 			
@@ -37,13 +38,15 @@ public class ExpParser {
 				_bufPush();
 				
 				while (flagInBracket > 0) {
-					// if bracket has been already opening, its all closed now.
+					// if bracket has been already opening... its all closed now.
+					
 					stack.push(")");
 					flagInBracket--;
 				}
 				
 			} else if (c == '*' || c == '/'){
 				// if multiplication or division operator... it into bracket
+				
 				if(_returnStackLastChar() == ')'){
 					_bufPush();
 					_chunkBeforeInsert("(");
@@ -57,15 +60,13 @@ public class ExpParser {
 			}else if (c == '+' || c == '-') {
 				// if plus or minus operator...
 				
+				_bufPush();
+				
 				if (buf.contentEquals("+") || buf.contentEquals("-")	|| buf.contentEquals("*") || buf.contentEquals("/")) {
 					// if operators continued...  it into bracket (for negative-number)
-					_bufPush();
-					buf = buf + "(";
+					buf += "(";
 					_bufPush();
 					flagInBracket++;
-					
-				} else {
-					_bufPush();
 				}
 				
 			} else {
@@ -84,16 +85,17 @@ public class ExpParser {
 				}
 			}
 			
-			// Add char to buf
+			/* Add char to buf */
 			buf += c;
 			
-			if(c == ')'){// if close-bracket... push to Stack, immediately.  
+			if(c == ')'){
+				// if close-bracket... push to Stack, immediately.  
 				_bufPush();
 			}
 			
 		}
 
-		// Push a remaining buffer to stack
+		/* Push a remaining buffer to stack */
 		if (buf.length() > 0) {
 			while (flagInBracket > 0) {
 				_bufPush();
@@ -125,20 +127,21 @@ public class ExpParser {
 	protected void _chunkBeforeInsert(String insertStr){
 		int bracket_num = 0, insert_position = 0;
 		
-		// find before the last chunk
+		/* find before the last chunk */
 		for(int i=stack.size()-1; i>=0; i--){
 			if(stack.get(i).contentEquals(")")){
 				bracket_num++;
 			}else if(stack.get(i).contentEquals("(")){
 				bracket_num--;
-				if(bracket_num == 0){// if found before position...
+				if(bracket_num == 0){
+					// if found before position...
 					insert_position = i;
 					break;
 				}
 			}
 		}
 		
-		// Making the new Stack, and insert the insertStr in found position.
+		/* Making the new Stack, and insert the insertStr in found position. */
 		Stack<String> newStack = new Stack<String>();
 		Iterator<String> iter = stack.iterator();
 		int i = 0;
@@ -152,10 +155,7 @@ public class ExpParser {
 			i++;
 		}
 		
-		// replace old Stack with new Stack
-		Log.i("binCalc","_chunkBeforeInsert(...)");
-		Log.i("binCalc","  * old = "+stack.toString());
-		Log.i("binCalc","  * new = "+newStack.toString());
+		/* replace old Stack with new Stack */
 		stack = newStack;
 	}
 }
