@@ -1,30 +1,30 @@
 package info.ohgita.bincalc_android.calc;
 
 /**
- * Numeric expression parser class
+ * Numeric expression parser class for bin.Calc
  * @author masanori
  * 
  */
 
 import java.util.Iterator;
-import java.util.Stack;
+import java.util.LinkedList;
 
 import android.util.Log;
 
 public class ExpParser {
 
-	Stack<String> stack;
+	LinkedList<String> list;
 	String buf;
 
 	public ExpParser() {
 
 	}
 
-	public Stack<String> parseToStack(String exp) {
+	public LinkedList<String> parseToList(String exp) {
 		// TODO I will rewrite it completely :p
 		
-		/* initialize stack and buffer */
-		stack = new Stack<String>();
+		/* initialize list and buffer */
+		list = new LinkedList<String>();
 		buf = new String();
 		int flagInBracket = 0;
 		
@@ -40,19 +40,19 @@ public class ExpParser {
 				while (flagInBracket > 0) {
 					// if bracket has been already opening... its all closed now.
 					
-					stack.push(")");
+					list.addLast(")");
 					flagInBracket--;
 				}
 				
 			} else if (c == '*' || c == '/'){
 				// if multiplication or division operator... it into bracket
 				
-				if(_returnStackLastChar() == ')'){
+				if(_returnListLastChar() == ')'){
 					_bufPush();
 					_chunkBeforeInsert("(");
 					flagInBracket++;
 				}else{
-					stack.push("(");
+					list.addLast("(");
 					_bufPush();
 					flagInBracket++;
 				}
@@ -77,7 +77,7 @@ public class ExpParser {
 					_bufPush();
 				}
 				
-				if (_returnStackLastChar() != '('
+				if (_returnListLastChar() != '('
 						&& (buf.contentEquals("+") || buf.contentEquals("-")
 							|| buf.contentEquals("*") || buf.contentEquals("/"))
 					) {
@@ -89,13 +89,13 @@ public class ExpParser {
 			buf += c;
 			
 			if(c == ')'){
-				// if close-bracket... push to Stack, immediately.  
+				// if close-bracket... push to List, immediately.  
 				_bufPush();
 			}
 			
 		}
 
-		/* Push a remaining buffer to stack */
+		/* Push a remaining buffer to list */
 		if (buf.length() > 0) {
 			while (flagInBracket > 0) {
 				_bufPush();
@@ -105,21 +105,21 @@ public class ExpParser {
 			_bufPush();
 		}
 		
-		return stack;
+		return list;
 	}
 	
-	protected char _returnStackLastChar() {
-		if (stack.empty() == true) {
+	protected char _returnListLastChar() {
+		if (list.isEmpty() == true) {
 			return '\n';
 		}
-		String last = stack.lastElement().toString();
+		String last = list.getLast().toString();
 		return last.charAt(last.length() - 1);
 
 	}
 
 	protected void _bufPush() {
 		if(buf.length() != 0){
-			stack.push(buf);
+			list.addLast(buf);
 			buf = "";
 		}
 	}
@@ -128,10 +128,10 @@ public class ExpParser {
 		int bracket_num = 0, insert_position = 0;
 		
 		/* find before the last chunk */
-		for(int i=stack.size()-1; i>=0; i--){
-			if(stack.get(i).contentEquals(")")){
+		for(int i=list.size()-1; i>=0; i--){
+			if(list.get(i).contentEquals(")")){
 				bracket_num++;
-			}else if(stack.get(i).contentEquals("(")){
+			}else if(list.get(i).contentEquals("(")){
 				bracket_num--;
 				if(bracket_num == 0){
 					// if found before position...
@@ -141,21 +141,21 @@ public class ExpParser {
 			}
 		}
 		
-		/* Making the new Stack, and insert the insertStr in found position. */
-		Stack<String> newStack = new Stack<String>();
-		Iterator<String> iter = stack.iterator();
+		/* Making the new List, and insert the insertStr in found position. */
+		LinkedList<String> newList = new LinkedList<String>();
+		Iterator<String> iter = list.iterator();
 		int i = 0;
 		
 		while(iter.hasNext()){
 			String str = iter.next();
 			if(i == insert_position){
-				newStack.push(insertStr);
+				newList.addLast(insertStr);
 			}
-			newStack.push(str);
+			newList.addLast(str);
 			i++;
 		}
 		
-		/* replace old Stack with new Stack */
-		stack = newStack;
+		/* replace old List with new List */
+		list = newList;
 	}
 }

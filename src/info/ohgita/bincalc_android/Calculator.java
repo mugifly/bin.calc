@@ -46,12 +46,7 @@ public class Calculator {
 	}
 	
 	public String calc(String exp){
-		Stack<String> stack = expParser.parseToStack(exp);
-		LinkedList<String> list = new LinkedList<String>();
-		Iterator<String> it = stack.iterator();
-		while(it.hasNext()){
-			list.addLast(it.next());
-		}
+		LinkedList<String> list = expParser.parseToList(exp);
 		return baOperator.calculation(list);
 	}
 	
