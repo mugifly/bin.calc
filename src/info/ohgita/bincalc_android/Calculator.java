@@ -1,5 +1,6 @@
 package info.ohgita.bincalc_android;
 
+import info.ohgita.bincalc_android.calc.BasicArithOperator;
 import info.ohgita.bincalc_android.calc.ExpParser;
 
 import java.util.Iterator;
@@ -14,12 +15,14 @@ import android.util.Log;
 public class Calculator {
 	
 	ExpParser expParser;
+	BasicArithOperator baOperator;
 	
 	/**
 	 * Constructor
 	 */
 	public Calculator(){
 		expParser = new ExpParser();
+		baOperator = new BasicArithOperator();
 	}
 	
 	/**
@@ -41,18 +44,8 @@ public class Calculator {
 	}
 	
 	public String calc(String exp){
-		
-		return expParser.parseToStack(exp).toString();
-		
-		/*Iterator<String> iter = stack.iterator();
-		
-		String before = "";
-		while(iter.hasNext()){
-			String str = iter.next();
-			
-			before = str;
-			
-		}*/
+		 Stack<String> stack = expParser.parseToStack(exp);
+		 return baOperator.calculation(stack.toArray());
 	}
 	
 }
