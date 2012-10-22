@@ -19,7 +19,8 @@
                     android:background="@drawable/edittext_baseinput"
                     android:cursorVisible="false"
                     android:editable="true"
-                    android:inputType="numberDecimal" >
+                    android:inputType="numberDecimal"
+                    android:scrollbarStyle="outsideOverlay" >
 
                     <requestFocus />
                 </EditText>
@@ -27,7 +28,7 @@
                 <ImageButton
                     android:id="@+id/ImageButton_baseinput_bs_dec"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
                     android:visibility="gone" />
@@ -52,7 +53,7 @@
                 <ImageButton
                     android:id="@+id/ImageButton_baseinput_bs_bin"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
                     android:visibility="gone" />
@@ -77,7 +78,7 @@
                 <ImageButton
                     android:id="@+id/ImageButton_baseinput_bs_hex"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
                     android:visibility="gone" />
