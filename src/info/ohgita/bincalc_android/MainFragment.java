@@ -174,11 +174,18 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	public void inputBasenumber(String str){
 		EditText et = getCurrent_Baseinput_EditText();
 		
+		/* HEX alphabet */
 		if(str.charAt(0) >= 'A' && selectedBasetypeId != ID_BASETYPE_HEX){
 			// if alphabet && BASETYPE is not HEX... cancel
 			return;
 		}
 		
+		/* point */
+		if(et.getText().toString().contentEquals(".")){
+			et.setText(et.getText().toString() + ".");
+		}
+		
+		/* general number */
 		if(et.getText().toString().contentEquals("0")){
 			et.setText(str);
 		}else{
@@ -375,6 +382,9 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 				break;
 			case R.id.keyButtonF:
 				inputBasenumber("F");
+				break;
+			case R.id.keyButtonPo:
+				inputBasenumber(".");
 				break;
 			
 			/* operator-button */
