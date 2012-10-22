@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"
-                    android:src="@drawable/content_backspace"
+                    android:src="@drawable/button_backspace"
                     android:visibility="gone" />
 
             </TableRow>
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"
-                    android:src="@drawable/content_backspace"
+                    android:src="@drawable/button_backspace"
                     android:visibility="gone" />
 
             </TableRow>
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"
-                    android:src="@drawable/content_backspace"
+                    android:src="@drawable/button_backspace"
                     android:visibility="gone" />
 
             </TableRow>
