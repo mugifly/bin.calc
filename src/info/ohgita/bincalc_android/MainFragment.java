@@ -3,7 +3,6 @@ package info.ohgita.bincalc_android;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -109,10 +107,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
 		
-		/* inialize calculator class */
+		/* initialize calculator class */
 		calc = new Calculator();
 		
-		/* initialize vibratation */
+		/* initialize vibration */
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 		
 		/* loading preferences */
@@ -131,7 +129,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-		String resValue = calc.calc(value);
+		
+		et_bin.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
+		et_dec.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
+		et_hex.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
+		
+		String resValue = "";
+		try{
+			resValue = calc.calc(value);
+		}catch(NullPointerException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		}catch(NumberFormatException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		};
+		
 		Log.i("binCalc",value);
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented

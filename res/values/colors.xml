@@ -2,4 +2,6 @@
 <resources>
 	<color name="main_toggle_basetype_TextColor_default">#000000</color>
 	<color name="main_toggle_basetype_TextColor_active">#ffffff</color>
+	<color name="main_editText_baseinput_TextColor_default">#000000</color>
+	<color name="main_editText_baseinput_TextColor_error">#CC0000</color>
 </resources>
