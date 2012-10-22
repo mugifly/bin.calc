@@ -1,5 +1,8 @@
 package info.ohgita.bincalc_android;
 
+import java.util.LinkedList;
+
+import info.ohgita.bincalc_android.calc.BaseConverter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -41,6 +44,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	boolean pref_keyVibration = false;
 	
 	Calculator calc;
+	BaseConverter baseconv;
 	
 	View v = null;
 	
@@ -112,6 +116,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		/* initialize calculator class */
 		calc = new Calculator();
 		
+		/* initialize base-converter class */
+		baseconv = new BaseConverter();
+		
+		
 		/* initialize vibration */
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 		
@@ -136,28 +144,34 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		et_dec.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
 		et_hex.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
 		
-		String resValue = "";
+		LinkedList<String> parsedList = null;
 		try{
-			resValue = calc.calc(value);
+			parsedList = calc.parseToList(value);
 		}catch(NullPointerException e){
+			Log.e("binCalc", e.toString());
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}catch(NumberFormatException e){
+			Log.e("binCalc", e.toString());
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
 		Log.i("binCalc",value);
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			//TODO not implemented
-			et_dec.setText(resValue);
-			et_hex.setText(resValue);
+			et_dec.setText("");
+			et_hex.setText("");
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			//TODO not implemented
-			et_bin.setText(resValue);
-			et_hex.setText(resValue);
+			try{
+				et_bin.setText(calc.listBaseConv(parsedList, 10, 2));
+				et_hex.setText(calc.listBaseConv(parsedList, 10, 16));
+			}catch (Exception e){
+				Log.e("binCalc", e.toString());
+				getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+			}
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
 			//TODO not implemented
-			et_bin.setText(resValue);
-			et_dec.setText(resValue);
+			et_bin.setText("");
+			et_dec.setText("");
 		}
 	}
 	
@@ -225,6 +239,17 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * input equall key
 	 */
 	public void inputEquall(){
+		String value = getCurrent_Baseinput_EditText().getText().toString();
+		
+		try{
+			value = calc.calc(value);
+		}catch(NullPointerException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		}catch(NumberFormatException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		};
+		
+		getCurrent_Baseinput_EditText().setText(value);
 		calculate();
 	}
 	
