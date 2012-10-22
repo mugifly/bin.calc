@@ -9,13 +9,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 
-public class Adapter_BaseinputsViewPager extends PagerAdapter {
+public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClickListener {
 	public LayoutInflater inflater;
 	public Context context;
 	public MainFragment mainFragment;
@@ -64,6 +65,14 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		    }
 		});
 		
+		/* Set event-handler to Base-inputs backspace button (ImageView) */
+		ImageView bs_bin = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_bin);
+		ImageView bs_dec = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_dec);
+		ImageView bs_hex = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_hex);
+		bs_bin.setOnClickListener(this);
+		bs_dec.setOnClickListener(this);
+		bs_hex.setOnClickListener(this);
+		
 		/* Hide a on-screen keyboard on Base-input EditText */
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    	et_bin.setTextIsSelectable(true);
@@ -91,6 +100,25 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	@Override
 	public boolean isViewFromObject(View view, Object obj) {
 		return view.equals(obj);
+	}
+	
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+			case R.id.ImageView_baseinput_bs_dec:
+				inputBackspace();
+				break;
+			case R.id.ImageView_baseinput_bs_bin:
+				inputBackspace();
+				break;
+			case R.id.ImageView_baseinput_bs_hex:
+				inputBackspace();
+				break;
+		}
+	}
+	
+	public void inputBackspace(){
+		mainFragment.inputBackspace();
 	}
 
 }
