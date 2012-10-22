@@ -24,8 +24,8 @@
                     <requestFocus />
                 </EditText>
 
-                <ImageView
-                    android:id="@+id/ImageView_baseinput_bs_dec"
+                <ImageButton
+                    android:id="@+id/ImageButton_baseinput_bs_dec"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"
@@ -49,8 +49,8 @@
                     android:editable="true"
                     android:inputType="number" />
 
-                <ImageView
-                    android:id="@+id/ImageView_baseinput_bs_bin"
+                <ImageButton
+                    android:id="@+id/ImageButton_baseinput_bs_bin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"
@@ -74,8 +74,8 @@
                     android:editable="true"
                     android:inputType="number" />
 
-                <ImageView
-                    android:id="@+id/ImageView_baseinput_bs_hex"
+                <ImageButton
+                    android:id="@+id/ImageButton_baseinput_bs_hex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_baseinput"

@@ -65,10 +65,10 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		    }
 		});
 		
-		/* Set event-handler to Base-inputs backspace button (ImageView) */
-		ImageView bs_bin = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_bin);
-		ImageView bs_dec = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_dec);
-		ImageView bs_hex = (ImageView) tv.findViewById(R.id.ImageView_baseinput_bs_hex);
+		/* Set event-handler to Base-inputs backspace button (ImageButton) */
+		ImageView bs_bin = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_bin);
+		ImageView bs_dec = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_dec);
+		ImageView bs_hex = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_hex);
 		bs_bin.setOnClickListener(this);
 		bs_dec.setOnClickListener(this);
 		bs_hex.setOnClickListener(this);
@@ -105,13 +105,13 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-			case R.id.ImageView_baseinput_bs_dec:
+			case R.id.ImageButton_baseinput_bs_dec:
 				inputBackspace();
 				break;
-			case R.id.ImageView_baseinput_bs_bin:
+			case R.id.ImageButton_baseinput_bs_bin:
 				inputBackspace();
 				break;
-			case R.id.ImageView_baseinput_bs_hex:
+			case R.id.ImageButton_baseinput_bs_hex:
 				inputBackspace();
 				break;
 		}

@@ -3,7 +3,6 @@ package info.ohgita.bincalc_android;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -17,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
@@ -303,15 +303,15 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 
 
 	/**
-	 * get current base-input Backspace (ImageView) object
+	 * get current base-input Backspace (ImageButton) object
 	 */
-	public ImageView getCurrent_Baseinput_Backspace_ImageView(){
+	public ImageButton getCurrent_Baseinput_Backspace_ImageButton(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_bin);
+			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_dec);
+			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_hex);
+			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
 		}
 		return null;
 	}
@@ -326,19 +326,19 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		TableRow tr_type_bin = (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
 		ToggleButton tb_type_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
 		TableRow tr_input_bin = (TableRow) v.findViewById(R.id.tableRow_baseinput_bin);
-		ImageView bs_bin = (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_bin);
+		ImageView bs_bin = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_bin);
 		EditText et_input_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		
 		TableRow tr_type_dec = (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
 		ToggleButton tb_type_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		TableRow tr_input_dec = (TableRow) v.findViewById(R.id.tableRow_baseinput_dec);
-		ImageView bs_dec = (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_dec);
+		ImageView bs_dec = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_dec);
 		EditText et_input_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		
 		TableRow tr_type_hex = (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
 		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		TableRow tr_input_hex = (TableRow) v.findViewById(R.id.tableRow_baseinput_hex);
-		ImageView bs_hex = (ImageView) v.findViewById(R.id.ImageView_baseinput_bs_hex);
+		ImageView bs_hex = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
 		EditText et_input_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
 		
 		/* Reset under-line (base-types & base-inputs) */
@@ -379,7 +379,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		getCurrent_Basetype_ToggleButton().setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_active));
 		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
 		getCurrent_Baseinput_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
-		getCurrent_Baseinput_Backspace_ImageView().setVisibility(View.VISIBLE);
+		getCurrent_Baseinput_Backspace_ImageButton().setVisibility(View.VISIBLE);
 		getCurrent_Baseinput_EditText().setLayoutParams(params_tablerow_1span);
 	}
 
