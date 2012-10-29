@@ -1,4 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Sherlock.Light" ></style>
+    <style name="AppTheme" parent="Theme.Sherlock.Light" >
+        
+    </style>
     <style name="Preference.PreferenceScreen" parent="Theme.Sherlock.Light"></style>
+    <style name="main_keyButtons">
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>

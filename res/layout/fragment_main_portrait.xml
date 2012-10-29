@@ -92,7 +92,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="A" />
+	           android:text="A"
+	           style="@style/main_keyButtons" />
 
 	       <Button
 	           android:id="@+id/keyButtonB"
@@ -100,7 +101,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="B" />
+	           android:text="B"
+	           style="@style/main_keyButtons" />
 
 	       <Button
 	           android:id="@+id/keyButtonC"
@@ -108,7 +110,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="C" />
+	           android:text="C"
+	           style="@style/main_keyButtons" />
 
 	       <Button
 	           android:id="@+id/keyButtonD"
@@ -116,7 +119,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="D" />
+	           android:text="D"
+	           style="@style/main_keyButtons" />
 
 	       <Button
 	           android:id="@+id/keyButtonE"
@@ -124,7 +128,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="E" />
+	           android:text="E"
+	           style="@style/main_keyButtons" />
 
 	       <Button
 	           android:id="@+id/keyButtonF"
@@ -132,7 +137,8 @@
 	           android:layout_height="wrap_content"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
-	           android:text="F" />
+	           android:text="F"
+	           style="@style/main_keyButtons" />
 
 		</TableRow>
 	</TableLayout>
@@ -158,140 +164,160 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="7" />
+	            android:text="7"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton8"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="8" />
+	            android:text="8"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton9"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="9" />
+	            android:text="9"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonMR"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keymem"
-	            android:text="MR" />
+	            android:text="MR"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonOpDi"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="@string/main_keyButtonOpDi_text" />
+	            android:text="@string/main_keyButtonOpDi_text"
+	            style="@style/main_keyButtons" />
 	    </TableRow>
 
 	    <TableRow
 	        android:id="@+id/keyTableRow2"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1" >
+	        android:layout_weight="1"
+	        style="@style/main_keyButtons" >
 
 	        <Button
 	            android:id="@+id/keyButton4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="4" />
+	            android:text="4"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton5"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="5" />
+	            android:text="5"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton6"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="6" />
+	            android:text="6"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonMC"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keymem"
-	            android:text="MC" />
+	            android:text="MC"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonOpMp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="@string/main_keyButtonOpMp_text" />
+	            android:text="@string/main_keyButtonOpMp_text"
+	            style="@style/main_keyButtons" />
 	    </TableRow>
 
 	    <TableRow
 	        android:id="@+id/keyTableRow3"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1" >
+	        android:layout_weight="1"
+	        style="@style/main_keyButtons" >
 
 	        <Button
 	            android:id="@+id/keyButton1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="1" />
+	            android:text="1"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton2"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="2" />
+	            android:text="2"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButton3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="3" />
+	            android:text="3"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonMin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keymem"
-	            android:text="Min" />
+	            android:text="Min"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonOpMi"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="@string/main_keyButtonOpMi_text" />
+	            android:text="@string/main_keyButtonOpMi_text"
+	            style="@style/main_keyButtons" />
 	    </TableRow>
 
 	    <TableRow
 	        android:id="@+id/keyTableRow4"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:layout_weight="1" >
+	        android:layout_weight="1"
+	        style="@style/main_keyButtons" >
 
 	        <Button
 	            android:id="@+id/keyButton0"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="0" />
+	            android:text="0"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonPM"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keynum"
-	            android:text="@string/main_keyButtonPM_text" />
+	            android:text="@string/main_keyButtonPM_text"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonPo"
@@ -300,21 +326,24 @@
 	            android:background="@drawable/button_keynum"
 	            android:text="@string/main_keyButtonPo_text"
 	            android:textSize="20dp"
-	            android:textStyle="bold" />
+	            android:textStyle="bold"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonOpPl"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="@string/main_keyButtonOpPl_text" />
+	            android:text="@string/main_keyButtonOpPl_text"
+	            style="@style/main_keyButtons" />
 
 	        <Button
 	            android:id="@+id/keyButtonEq"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:background="@drawable/button_keyopr"
-	            android:text="@string/main_keyButtonEq_text" />
+	            android:text="@string/main_keyButtonEq_text"
+	            style="@style/main_keyButtons" />
 	    </TableRow>
 	</TableLayout>
 

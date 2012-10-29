@@ -5,6 +5,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_experimental">
         <CheckBoxPreference android:key="@string/pref_item_shuffle_clear_key" android:title="@string/pref_item_shuffle_clear_title" android:summary="@string/pref_item_shuffle_clear_summary"/>
+        <CheckBoxPreference android:title="@string/pref_item_bigdecimal_title" android:summary="@string/pref_item_bigdecimal_summary" android:key="@string/pref_item_bigdecimal_key"/>
     </PreferenceCategory>
     
     

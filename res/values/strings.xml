@@ -20,6 +20,10 @@
     <string name="pref_item_shuffle_clear_title">Shuffle all-clear</string>
     <string name="pref_item_shuffle_clear_summary">When shuffled a device, all-clear (AC).</string>
     
+    <string name="pref_item_bigdecimal_key">bigdecimalMode</string>
+    <string name="pref_item_bigdecimal_title">BigDecimal mode</string>
+    <string name="pref_item_bigdecimal_summary">Use BigDecimal class</string>
+    
     <string name="main_keyButtonOpPl_text">+</string>
     <string name="main_keyButtonOpMi_text">-</string>
     <string name="main_keyButtonOpMp_text">*</string>
@@ -27,5 +31,8 @@
     <string name="main_keyButtonEq_text">=</string>
     <string name="main_keyButtonPM_text">+/-</string>
     <string name="main_keyButtonPo_text">.</string>
+    
+    <string name="main_keyButton_fontSize">20sp</string>
+    
     
 </resources>
