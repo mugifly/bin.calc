@@ -5,7 +5,7 @@ Base calculator application for Android.
 
 This project has just launched development.
 
-![screenshot](https://raw.github.com/mugifly/bin.calc/master/design/design_bin.calc_main-portrait.png)
+![screenshot](https://raw.github.com/mugifly/bin.calc/master/design/design_bin.calc_main-portrait_s.png)
 
 Your feedback is highly appreciated.
 you can send requests and bug reports as Issues on GitHub.
