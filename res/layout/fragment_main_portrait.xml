@@ -19,8 +19,7 @@
                 android:id="@+id/tableRow_basetype_dec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_weight="1" >
 
                 <ToggleButton
                     android:id="@+id/toggle_basetype_dec"
@@ -35,8 +34,7 @@
                 android:id="@+id/tableRow_basetype_bin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_weight="1" >
 
                 <ToggleButton
                     android:id="@+id/toggle_basetype_bin"
@@ -51,8 +49,7 @@
                 android:id="@+id/tableRow_basetype_hex"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_weight="1" >
 
                 <ToggleButton
                     android:id="@+id/toggle_basetype_hex"

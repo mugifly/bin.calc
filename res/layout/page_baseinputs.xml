@@ -9,14 +9,13 @@
             <TableRow
                 android:id="@+id/tableRow_baseinput_dec"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_height="50dp" >
 
                 <EditText
                     android:id="@+id/editText_baseinput_dec"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_baseinput_default"
                     android:cursorVisible="false"
                     android:editable="true"
                     android:inputType="numberDecimal"
@@ -29,23 +28,21 @@
                     android:id="@+id/ImageButton_baseinput_bs_dec"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
-                    android:visibility="gone" />
+                    android:background="@drawable/dummy" />
 
             </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow_baseinput_bin"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_height="50dp" >
                 
                 <EditText
                     android:id="@+id/editText_baseinput_bin"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_baseinput_default"
                     android:cursorVisible="false"
                     android:editable="true"
                     android:inputType="number" />
@@ -54,23 +51,21 @@
                     android:id="@+id/ImageButton_baseinput_bs_bin"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
-                    android:visibility="gone" />
+                    android:background="@drawable/dummy" />
 
             </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow_baseinput_hex"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/basetype_line_default" >
+                android:layout_height="50dp" >
 
                 <EditText
                     android:id="@+id/editText_baseinput_hex"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_baseinput_default"
                     android:cursorVisible="false"
                     android:editable="true"
                     android:inputType="number" />
@@ -79,9 +74,8 @@
                     android:id="@+id/ImageButton_baseinput_bs_hex"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/edittext_baseinput"
                     android:src="@drawable/button_backspace"
-                    android:visibility="gone" />
+                    android:background="@drawable/dummy" />
 
             </TableRow>
 

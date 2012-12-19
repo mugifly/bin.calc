@@ -348,35 +348,24 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
 		
-		TableRow tr_type_bin = (TableRow) v.findViewById(R.id.tableRow_basetype_bin);
 		ToggleButton tb_type_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
-		TableRow tr_input_bin = (TableRow) v.findViewById(R.id.tableRow_baseinput_bin);
 		ImageView bs_bin = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_bin);
 		EditText et_input_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		
-		TableRow tr_type_dec = (TableRow) v.findViewById(R.id.tableRow_basetype_dec);
 		ToggleButton tb_type_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
-		TableRow tr_input_dec = (TableRow) v.findViewById(R.id.tableRow_baseinput_dec);
 		ImageView bs_dec = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_dec);
 		EditText et_input_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		
-		TableRow tr_type_hex = (TableRow) v.findViewById(R.id.tableRow_basetype_hex);
 		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
-		TableRow tr_input_hex = (TableRow) v.findViewById(R.id.tableRow_baseinput_hex);
 		ImageView bs_hex = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
 		EditText et_input_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-		
-		/* Reset under-line (base-types & base-inputs) */
-		tr_type_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_type_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_type_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		if(tr_input_bin == null){ // FIXME! fixed temporally now
+				
+		/* Reset under-line (base-inputs) */
+		if(bs_bin == null) // FIXME! fixed temporally now
 			return;
-		}
-		
-		tr_input_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_input_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
-		tr_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_default));
+		et_input_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
+		et_input_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
+		et_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
 		
 		/* Reset toggle-button (base-types) */
 		tb_type_bin.setChecked(false);
@@ -387,25 +376,16 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		tb_type_hex.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		
 		/* Invisible backspace-button */
-		bs_bin.setVisibility(View.GONE);
-		bs_dec.setVisibility(View.GONE);
-		bs_hex.setVisibility(View.GONE);
-		
 		TableRow.LayoutParams params_tablerow_2span = new TableRow.LayoutParams();
 		params_tablerow_2span.span = 2;
 		TableRow.LayoutParams params_tablerow_1span = new TableRow.LayoutParams();
 		params_tablerow_1span.span = 1;
-		et_input_bin.setLayoutParams(params_tablerow_2span);
-		et_input_dec.setLayoutParams(params_tablerow_2span);
-		et_input_hex.setLayoutParams(params_tablerow_2span);
 		
 		/* activate Base-types & base-inputs */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
 		getCurrent_Basetype_ToggleButton().setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_active));
-		getCurrent_Basetype_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
-		getCurrent_Baseinput_TableRow().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.basetype_line_active));
+		getCurrent_Baseinput_EditText().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_active));
 		getCurrent_Baseinput_Backspace_ImageButton().setVisibility(View.VISIBLE);
-		getCurrent_Baseinput_EditText().setLayoutParams(params_tablerow_1span);
 	}
 
 	/* Event-handler for buttons */
