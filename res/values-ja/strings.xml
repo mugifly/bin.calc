@@ -28,7 +28,7 @@
     <string name="main_keyButtonOpMp_text">×</string>
     <string name="main_keyButtonOpDi_text">÷</string>
     <string name="main_keyButtonEq_text">=</string>
-    <string name="main_keyButtonPM_text">+/-</string>
-    <string name="main_keyButtonPo_text">.</string>
+    <string name="main_keyButtonPM_text">±</string>
+    <string name="main_keyButtonPo_text">・</string>
     
 </resources>

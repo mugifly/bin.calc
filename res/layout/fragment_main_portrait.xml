@@ -90,6 +90,7 @@
 	           android:id="@+id/keyButtonA"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	            android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="A"
@@ -99,6 +100,7 @@
 	           android:id="@+id/keyButtonB"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	            android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="B"
@@ -108,6 +110,7 @@
 	           android:id="@+id/keyButtonC"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	            android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="C"
@@ -117,6 +120,7 @@
 	           android:id="@+id/keyButtonD"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	            android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="D"
@@ -126,6 +130,7 @@
 	           android:id="@+id/keyButtonE"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	            android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="E"
@@ -135,6 +140,7 @@
 	           android:id="@+id/keyButtonF"
 	           android:layout_width="match_parent"
 	           android:layout_height="wrap_content"
+	           android:width="0dp"
 	           android:background="@drawable/button_keynum"
 	           android:layout_weight="1"
 	           android:text="F"
@@ -163,6 +169,7 @@
 	            android:id="@+id/keyButton7"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="7"
 	            style="@style/main_keyButtons" />
@@ -171,6 +178,7 @@
 	            android:id="@+id/keyButton8"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="8"
 	            style="@style/main_keyButtons" />
@@ -179,6 +187,7 @@
 	            android:id="@+id/keyButton9"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="9"
 	            style="@style/main_keyButtons" />
@@ -187,6 +196,7 @@
 	            android:id="@+id/keyButtonMR"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keymem"
 	            android:text="MR"
 	            style="@style/main_keyButtons" />
@@ -195,6 +205,7 @@
 	            android:id="@+id/keyButtonOpDi"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keyopr"
 	            android:text="@string/main_keyButtonOpDi_text"
 	            style="@style/main_keyButtons" />
@@ -211,6 +222,7 @@
 	            android:id="@+id/keyButton4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="4"
 	            style="@style/main_keyButtons" />
@@ -219,6 +231,7 @@
 	            android:id="@+id/keyButton5"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="5"
 	            style="@style/main_keyButtons" />
@@ -227,6 +240,7 @@
 	            android:id="@+id/keyButton6"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="6"
 	            style="@style/main_keyButtons" />
@@ -235,6 +249,7 @@
 	            android:id="@+id/keyButtonMC"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keymem"
 	            android:text="MC"
 	            style="@style/main_keyButtons" />
@@ -243,6 +258,7 @@
 	            android:id="@+id/keyButtonOpMp"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keyopr"
 	            android:text="@string/main_keyButtonOpMp_text"
 	            style="@style/main_keyButtons" />
@@ -259,6 +275,7 @@
 	            android:id="@+id/keyButton1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="1"
 	            style="@style/main_keyButtons" />
@@ -275,6 +292,7 @@
 	            android:id="@+id/keyButton3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="3"
 	            style="@style/main_keyButtons" />
@@ -283,6 +301,7 @@
 	            android:id="@+id/keyButtonMin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keymem"
 	            android:text="Min"
 	            style="@style/main_keyButtons" />
@@ -291,6 +310,7 @@
 	            android:id="@+id/keyButtonOpMi"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keyopr"
 	            android:text="@string/main_keyButtonOpMi_text"
 	            style="@style/main_keyButtons" />
@@ -307,6 +327,7 @@
 	            android:id="@+id/keyButton0"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="0"
 	            style="@style/main_keyButtons" />
@@ -315,6 +336,7 @@
 	            android:id="@+id/keyButtonPM"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="@string/main_keyButtonPM_text"
 	            style="@style/main_keyButtons" />
@@ -323,6 +345,7 @@
 	            android:id="@+id/keyButtonPo"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="@string/main_keyButtonPo_text"
 	            android:textSize="20dp"
@@ -333,6 +356,7 @@
 	            android:id="@+id/keyButtonOpPl"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keyopr"
 	            android:text="@string/main_keyButtonOpPl_text"
 	            style="@style/main_keyButtons" />
@@ -341,6 +365,7 @@
 	            android:id="@+id/keyButtonEq"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keyopr"
 	            android:text="@string/main_keyButtonEq_text"
 	            style="@style/main_keyButtons" />
