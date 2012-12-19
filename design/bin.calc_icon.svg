@@ -14,11 +14,11 @@
    height="64px"
    id="svg3874"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="bin.calc_icon.svg"
-   inkscape:export-filename="/home/masanori/workspace/BinCalc/design/bin.calc_icon.png"
-   inkscape:export-xdpi="360"
-   inkscape:export-ydpi="360">
+   inkscape:export-filename="/home/masanori/workspace_java/binCalc/design/bin.calc_icon.png"
+   inkscape:export-xdpi="720"
+   inkscape:export-ydpi="720">
   <title
      id="title4568">bin.Calc logo</title>
   <defs
@@ -141,7 +141,7 @@
      inkscape:zoom="3.8890872"
      inkscape:cx="-4.8045163"
      inkscape:cy="42.705586"
-     inkscape:current-layer="layer3"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
@@ -305,7 +305,7 @@
        sodipodi:rx="2.090909"
        sodipodi:ry="2.090909"
        d="m -50.181819,21.545454 a 2.090909,2.090909 0 1 1 -4.181818,0 2.090909,2.090909 0 1 1 4.181818,0 z"
-       transform="matrix(1.3502075,-0.29736141,0.29736141,1.3502075,117.88745,9.240048)" />
+       transform="matrix(1.3502075,-0.29736141,0.29736141,1.3502075,116.88745,11.240048)" />
     <path
        sodipodi:type="arc"
        style="color:#000000;fill:#4d4d4d;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.5;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
@@ -315,6 +315,6 @@
        sodipodi:rx="2.090909"
        sodipodi:ry="2.090909"
        d="m -50.181819,21.545454 a 2.090909,2.090909 0 1 1 -4.181818,0 2.090909,2.090909 0 1 1 4.181818,0 z"
-       transform="matrix(1.3502075,-0.29736141,0.29736141,1.3502075,117.88745,9.240048)" />
+       transform="matrix(1.3502075,-0.29736141,0.29736141,1.3502075,116.88745,11.240048)" />
   </g>
 </svg>
