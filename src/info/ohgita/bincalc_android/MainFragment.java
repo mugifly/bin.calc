@@ -340,7 +340,50 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	}
 	
 	/**
-	 * switch base-type
+	 * Switch enable key-num button by basetypeId
+	 * @param basetypeId	Base-type ID number
+	 */
+	public void setEnableKeyButton(int basetypeId){
+		if(basetypeId == ID_BASETYPE_HEX){
+			/* Alphabet key */
+			v.findViewById(R.id.keyButtonA).setEnabled(true);
+			v.findViewById(R.id.keyButtonB).setEnabled(true);
+			v.findViewById(R.id.keyButtonC).setEnabled(true);
+			v.findViewById(R.id.keyButtonD).setEnabled(true);
+			v.findViewById(R.id.keyButtonE).setEnabled(true);
+			v.findViewById(R.id.keyButtonF).setEnabled(true);
+		}else{
+			/* Alphabet key */
+			v.findViewById(R.id.keyButtonA).setEnabled(false);
+			v.findViewById(R.id.keyButtonB).setEnabled(false);
+			v.findViewById(R.id.keyButtonC).setEnabled(false);
+			v.findViewById(R.id.keyButtonD).setEnabled(false);
+			v.findViewById(R.id.keyButtonE).setEnabled(false);
+			v.findViewById(R.id.keyButtonF).setEnabled(false);
+		}
+		if(basetypeId == ID_BASETYPE_BIN){
+			v.findViewById(R.id.keyButton2).setEnabled(false);
+			v.findViewById(R.id.keyButton3).setEnabled(false);
+			v.findViewById(R.id.keyButton4).setEnabled(false);
+			v.findViewById(R.id.keyButton5).setEnabled(false);
+			v.findViewById(R.id.keyButton6).setEnabled(false);
+			v.findViewById(R.id.keyButton7).setEnabled(false);
+			v.findViewById(R.id.keyButton8).setEnabled(false);
+			v.findViewById(R.id.keyButton9).setEnabled(false);
+		}else{
+			v.findViewById(R.id.keyButton2).setEnabled(true);
+			v.findViewById(R.id.keyButton3).setEnabled(true);
+			v.findViewById(R.id.keyButton4).setEnabled(true);
+			v.findViewById(R.id.keyButton5).setEnabled(true);
+			v.findViewById(R.id.keyButton6).setEnabled(true);
+			v.findViewById(R.id.keyButton7).setEnabled(true);
+			v.findViewById(R.id.keyButton8).setEnabled(true);
+			v.findViewById(R.id.keyButton9).setEnabled(true);
+		}
+	}
+	
+	/**
+	 * Switch base-type
 	 * @param basetypeId	Base-type ID number
 	 */
 	public void switchBasetype(int basetypeId){
@@ -357,7 +400,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		ImageView bs_hex = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
 		EditText et_input_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
-				
+		
+		/* Set enable/disable Number key buttons */
+		setEnableKeyButton(basetypeId);
+		
 		/* Reset under-line (base-inputs) */
 		if(bs_bin == null) // FIXME! fixed temporally now
 			return;
