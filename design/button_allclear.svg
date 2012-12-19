@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="70"
+   height="64"
+   id="svg3119"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="button_allclear.svg"
+   inkscape:export-filename="/home/masanori/workspace_java/binCalc/design/bin.calc_ui_button_allclear.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <title
+     id="title3157">bin.Calc UI part - All-clear button</title>
+  <defs
+     id="defs3121" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8"
+     inkscape:cx="28.806034"
+     inkscape:cy="42.075896"
+     inkscape:current-layer="layer2"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     fit-margin-top="22"
+     fit-margin-left="12"
+     fit-margin-right="12"
+     fit-margin-bottom="22"
+     inkscape:window-width="1280"
+     inkscape:window-height="745"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2993"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3124">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>bin.Calc UI part - All-clear button</dc:title>
+        <dc:date>2012/12/19</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Masanori Ohgita</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="https://github.com/mugifly/bin.calc/blob/master/LICENSE.txt" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Button"
+     inkscape:groupmode="layer"
+     transform="translate(45.128807,-28.57143)">
+    <g
+       id="g2986"
+       transform="matrix(0.49259257,0,0,0.49259257,-25.891769,44.808468)">
+      <rect
+         rx="5.7142859"
+         ry="2.8571444"
+         y="-6.5714302"
+         x="-33.128807"
+         height="77.14286"
+         width="130.25761"
+         id="rect3789"
+         style="color:#000000;fill:#ff4444;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3785"
+         y="50.973785"
+         x="0.63114166"
+         style="font-size:52.23180008px;font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Roboto;-inkscape-font-specification:Roboto Light"
+         xml:space="preserve"><tspan
+           y="50.973785"
+           x="0.63114166"
+           id="tspan3787"
+           sodipodi:role="line">AC</tspan></text>
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Press_layer"
+     style="opacity:0.5;display:inline">
+    <g
+       id="g2986-9"
+       transform="matrix(0.49259257,0,0,0.49259257,19.237038,16.237038)">
+      <rect
+         rx="5.7142859"
+         ry="2.8571444"
+         y="-6.5714302"
+         x="-33.128807"
+         height="77.14286"
+         width="130.25761"
+         id="rect3789-7"
+         style="color:#000000;fill:#894544;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="9patch"
+     style="display:inline">
+    <rect
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2991"
+       width="1.0000001"
+       height="7"
+       x="-6.7871092e-08"
+       y="15" />
+    <rect
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2991-7"
+       width="1.0000001"
+       height="7"
+       x="-6.7871092e-08"
+       y="42" />
+    <rect
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2991-7-8"
+       width="1"
+       height="8"
+       x="0"
+       y="-62"
+       transform="matrix(0,1,-1,0,0,0)" />
+    <rect
+       style="color:#000000;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:6;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect2991-7-8-1"
+       width="1"
+       height="8"
+       x="0"
+       y="-16"
+       transform="matrix(0,1,-1,0,0,0)" />
+  </g>
+</svg>
