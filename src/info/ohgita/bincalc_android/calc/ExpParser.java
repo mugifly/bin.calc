@@ -21,6 +21,7 @@ public class ExpParser {
 	}
 
 	public LinkedList<String> parseToList(String exp) {
+		Log.d("binCalc", "ExpParser.parseToList("+exp+")");
 		// TODO I will rewrite it completely :p
 		
 		/* initialize list and buffer */
@@ -105,6 +106,7 @@ public class ExpParser {
 			_bufPush();
 		}
 		
+		Log.d("binCalc", "parseToList done.");
 		return list;
 	}
 	

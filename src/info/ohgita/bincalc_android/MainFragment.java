@@ -135,6 +135,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * calculate base-number
 	 */
 	public void calculate( ){
+		Log.d("binCalc", "calculate()");
 		String value = getCurrent_Baseinput_EditText().getText().toString();
 		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
@@ -148,24 +149,27 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		try{
 			parsedList = calc.parseToList(value);
 		}catch(NullPointerException e){
-			Log.e("binCalc", e.toString());
+			Log.d("binCalc", e.toString());
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}catch(NumberFormatException e){
-			Log.e("binCalc", e.toString());
+			Log.d("binCalc", e.toString());
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
-		Log.i("binCalc",value);
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			//TODO not implemented
-			et_dec.setText("");
-			et_hex.setText("");
+			try{
+				et_dec.setText(calc.listBaseConv(parsedList, 2, 10));
+				et_hex.setText("");//TODO not implemented
+			}catch (Exception e){
+				Log.e("binCalc", "listBaseConv error..."+e.toString());
+				getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+			}
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
 			try{
 				et_bin.setText(calc.listBaseConv(parsedList, 10, 2));
 				et_hex.setText(calc.listBaseConv(parsedList, 10, 16));
 			}catch (Exception e){
-				Log.e("binCalc", e.toString());
+				Log.e("binCalc", "listBaseConv error..."+e.toString());
 				getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 			}
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){

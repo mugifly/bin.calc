@@ -51,22 +51,30 @@ public class Calculator {
 	}
 	
 	public String calc(String exp){
+		Log.d("binCalc", "calc("+exp+")");
 		LinkedList<String> list = parseToList(exp);
 		return baOperator.calculation(list);
 	}
 	
 	public LinkedList<String> parseToList(String exp){
+		Log.d("binCalc", "parseToList("+exp+")");
 		return expParser.parseToList(exp);
 	}
 	
 	public String listBaseConv(LinkedList<String> list, int fromNAdic, int toNAdic ){
+		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNAdic+", "+toNAdic+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
 		while(iter.hasNext()){
 			String str = iter.next();
+			Log.d("binCalc", "  str = "+str);
 			if(Arrays.binarySearch(EXP_SYMBOLS, str) < 0){// if number
 				if(fromNAdic == 10){
+					/* Convert decimal to NADIC */
 					resultExp.append(baseConverter.decToN(Integer.parseInt(str), toNAdic));
+				}else if(fromNAdic == 2){
+					/* Convert binary to decimal */
+					resultExp.append(baseConverter.binToDec(str));
 				}else{// if symbols(ex: operator)
 					resultExp.append(str);
 				}
