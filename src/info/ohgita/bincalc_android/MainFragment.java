@@ -376,16 +376,19 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		tb_type_hex.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		
 		/* Invisible backspace-button */
-		TableRow.LayoutParams params_tablerow_2span = new TableRow.LayoutParams();
-		params_tablerow_2span.span = 2;
-		TableRow.LayoutParams params_tablerow_1span = new TableRow.LayoutParams();
-		params_tablerow_1span.span = 1;
+		bs_bin.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
+		bs_bin.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
+		bs_dec.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
+		bs_dec.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
+		bs_hex.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
+		bs_hex.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
 		
 		/* activate Base-types & base-inputs */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
 		getCurrent_Basetype_ToggleButton().setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_active));
 		getCurrent_Baseinput_EditText().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_active));
-		getCurrent_Baseinput_Backspace_ImageButton().setVisibility(View.VISIBLE);
+		getCurrent_Baseinput_Backspace_ImageButton().setImageDrawable(getResources().getDrawable(R.drawable.button_backspace));
+		getCurrent_Baseinput_Backspace_ImageButton().setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background));
 	}
 
 	/* Event-handler for buttons */
