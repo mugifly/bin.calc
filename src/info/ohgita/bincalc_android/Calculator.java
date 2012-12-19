@@ -96,10 +96,10 @@ public class Calculator {
 					}
 					
 				}else{
-					// if symbols(ex: operator)
+					
 					conv = chunk;
 				}
-			}else{
+			}else{// if symbols(ex: operator)
 				conv = chunk;
 			}
 			

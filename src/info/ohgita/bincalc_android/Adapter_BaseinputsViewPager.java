@@ -7,19 +7,24 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 
-public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClickListener {
+public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClickListener, OnTouchListener {
 	public LayoutInflater inflater;
 	public Context context;
 	public MainFragment mainFragment;
+	private TableLayout tv;
 	
 	public Adapter_BaseinputsViewPager(Context c, MainFragment fragment) {
 		super();
@@ -34,7 +39,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		int[] pages = {R.layout.page_baseinputs, R.layout.page_baseinputs};
 		
 		/* TableLayout inflating */
-		TableLayout tv = (TableLayout)inflater.inflate(pages[0], null);
+		tv = (TableLayout)inflater.inflate(pages[0], null);
 		
 		/* TableLayout into container */
 		container.addView(tv);
@@ -72,6 +77,9 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		bs_bin.setOnClickListener(this);
 		bs_dec.setOnClickListener(this);
 		bs_hex.setOnClickListener(this);
+		bs_bin.setOnTouchListener(this);
+		bs_dec.setOnTouchListener(this);
+		bs_hex.setOnTouchListener(this);
 		
 		/* Hide a on-screen keyboard on Base-input EditText */
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -119,6 +127,28 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 	
 	public void inputBackspace(){
 		mainFragment.inputBackspace();
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		ImageButton bs_bin = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_bin);
+		ImageButton bs_dec = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_dec);
+		ImageButton bs_hex = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_hex);
+		if(v.getId() == R.id.ImageButton_baseinput_bs_dec ||
+				v.getId() == R.id.ImageButton_baseinput_bs_bin ||
+				v.getId() == R.id.ImageButton_baseinput_bs_hex
+			){
+				if (event.getAction() == MotionEvent.ACTION_DOWN){
+					bs_dec.setPressed(true);
+					bs_bin.setPressed(true);
+					bs_hex.setPressed(true);
+				}else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+					bs_dec.setPressed(false);
+					bs_bin.setPressed(false);
+					bs_hex.setPressed(false);
+				}
+		}
+		return false;
 	}
 
 }
