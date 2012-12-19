@@ -202,6 +202,8 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		/* general number */
 		if(et.getText().toString().contentEquals("0")){
 			et.setText(str);
+		}else if(et.getText().toString().contentEquals("0000")){
+			et.setText(str);
 		}else{
 			et.setText(et.getText().toString() + str);
 		}
