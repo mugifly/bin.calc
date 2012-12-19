@@ -19,26 +19,29 @@ public class BaseConverter {
 	 * @param n_adic N-adic number
 	 * @return converted number
 	 */
-	public String decToN(int dec, int n_adic){
+	public String decToN(double dec, int n_adic){
 		Log.d("binCalc", "BaseConverter.decToN("+dec+", "+n_adic+")");
 		logClear();
 		String ret = "";
 		Integer value;
+		
+		int dec_int = (int) dec; // dec integer-part
+		
 		do{
-			value = (dec % n_adic);
+			value =  (dec_int % n_adic);
 			if(n_adic == 16 && value >= 10){ // if hex A-F...
-				log(dec + " / " + n_adic + " ... " + value + " (" + (Character.toString((char) ('A'+ (value-10)))) + ")");
+				log(dec_int + " / " + n_adic + " ... " + value + " (" + (Character.toString((char) ('A'+ (value-10)))) + ")");
 				ret = (Character.toString((char) ('A'+ (value-10)))) + ret;
 			}else{ // other number...
-				log(dec + " / " + n_adic + " ... " + value.toString());
+				log(dec_int + " / " + n_adic + " ... " + value.toString());
 				ret = value.toString() + ret;
 			}
-			dec /= n_adic;
-		}while(dec >= n_adic-1);
+			dec_int /= n_adic;
+		}while(dec_int >= n_adic-1);
 		
-		if(dec != 0){
-			log("... "+dec);
-			ret = dec + ret;
+		if(dec_int != 0){
+			log("... "+dec_int);
+			ret = dec_int + ret;
 		}
 		
 		/*zero padding */
@@ -52,26 +55,68 @@ public class BaseConverter {
 	}
 	
 	/**
-	 * Binary to N-adic number
+	 * Binary to decimal number
 	 * @param bin	Source binary number (String)
-	 * @param n_adic N-adic number
 	 * @return converted number
 	 */
-	public String binToDec(String bin){
+	public Double binToDec(String bin){
 		Log.d("binCalc", "BaseConverter.binToDec("+bin+")");
 		logClear();
 		Double ret = 0.0;
 		int digit = 0;
 		for(int i=bin.length()-1;0<=i;i--){
 			int d = Integer.parseInt(""+bin.charAt(i));
-			log("bin % 10 = " + d);
 			double value = d* Math.pow(2, digit);
 			log(d+"*2^"+digit + " = "+value);
 			ret = value + ret;
 			digit++;
 		}
 		
-		return ret.toString();
+		return ret;
+	}
+	
+	/**
+	 * Hexadecimal to decimal number
+	 * @param hex	Source hexadecimal number (String)
+	 * @return converted number
+	 */
+	public Double hexToDec(String hex){
+		Log.d("binCalc", "BaseConverter.hexToDec("+hex+")");
+		logClear();
+		Double ret = 0.0;
+		int digit = 0;
+		for(int i=hex.length()-1;0<=i;i--){
+			int d;
+			char c = hex.charAt(i);
+			switch(c){
+				case 'A':
+					d = 10;
+					break;
+				case 'B':
+					d = 11;
+					break;
+				case 'C':
+					d = 12;
+					break;
+				case 'D':
+					d = 13;
+					break;
+				case 'E':
+					d = 14;
+					break;
+				case 'F':
+					d = 15;
+					break;
+				default:
+					d = Integer.parseInt(""+c);
+			};
+			double value = d* Math.pow(16, digit);
+			log(d+"*16^"+digit + " = "+value);
+			ret = value + ret;
+			digit++;
+		}
+		
+		return ret;
 	}
 	
 	protected void log(String log){

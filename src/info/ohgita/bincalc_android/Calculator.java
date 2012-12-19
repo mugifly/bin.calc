@@ -65,22 +65,45 @@ public class Calculator {
 		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNAdic+", "+toNAdic+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
+		
 		while(iter.hasNext()){
-			String str = iter.next();
-			Log.d("binCalc", "  str = "+str);
-			if(Arrays.binarySearch(EXP_SYMBOLS, str) < 0){// if number
+			String chunk = iter.next();
+			Log.d("binCalc", "  chunk = "+chunk);
+			
+			String conv = null;
+			
+			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
 				if(fromNAdic == 10){
-					/* Convert decimal to NADIC */
-					resultExp.append(baseConverter.decToN(Integer.parseInt(str), toNAdic));
+					/* Convert DEC(10) -> NADIC( 2 or 16 ) */
+					conv = baseConverter.decToN(Double.parseDouble(chunk), toNAdic);
+					
 				}else if(fromNAdic == 2){
-					/* Convert binary to decimal */
-					resultExp.append(baseConverter.binToDec(str));
-				}else{// if symbols(ex: operator)
-					resultExp.append(str);
+					if(toNAdic == 10){
+						/* Convert BIN(2) -> DEC(10) */
+						conv = baseConverter.binToDec(chunk).toString();
+					}else if(toNAdic == 16){
+						/* Convert BIN(2) -> DEC(16) */
+						conv = baseConverter.decToN( baseConverter.binToDec(chunk), 16);
+					}
+					
+				}else if(fromNAdic == 16){
+					if(toNAdic == 2){
+						/* Convert HEX(16) -> BIN(2) */
+						conv = baseConverter.decToN( baseConverter.hexToDec(chunk), 2);
+					}else if(toNAdic == 10){
+						/* Convert HEX(16) -> DEC(10) */
+						conv = baseConverter.hexToDec(chunk).toString();
+					}
+					
+				}else{
+					// if symbols(ex: operator)
+					conv = chunk;
 				}
 			}else{
-				resultExp.append(str);
+				conv = chunk;
 			}
+			
+			resultExp.append(conv);
 		}
 		return resultExp.toString();
 	}

@@ -156,26 +156,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
-		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			try{
-				et_dec.setText(calc.listBaseConv(parsedList, 2, 10));
-				et_hex.setText("");//TODO not implemented
-			}catch (Exception e){
-				Log.e("binCalc", "listBaseConv error..."+e.toString());
-				getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		try{
+			if(selectedBasetypeId == ID_BASETYPE_BIN){
+				et_dec.setText( calc.listBaseConv(parsedList, 2, 10) );
+				et_hex.setText( calc.listBaseConv(parsedList, 2, 16) );
+			}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+				et_bin.setText( calc.listBaseConv(parsedList, 10, 2) );
+				et_hex.setText( calc.listBaseConv(parsedList, 10, 16) );
+			}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+				et_bin.setText( calc.listBaseConv(parsedList, 16, 2) );
+				et_dec.setText( calc.listBaseConv(parsedList, 16, 10) );
 			}
-		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			try{
-				et_bin.setText(calc.listBaseConv(parsedList, 10, 2));
-				et_hex.setText(calc.listBaseConv(parsedList, 10, 16));
-			}catch (Exception e){
-				Log.e("binCalc", "listBaseConv error..."+e.toString());
-				getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
-			}
-		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			//TODO not implemented
-			et_bin.setText("");
-			et_dec.setText("");
+		}catch (Exception e){
+			Log.e("binCalc", "listBaseConv error..."+e.toString());
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}
 	}
 	
