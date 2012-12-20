@@ -1,5 +1,6 @@
 package info.ohgita.bincalc_android.calc;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,7 +11,6 @@ import android.util.Log;
  * @author masanori
  * 
  */
-
 public class BasicArithOperator {
 	
 	protected LinkedList<String> list;
@@ -38,7 +38,7 @@ public class BasicArithOperator {
 	protected String eval(Iterator<String> iter){
 		Log.i("BasicArithOperator", " eval(...)");
 		int i = 0;
-		double result = 0;
+		BigDecimal result = new BigDecimal(0);
 		String beforeStr = "";
 		while(iter.hasNext()){
 			String str = iter.next();
@@ -53,25 +53,25 @@ public class BasicArithOperator {
 			
 			if(beforeStr.contentEquals("+")){
 				Log.i("BasicArithOperator","    * "+result+" += "+str);
-				result += Double.parseDouble(str);
+				result = result.add(new BigDecimal(str));
 			}else if(beforeStr.contentEquals("-")){
 				Log.i("BasicArithOperator","    * "+result+" -= "+str);
-				result -= Double.parseDouble(str);
+				result = result.subtract(new BigDecimal(str));
 			}else if(beforeStr.contentEquals("*")){
 				Log.i("BasicArithOperator","    * "+result+" *= "+str);
-				result *= Double.parseDouble(str);
+				result = result.multiply(new BigDecimal(str));
 			}else if(beforeStr.contentEquals("/")){
 				Log.i("BasicArithOperator","    * "+result+" /= "+str);
-				result /= Double.parseDouble(str);
+				result = result.divide(new BigDecimal(str));
 			}else if(beforeStr.length() == 0){
 				Log.i("BasicArithOperator","    * "+result+" = "+str);
-				result = Double.parseDouble(str);
+				result = new BigDecimal(str);
 			}
 			iter.remove();
 			beforeStr = str;
 			i++;
 		}
 		Log.i("BasicArithOperator", " * return("+result+")");
-		return Double.toString(result);
+		return result.toString();
 	}
 }
