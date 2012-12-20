@@ -3,6 +3,7 @@ package info.ohgita.bincalc_android;
 import java.util.LinkedList;
 
 import info.ohgita.bincalc_android.calculator.BaseConverter;
+import info.ohgita.bincalc_android.calculator.HistoryItem;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +30,7 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class Fragment_main extends SherlockFragment implements OnClickListener, OnLongClickListener {
+final public class Fragment_main extends SherlockFragment implements OnClickListener, OnLongClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
@@ -52,6 +54,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	Vibrator vib;
 	
 	ViewPager baseinputsViewPager;
+	static int baseinputsViewPager_pageNum;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -60,9 +63,11 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
 		/* baseinputsViewPager */
-		ViewPager baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
+		baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
        PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext(),this);
        baseinputsViewPager.setAdapter(mPagerAdapter);
+       PageListener pageListener = new PageListener();
+       baseinputsViewPager.setOnPageChangeListener(pageListener);
 		
 		/* Event handler for Base-type ToggleButtons */
 		final ToggleButton tb_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
@@ -150,19 +155,53 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	}
 	
 	/**
-	 * calculate base-number
+	 * Calculate & Convert input base-number
 	 */
-	public void calculate( ){
+	public void calculate(){
 		Log.d("binCalc", "calculate()");
 		String value = getCurrent_Baseinput_EditText().getText().toString();
-		EditText et_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
-		EditText et_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
-		EditText et_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
+		
+		/* Calculate */
+		try{
+			value = calc.calc(value);
+		}catch(NullPointerException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		}catch(NumberFormatException e){
+			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
+		};
+		
+		/* Save current calculator, into histories list */
+		HistoryItem hist = new HistoryItem();
+		hist.basetype = selectedBasetypeId;
+		hist.value = value;
+		calc.historyAdd(hist);
+		
+		/* Scroll Base-inputs (Viewpager (history)) */
+		baseinputsViewPager.setCurrentItem(calc.getHistoryNums());
+		
+		/* Set caluculate result to Base-input */
+		getCurrent_Baseinput_EditText().setText(value);
+		
+		/* Base convert */
+		baseConvert();
+	}
+	
+	/**
+	 * Convert input base-number
+	 */
+	public void baseConvert(){
+		Log.d("binCalc", "baseConvert()");
+		String value = getCurrent_Baseinput_EditText().getText().toString();
+		
+		EditText et_bin = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
+		EditText et_dec = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
+		EditText et_hex = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex);
 		
 		et_bin.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
 		et_dec.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
 		et_hex.setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_default));
 		
+		/* Parse formula  */
 		LinkedList<String> parsedList = null;
 		try{
 			parsedList = calc.parseToList(value);
@@ -174,6 +213,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
+		/* Calculate */
 		try{
 			if(selectedBasetypeId == ID_BASETYPE_BIN){
 				et_dec.setText( calc.listBaseConv(parsedList, 2, 10) );
@@ -191,6 +231,16 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 		}
 	}
 	
+	/**
+	 * Set value to current baseinput Edittext
+	 * @param value
+	 */
+	public void setValue(String value){
+		EditText et = getCurrent_Baseinput_EditText();
+		et.setText(value);
+		baseConvert();
+	}
+	
 	/** 
 	 * All-Clear calculator
 	 * ( with Inputs, Memories, others... )
@@ -198,7 +248,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	public void inputAllClear(){
 		EditText et = getCurrent_Baseinput_EditText();
 		et.setText("0");
-		calculate();
+		baseConvert();
 	}
 	
 	/** 
@@ -207,7 +257,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	public void inputClear(){
 		EditText et = getCurrent_Baseinput_EditText();
 		et.setText("0");
-		calculate();
+		baseConvert();
 	}
 	
 	/**
@@ -236,7 +286,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 		}else{
 			et.setText(et.getText().toString() + str);
 		}
-		calculate();
+		baseConvert();
 	}
 	
 	/**
@@ -261,24 +311,13 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 		}else{
 			et.setText(et.getText().toString() + str);
 		}
-		calculate();
+		baseConvert();
 	}
 	
 	/**
 	 * input equall key
 	 */
 	public void inputEquall(){
-		String value = getCurrent_Baseinput_EditText().getText().toString();
-		
-		try{
-			value = calc.calc(value);
-		}catch(NullPointerException e){
-			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
-		}catch(NumberFormatException e){
-			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
-		};
-		
-		getCurrent_Baseinput_EditText().setText(value);
 		calculate();
 	}
 	
@@ -296,7 +335,7 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 				et.setText(value.substring(0, value.length() - 1));
 			}
 		}
-		calculate();
+		baseConvert();
 	}
 
 	/**
@@ -346,15 +385,33 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	 */
 	public EditText getCurrent_Baseinput_EditText(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (EditText) v.findViewById(R.id.editText_baseinput_bin);
+			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (EditText) v.findViewById(R.id.editText_baseinput_dec);
+			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (EditText) v.findViewById(R.id.editText_baseinput_hex);
+			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex);
 		}
 		return null;
 	}
 
+	/**
+	 * get current base-inputs ViewPager object
+	 */
+	public View getCurrent_Baseinputs_ViewPager(){
+		Log.d("binCalc","getCurrent_Baseinputs_ViewPager..."+baseinputsViewPager_pageNum);
+		int currentItem = baseinputsViewPager_pageNum;//baseinputsViewPager.getCurrentItem();
+		if(2 <= currentItem){
+			currentItem = 1;
+		}
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			return (View) baseinputsViewPager.getChildAt(currentItem);
+		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			return (View) baseinputsViewPager.getChildAt(currentItem);
+		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			return (View) baseinputsViewPager.getChildAt(currentItem);
+		}
+		return null;
+	}
 
 	/**
 	 * get current base-input Backspace (ImageView) object
@@ -420,27 +477,32 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
 		
+		if(baseinputsViewPager == null){
+			return;
+		}
+		
 		ToggleButton tb_type_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
 		ImageView bs_bin = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_bin);
-		EditText et_input_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
+		EditText et_input_bin = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 		
 		ToggleButton tb_type_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		ImageView bs_dec = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_dec);
-		EditText et_input_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
+		EditText et_input_dec = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
 		
 		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		ImageView bs_hex = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_hex);
-		EditText et_input_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
+		EditText et_input_hex = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex);
 		
 		/* Set enable/disable Number key buttons */
 		setEnableKeyButton(basetypeId);
 		
 		/* Reset under-line (base-inputs) */
-		if(bs_bin == null) // FIXME! fixed temporally now
+		if(bs_bin == null || et_input_bin == null){ // FIXME! fixed temporally now
 			return;
-		et_input_bin.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
-		et_input_dec.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
-		et_input_hex.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_default));
+		}
+		et_input_bin.setBackgroundDrawable(getResources().getDrawable(R.drawable.edittext_baseinput_default));
+		et_input_dec.setBackgroundDrawable(getResources().getDrawable(R.drawable.edittext_baseinput_default));
+		et_input_hex.setBackgroundDrawable(getResources().getDrawable(R.drawable.edittext_baseinput_default));
 		
 		/* Reset toggle-button (base-types) */
 		tb_type_bin.setChecked(false);
@@ -579,4 +641,12 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 		};
 		return true;
 	}
+	
+	/* Event-handler for Viewpager */
+    private class PageListener extends SimpleOnPageChangeListener{
+        public void onPageSelected(int position) {
+        	baseinputsViewPager_pageNum = position;
+        	baseConvert();
+        }
+    }
 }

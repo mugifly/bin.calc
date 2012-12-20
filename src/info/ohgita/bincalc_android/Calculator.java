@@ -3,7 +3,9 @@ package info.ohgita.bincalc_android;
 import info.ohgita.bincalc_android.calculator.BaseConverter;
 import info.ohgita.bincalc_android.calculator.BasicArithOperator;
 import info.ohgita.bincalc_android.calculator.ExpParser;
+import info.ohgita.bincalc_android.calculator.HistoryItem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,6 +24,8 @@ public class Calculator {
 	
 	protected String memory;
 	
+	public ArrayList<HistoryItem> histories;
+	
 	/**
 	 * Constructor
 	 */
@@ -30,6 +34,9 @@ public class Calculator {
 		expParser = new ExpParser();
 		basicArithOperator = new BasicArithOperator();
 		baseConverter = new BaseConverter();
+		
+		histories = new ArrayList<HistoryItem>();
+		
 	}
 	
 	/**
@@ -58,7 +65,8 @@ public class Calculator {
 		LinkedList<String> list = parseToList(exp);
 		
 		/* Calculate formula */
-		return basicArithOperator.calculate(list);
+		String res = basicArithOperator.calculate(list);
+		return res;
 	}
 	
 	/**
@@ -125,4 +133,14 @@ public class Calculator {
 		return resultExp.toString();
 	}
 	
+	public void historyAdd(HistoryItem history) {
+		Log.d("binCalc","historyAdd(history)");
+		histories.add(history);
+	}
+	
+	public int getHistoryNums(){
+		return histories.size();
+	}
+
+
 }

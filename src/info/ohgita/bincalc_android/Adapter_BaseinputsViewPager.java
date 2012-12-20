@@ -1,5 +1,7 @@
 package info.ohgita.bincalc_android;
 
+import info.ohgita.bincalc_android.calculator.HistoryItem;
+
 import com.actionbarsherlock.R;
 
 import android.annotation.SuppressLint;
@@ -7,6 +9,8 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -21,21 +25,40 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public Fragment_main mainFragment;
 	private TableLayout tv;
 	private LinearLayout ll;
+	private ViewPager selfContainer;
+	private View currentView;
+	private static int currentPage;
+	
+	static int ID_BASETYPE_BIN =	100;
+	static int ID_BASETYPE_DEC =	200;
+	static int ID_BASETYPE_HEX =	300;
 	
 	public Adapter_BaseinputsViewPager(Context c, Fragment_main fragment) {
 		super();
 		context = c;
 		mainFragment = fragment;
 		inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		currentPage = 0;
 	}
 
 	@SuppressLint("NewApi")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		int[] pages = {R.layout.page_baseinputs, R.layout.page_baseinputs};
+		Log.d("binCalc","instantiateItem(container, "+position+")");
+		
+		if(position == 0 && currentPage !=0 ){
+			currentPage--;
+		}else if(position == 0 && currentPage == 0){
+			currentPage = 0;
+		}else{
+			currentPage++;
+		}
+		Log.d("binCalc","currentPage = "+currentPage);
+		
+		selfContainer = (ViewPager) container;
 		
 		/* LinearLayout inflating */
-		ll = (LinearLayout)inflater.inflate(pages[0], null);
+		ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
 		
 		/* LinearLayout into container */
 		container.addView(ll);
@@ -79,8 +102,37 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		    et_hex.setInputType(0);
 		}
 		
+		/* Load history */
+		Log.d("binCalc","History num = "+ mainFragment.calc.histories.size());
+		if(currentPage < mainFragment.calc.histories.size()){
+			Log.d("binCalc","Load History..."+ currentPage);
+			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(currentPage);
+			Log.d("binCalc","  history.value = " + history.value);
+			Log.d("binCalc","  history.basetype = " + history.basetype);
+			mainFragment.selectedBasetypeId = history.basetype;
+			switch (history.basetype){
+				case 100:
+					et_bin.setText(history.value);
+					break;
+				case 200:
+					et_dec.setText(history.value);
+					break;
+				case 300:
+					et_hex.setText(history.value);
+					break;
+			};
+			mainFragment.switchBasetype(history.basetype);
+			mainFragment.baseConvert();
+			Log.d("binCalc","Load History done."+ currentPage);
+		}
+		
 		return ll;
     }
+	
+	@Override
+	public int getItemPosition(Object object) {
+		return POSITION_NONE;
+	}
 	
 	@Override
     public void destroyItem(ViewGroup container, int position, Object object) {
@@ -89,7 +141,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	
 	@Override
 	public int getCount() {
-		return 2;
+		return mainFragment.calc.histories.size() + 1;
 	}
 
 	@Override
