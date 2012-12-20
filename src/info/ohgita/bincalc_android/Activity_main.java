@@ -17,7 +17,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
-public class MainActivity extends SherlockFragmentActivity {
+public class Activity_main extends SherlockFragmentActivity {
 	
 	private static final int MENU_ID_LOG = 100;
 	private static final int MENU_ID_ABOUT = 200;
@@ -44,7 +44,7 @@ public class MainActivity extends SherlockFragmentActivity {
     		/* Return from Preference activity */
     		if(resultCode == RESULT_OK){
     			/* Reload preference */
-    			MainFragment f = (MainFragment) fragmentManager.findFragmentById(R.id.fragment_Main);
+    			Fragment_main f = (Fragment_main) fragmentManager.findFragmentById(R.id.fragment_Main);
     			f.loadPreferences();
     		}
     	}
@@ -91,7 +91,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		    break;
 		case MENU_ID_ALLCLEAR:
 			ret = false;
-			MainFragment f = (MainFragment) fragmentManager.findFragmentById(R.id.fragment_Main);
+			Fragment_main f = (Fragment_main) fragmentManager.findFragmentById(R.id.fragment_Main);
 			f.inputAllClear();
 			break;
 		case MENU_ID_PREF:

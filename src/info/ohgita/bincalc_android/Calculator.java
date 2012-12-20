@@ -1,34 +1,34 @@
 package info.ohgita.bincalc_android;
 
-import info.ohgita.bincalc_android.calc.BaseConverter;
-import info.ohgita.bincalc_android.calc.BasicArithOperator;
-import info.ohgita.bincalc_android.calc.ExpParser;
+import info.ohgita.bincalc_android.calculator.BaseConverter;
+import info.ohgita.bincalc_android.calculator.BasicArithOperator;
+import info.ohgita.bincalc_android.calculator.ExpParser;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Stack;
-
 import android.util.Log;
 
 /**
- * Calculator class
- * @author masanori ohgita
+ * bin.Calc Internal calculator class
+ * @author Masanori Ohgita
  */
 public class Calculator {
+	protected ExpParser expParser;	// Numerical-expression (Numerical formula) parser object
+	protected BasicArithOperator basicArithOperator;	// Basic arithmetic operator object
+	protected BaseConverter baseConverter;	// Base converter object
 	
-	ExpParser expParser;
-	BasicArithOperator baOperator;
-	BaseConverter baseConverter;
+	protected String EXP_SYMBOLS[] = {"(",")","*","/","+","-"};
 	
-	String EXP_SYMBOLS[] = {"(",")","*","/","+","-"};
+	protected String memory;
 	
 	/**
 	 * Constructor
 	 */
 	public Calculator(){
+		/* Initialize objects */
 		expParser = new ExpParser();
-		baOperator = new BasicArithOperator();
+		basicArithOperator = new BasicArithOperator();
 		baseConverter = new BaseConverter();
 	}
 	
@@ -46,23 +46,40 @@ public class Calculator {
 		
 	}
 	
-	public void equall(){
-		
-	}
-	
+	/**
+	 * Calculate a numerical formula
+	 * @param exp Numerical formula (Decimal numbers)
+	 * @return Calculated result
+	 */
 	public String calc(String exp){
 		Log.d("binCalc", "calc("+exp+")");
+		
+		/* Parse a numerical formula */
 		LinkedList<String> list = parseToList(exp);
-		return baOperator.calculation(list);
+		
+		/* Calculate formula */
+		return basicArithOperator.calculate(list);
 	}
 	
+	/**
+	 * Parse a numerical formula, and convert to a LinkedList.
+	 * @param exp Numerical formula (Decimal numbers)
+	 * @return Parsed LinkedList
+	 */
 	public LinkedList<String> parseToList(String exp){
 		Log.d("binCalc", "parseToList("+exp+")");
 		return expParser.parseToList(exp);
 	}
 	
-	public String listBaseConv(LinkedList<String> list, int fromNAdic, int toNAdic ){
-		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNAdic+", "+toNAdic+")");
+	/**
+	 * Base number convert from LinkedList
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @param fromNBase Source base
+	 * @param destNBase Destination base
+	 * @return Converted result
+	 */
+	public String listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ){
+		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNBase+", "+destNBase+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
 		
@@ -73,32 +90,32 @@ public class Calculator {
 			String conv = null;
 			
 			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
-				if(fromNAdic == 10){
+				if(fromNBase == 10){
 					/* Convert DEC(10) -> NADIC( 2 or 16 ) */
-					conv = baseConverter.decToN(Double.parseDouble(chunk), toNAdic);
+					conv = baseConverter.decToN(Double.parseDouble(chunk), destNBase);
 					
-				}else if(fromNAdic == 2){
-					if(toNAdic == 10){
+				}else if(fromNBase == 2){
+					if(destNBase == 10){
 						/* Convert BIN(2) -> DEC(10) */
 						conv = baseConverter.binToDec(chunk).toString();
-					}else if(toNAdic == 16){
+					}else if(destNBase == 16){
 						/* Convert BIN(2) -> DEC(16) */
 						conv = baseConverter.decToN( baseConverter.binToDec(chunk), 16);
 					}
 					
-				}else if(fromNAdic == 16){
-					if(toNAdic == 2){
+				}else if(fromNBase == 16){
+					if(destNBase == 2){
 						/* Convert HEX(16) -> BIN(2) */
 						conv = baseConverter.decToN( baseConverter.hexToDec(chunk), 2);
-					}else if(toNAdic == 10){
+					}else if(destNBase == 10){
 						/* Convert HEX(16) -> DEC(10) */
 						conv = baseConverter.hexToDec(chunk).toString();
 					}
 					
 				}else{
-					
 					conv = chunk;
 				}
+				
 			}else{// if symbols(ex: operator)
 				conv = chunk;
 			}

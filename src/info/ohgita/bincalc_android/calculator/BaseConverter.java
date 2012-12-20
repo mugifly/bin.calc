@@ -1,14 +1,15 @@
-package info.ohgita.bincalc_android.calc;
+package info.ohgita.bincalc_android.calculator;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.util.Log;
 
 /**
  * Base number converter class
- * @author masanori
+ * 
+ * Base number convert from LinkedList (Parsed decimal numerical formula).
+ * 
+ * @author Masanori Ohgita
+ * 
  */
 public class BaseConverter {
 	public ArrayList<String> logs;

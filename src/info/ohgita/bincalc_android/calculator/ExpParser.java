@@ -1,25 +1,27 @@
-package info.ohgita.bincalc_android.calc;
-
-/**
- * Numeric expression parser class for bin.Calc
- * @author masanori
- * 
- */
+package info.ohgita.bincalc_android.calculator;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import android.util.Log;
 
+/**
+ * Numerical expression(formula) parser class
+ * 
+ * Parse the decimal numerical formula, and convert to LinkedList.
+ * 
+ * @author masanori
+ * 
+ */
 public class ExpParser {
-
-	LinkedList<String> list;
-	String buf;
-
-	public ExpParser() {
-
-	}
-
+	protected LinkedList<String> list;
+	protected String buf;
+	
+	/**
+	 * Parse a decimal numerical formula, and convert to a LinkedList.
+	 * @param exp Numerical formula (Decimal numbers)
+	 * @return Parsed LinkedList
+	 */
 	public LinkedList<String> parseToList(String exp) {
 		Log.d("binCalc", "ExpParser.parseToList("+exp+")");
 		// TODO I will rewrite it completely :p

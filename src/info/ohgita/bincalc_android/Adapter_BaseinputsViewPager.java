@@ -7,28 +7,22 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
 public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public LayoutInflater inflater;
 	public Context context;
-	public MainFragment mainFragment;
+	public Fragment_main mainFragment;
 	private TableLayout tv;
 	private LinearLayout ll;
 	
-	public Adapter_BaseinputsViewPager(Context c, MainFragment fragment) {
+	public Adapter_BaseinputsViewPager(Context c, Fragment_main fragment) {
 		super();
 		context = c;
 		mainFragment = fragment;
@@ -56,21 +50,21 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
 		        if(isFocus)
-		        	mainFragment.switchBasetype(MainFragment.ID_BASETYPE_BIN);
+		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_BIN);
 		    }
 		});
 		et_dec.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
 		        if(isFocus)
-		        	mainFragment.switchBasetype(MainFragment.ID_BASETYPE_DEC);
+		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_DEC);
 		    }
 		});
 		et_hex.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
 		        if(isFocus)
-		        	mainFragment.switchBasetype(MainFragment.ID_BASETYPE_HEX);
+		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_HEX);
 		    }
 		});
 		

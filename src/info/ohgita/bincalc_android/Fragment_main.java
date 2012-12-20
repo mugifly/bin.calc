@@ -2,7 +2,7 @@ package info.ohgita.bincalc_android;
 
 import java.util.LinkedList;
 
-import info.ohgita.bincalc_android.calc.BaseConverter;
+import info.ohgita.bincalc_android.calculator.BaseConverter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,7 +28,7 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class MainFragment extends SherlockFragment implements OnClickListener, OnLongClickListener {
+public class Fragment_main extends SherlockFragment implements OnClickListener, OnLongClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;

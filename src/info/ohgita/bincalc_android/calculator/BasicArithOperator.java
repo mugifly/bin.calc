@@ -1,4 +1,4 @@
-package info.ohgita.bincalc_android.calc;
+package info.ohgita.bincalc_android.calculator;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -7,24 +7,22 @@ import java.util.LinkedList;
 import android.util.Log;
 
 /**
- * Basic arithmetic operation class for bin.Calc
- * @author masanori
+ * Basic arithmetic operator class
+ * 
+ * Basic arithmetic operation from LinkedList (Parsed decimal numerical formula).
+ * 
+ * @author Masanori Ohgita
  * 
  */
 public class BasicArithOperator {
-	
 	protected LinkedList<String> list;
 	
-	public BasicArithOperator(){
-		
-	}
-	
 	/**
-	 * calculation
-	 * @param list LinkedList 
-	 * @return resultant value String
+	 * Calculate a numerical formula
+	 * @param linkedList LinkedList (Parsed numerical formula)
+	 * @return Calculated result
 	 */
-	public String calculation(LinkedList<String> linkedList){
+	public String calculate(LinkedList<String> linkedList){
 		list = linkedList;
 		Log.i("BasicArithOperator","calculation(...) "+list.toString());
 		return eval(list.iterator());
@@ -37,7 +35,6 @@ public class BasicArithOperator {
 	 */
 	protected String eval(Iterator<String> iter){
 		Log.i("BasicArithOperator", " eval(...)");
-		int i = 0;
 		BigDecimal result = new BigDecimal(0);
 		String beforeStr = "";
 		while(iter.hasNext()){
@@ -69,7 +66,6 @@ public class BasicArithOperator {
 			}
 			iter.remove();
 			beforeStr = str;
-			i++;
 		}
 		Log.i("BasicArithOperator", " * return("+result+")");
 		return result.toString();
