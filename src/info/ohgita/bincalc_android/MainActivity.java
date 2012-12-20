@@ -34,7 +34,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_main);
 		
 		fragmentManager = getSupportFragmentManager();
-		
 	}
 
 	@Override

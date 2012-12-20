@@ -102,27 +102,4 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public boolean isViewFromObject(View view, Object obj) {
 		return view.equals(obj);
 	}
-	
-	/*@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		ImageButton bs_bin = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_bin);
-		ImageButton bs_dec = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_dec);
-		ImageButton bs_hex = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_hex);
-		if(v.getId() == R.id.ImageButton_baseinput_bs_dec ||
-				v.getId() == R.id.ImageButton_baseinput_bs_bin ||
-				v.getId() == R.id.ImageButton_baseinput_bs_hex
-			){
-				if (event.getAction() == MotionEvent.ACTION_DOWN){
-					bs_dec.setPressed(true);
-					bs_bin.setPressed(true);
-					bs_hex.setPressed(true);
-				}else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-					bs_dec.setPressed(false);
-					bs_bin.setPressed(false);
-					bs_hex.setPressed(false);
-				}
-		}
-		return false;
-	}*/
-
 }

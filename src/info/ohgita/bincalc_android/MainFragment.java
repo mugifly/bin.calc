@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -27,7 +28,7 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragment;
 
-public class MainFragment extends SherlockFragment implements OnClickListener {
+public class MainFragment extends SherlockFragment implements OnClickListener, OnLongClickListener {
 	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
@@ -113,9 +114,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
 		
-		/* Set event-handler to Base-input backspace button (ImageButton) */
+		/* Set event-handler to backspace button (ImageButton) */
 		ImageView bs = (ImageView) v.findViewById(R.id.imageButton_baseinput_backspace);
 		bs.setOnClickListener(this);
+		bs.setOnLongClickListener(this);
 		
 		/* initialize calculator class */
 		calc = new Calculator();
@@ -176,9 +178,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		}
 	}
 	
-	/** All-Clear calculator
+	/** 
+	 * All-Clear calculator
+	 * ( with Inputs, Memories, others... )
 	 */
 	public void inputAllClear(){
+		EditText et = getCurrent_Baseinput_EditText();
+		et.setText("0");
+		calculate();
+	}
+	
+	/** 
+	 * Input-Clear calculator
+	 */
+	public void inputClear(){
 		EditText et = getCurrent_Baseinput_EditText();
 		et.setText("0");
 		calculate();
@@ -440,6 +453,19 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		getCurrent_Baseinput_Backspace_ImageView().setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_active));
 	}
 
+	
+	/* Event-handler for Parent activity has created */
+	@Override
+	public void onActivityCreated(Bundle bundle){
+		super.onActivityCreated(bundle);
+	}
+	
+	/* Event-handler for onStart */
+	@Override
+	public void onStart(){
+		super.onStart();
+	}
+	
 	/* Event-handler for buttons */
 	@Override
 	public void onClick(View v) {
@@ -524,5 +550,20 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 				inputEquall();
 				break;
 		};
+	}
+
+	/* Event-handler for buttons (Long-click) */
+	@Override
+	public boolean onLongClick(View v) {
+		if(pref_keyVibration){
+			vib.vibrate(DEFAULT_VIBRATION_MSEC);
+		}
+		switch(v.getId()){
+			/* Backspace button => Long-click ... All backspace */
+			case R.id.imageButton_baseinput_backspace:
+				inputClear();
+				return false;
+		};
+		return true;
 	}
 }
