@@ -13,11 +13,12 @@
             android:id="@+id/tableLayout_basetypes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="0"
             android:orientation="horizontal" >
 
             <TableRow
                 android:id="@+id/tableRow_basetype_dec"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
 
@@ -32,7 +33,7 @@
 
             <TableRow
                 android:id="@+id/tableRow_basetype_bin"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
 
@@ -47,7 +48,7 @@
 
             <TableRow
                 android:id="@+id/tableRow_basetype_hex"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
 
@@ -62,9 +63,82 @@
         </TableLayout>
 
 		<android.support.v4.view.ViewPager
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:id="@+id/baseinputsViewPager" />
+		    android:id="@+id/baseinputsViewPager"
+		    android:layout_width="0dip"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1" />
+
+		<RelativeLayout
+		    android:layout_width="60dip"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0" >
+
+			<TableLayout
+			    xmlns:android="http://schemas.android.com/apk/res/android"
+			    android:id="@+id/tableLayout_baseinputBss"
+			    android:layout_width="60dip"
+			    android:layout_height="match_parent"
+			    android:layout_weight="0"
+			    android:orientation="horizontal"
+			    android:stretchColumns="0" >
+
+			    <TableRow
+			        android:id="@+id/tableRow_baseinputBs_dec"
+			        android:layout_width="wrap_content"
+			        android:layout_height="0dip"
+			        android:layout_weight="1" >
+
+			        <ImageButton
+			            android:id="@+id/imageView_baseinput_bs_dec"
+			            android:layout_width="wrap_content"
+			            android:layout_height="match_parent"
+			            android:background="@drawable/image_backspace_background_active"
+			            android:baselineAlignBottom="false"
+			            android:scaleType="center"
+			            android:src="@drawable/image_backspace_active" />
+			    </TableRow>
+
+			    <TableRow
+			        android:id="@+id/tableRow_baseinputBs_bin"
+			        android:layout_width="wrap_content"
+			        android:layout_height="0dip"
+			        android:layout_weight="1" >
+
+			        <ImageButton
+			            android:id="@+id/imageView_baseinput_bs_bin"
+			            android:layout_width="wrap_content"
+			            android:layout_height="match_parent"
+			            android:background="@drawable/image_backspace_background_active"
+			            android:baselineAlignBottom="false"
+			            android:src="@drawable/image_backspace_active" />
+			    </TableRow>
+
+			    <TableRow
+			        android:id="@+id/tableRow_baseinputBs_hex"
+			        android:layout_width="wrap_content"
+			        android:layout_height="0dip"
+			        android:layout_weight="1" >
+
+			        <ImageButton
+			            android:id="@+id/imageView_baseinput_bs_hex"
+			            android:layout_width="wrap_content"
+			            android:layout_height="match_parent"
+			            android:background="@drawable/image_backspace_background_active"
+			            android:baselineAlignBottom="false"
+			            android:src="@drawable/image_backspace_active" />
+			    </TableRow>
+			</TableLayout>
+
+			<ImageButton
+			    android:id="@+id/imageButton_baseinput_backspace"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:layout_alignParentRight="true"
+			    android:alpha="255"
+			    android:background="@null"
+			    android:src="@drawable/button_backspace_container" />
+
+		</RelativeLayout>
         
     </LinearLayout>
 

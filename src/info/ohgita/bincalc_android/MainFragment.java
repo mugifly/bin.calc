@@ -113,12 +113,15 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
 		
+		/* Set event-handler to Base-input backspace button (ImageButton) */
+		ImageView bs = (ImageView) v.findViewById(R.id.imageButton_baseinput_backspace);
+		bs.setOnClickListener(this);
+		
 		/* initialize calculator class */
 		calc = new Calculator();
 		
 		/* initialize base-converter class */
 		baseconv = new BaseConverter();
-		
 		
 		/* initialize vibration */
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
@@ -328,15 +331,15 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 
 
 	/**
-	 * get current base-input Backspace (ImageButton) object
+	 * get current base-input Backspace (ImageView) object
 	 */
-	public ImageButton getCurrent_Baseinput_Backspace_ImageButton(){
+	public ImageButton getCurrent_Baseinput_Backspace_ImageView(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_bin);
+			return (ImageButton) v.findViewById(R.id.imageView_baseinput_bs_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_dec);
+			return (ImageButton) v.findViewById(R.id.imageView_baseinput_bs_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (ImageButton) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
+			return (ImageButton) v.findViewById(R.id.imageView_baseinput_bs_hex);
 		}
 		return null;
 	}
@@ -392,15 +395,15 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		selectedBasetypeId = basetypeId;
 		
 		ToggleButton tb_type_bin = (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
-		ImageView bs_bin = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_bin);
+		ImageView bs_bin = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_bin);
 		EditText et_input_bin = (EditText) v.findViewById(R.id.editText_baseinput_bin);
 		
 		ToggleButton tb_type_dec = (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
-		ImageView bs_dec = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_dec);
+		ImageView bs_dec = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_dec);
 		EditText et_input_dec = (EditText) v.findViewById(R.id.editText_baseinput_dec);
 		
 		ToggleButton tb_type_hex = (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
-		ImageView bs_hex = (ImageView) v.findViewById(R.id.ImageButton_baseinput_bs_hex);
+		ImageView bs_hex = (ImageView) v.findViewById(R.id.imageView_baseinput_bs_hex);
 		EditText et_input_hex = (EditText) v.findViewById(R.id.editText_baseinput_hex);
 		
 		/* Set enable/disable Number key buttons */
@@ -422,19 +425,19 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		tb_type_hex.setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_default));
 		
 		/* Invisible backspace-button */
-		bs_bin.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
-		bs_bin.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
-		bs_dec.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
-		bs_dec.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
-		bs_hex.setImageDrawable(getResources().getDrawable(R.drawable.button_backspace_null));
-		bs_hex.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background_null));
+		bs_bin.setImageDrawable(getResources().getDrawable(R.drawable.image_backspace_null));
+		bs_bin.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_null));
+		bs_dec.setImageDrawable(getResources().getDrawable(R.drawable.image_backspace_null));
+		bs_dec.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_null));
+		bs_hex.setImageDrawable(getResources().getDrawable(R.drawable.image_backspace_null));
+		bs_hex.setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_null));
 		
 		/* activate Base-types & base-inputs */
 		getCurrent_Basetype_ToggleButton().setChecked(true);
 		getCurrent_Basetype_ToggleButton().setTextColor(getResources().getColor(R.color.main_toggle_basetype_TextColor_active));
 		getCurrent_Baseinput_EditText().setBackgroundDrawable(this.getResources().getDrawable(R.drawable.edittext_baseinput_active));
-		getCurrent_Baseinput_Backspace_ImageButton().setImageDrawable(getResources().getDrawable(R.drawable.button_backspace));
-		getCurrent_Baseinput_Backspace_ImageButton().setBackgroundDrawable(getResources().getDrawable(R.drawable.button_backspace_background));
+		getCurrent_Baseinput_Backspace_ImageView().setImageDrawable(getResources().getDrawable(R.drawable.image_backspace_active));
+		getCurrent_Baseinput_Backspace_ImageView().setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_active));
 	}
 
 	/* Event-handler for buttons */
@@ -444,6 +447,11 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			vib.vibrate(DEFAULT_VIBRATION_MSEC);
 		}
 		switch(v.getId()){
+			/* Backspace button */
+			case R.id.imageButton_baseinput_backspace:
+				inputBackspace();
+				break;
+		
 			/* Key-buttons (0-9) */
 			case R.id.keyButton0:
 				inputBasenumber("0");

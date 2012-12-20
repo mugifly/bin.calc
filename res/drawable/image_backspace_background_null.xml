@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="#eeeeee" android:height="2dp" />
     <padding
-        android:left="5dp"
-        android:top="2dp"
+        android:left="10dp"
+        android:top="10dp"
         android:right="10dp"
-        android:bottom="2dp" />
+        android:bottom="10dp" />
 </shape>

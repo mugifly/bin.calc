@@ -18,13 +18,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClickListener, OnTouchListener {
+public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public LayoutInflater inflater;
 	public Context context;
 	public MainFragment mainFragment;
 	private TableLayout tv;
+	private LinearLayout ll;
 	
 	public Adapter_BaseinputsViewPager(Context c, MainFragment fragment) {
 		super();
@@ -38,12 +40,14 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 	public Object instantiateItem(ViewGroup container, int position) {
 		int[] pages = {R.layout.page_baseinputs, R.layout.page_baseinputs};
 		
-		/* TableLayout inflating */
-		tv = (TableLayout)inflater.inflate(pages[0], null);
+		/* LinearLayout inflating */
+		ll = (LinearLayout)inflater.inflate(pages[0], null);
 		
-		/* TableLayout into container */
-		container.addView(tv);
-				
+		/* LinearLayout into container */
+		container.addView(ll);
+		
+		tv = (TableLayout) ll.findViewById(R.id.tableLayout_baseinputs);
+		
 		/* Set event-handler to Base-input EditText */
 		EditText et_bin = (EditText) tv.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) tv.findViewById(R.id.editText_baseinput_dec);
@@ -70,17 +74,6 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		    }
 		});
 		
-		/* Set event-handler to Base-inputs backspace button (ImageButton) */
-		ImageView bs_bin = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_bin);
-		ImageView bs_dec = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_dec);
-		ImageView bs_hex = (ImageView) tv.findViewById(R.id.ImageButton_baseinput_bs_hex);
-		bs_bin.setOnClickListener(this);
-		bs_dec.setOnClickListener(this);
-		bs_hex.setOnClickListener(this);
-		bs_bin.setOnTouchListener(this);
-		bs_dec.setOnTouchListener(this);
-		bs_hex.setOnTouchListener(this);
-		
 		/* Hide a on-screen keyboard on Base-input EditText */
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    	et_bin.setTextIsSelectable(true);
@@ -92,7 +85,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		    et_hex.setInputType(0);
 		}
 		
-		return tv;
+		return ll;
     }
 	
 	@Override
@@ -110,26 +103,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 		return view.equals(obj);
 	}
 	
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-			case R.id.ImageButton_baseinput_bs_dec:
-				inputBackspace();
-				break;
-			case R.id.ImageButton_baseinput_bs_bin:
-				inputBackspace();
-				break;
-			case R.id.ImageButton_baseinput_bs_hex:
-				inputBackspace();
-				break;
-		}
-	}
-	
-	public void inputBackspace(){
-		mainFragment.inputBackspace();
-	}
-
-	@Override
+	/*@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		ImageButton bs_bin = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_bin);
 		ImageButton bs_dec = (ImageButton) mainFragment.getView().findViewById(R.id.ImageButton_baseinput_bs_dec);
@@ -149,6 +123,6 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter implements OnClick
 				}
 		}
 		return false;
-	}
+	}*/
 
 }
