@@ -72,6 +72,8 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
 					switchBasetype(ID_BASETYPE_BIN);
+				}else if(selectedBasetypeId == ID_BASETYPE_BIN){
+					buttonView.setChecked(true);
 				}
 			}
 		});
@@ -79,6 +81,8 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
 					switchBasetype(ID_BASETYPE_DEC);
+				}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+					buttonView.setChecked(true);
 				}
 			}
 		});
@@ -86,6 +90,8 @@ public class Fragment_main extends SherlockFragment implements OnClickListener, 
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
 					switchBasetype(ID_BASETYPE_HEX);
+				}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+					buttonView.setChecked(true);
 				}
 			}
 		});
