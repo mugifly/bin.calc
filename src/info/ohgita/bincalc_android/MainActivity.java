@@ -24,6 +24,8 @@ public class MainActivity extends SherlockFragmentActivity {
 	private static final int MENU_ID_ALLCLEAR = 300;
 	private static final int MENU_ID_PREF = 400;
 	
+	private static final int REQUEST_CODE_PREFERENCE_DONE = 1000; 
+	
 	FragmentManager fragmentManager;
 	
 	@Override
@@ -35,6 +37,18 @@ public class MainActivity extends SherlockFragmentActivity {
 		
 		fragmentManager = getSupportFragmentManager();
 	}
+	
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	if(requestCode == REQUEST_CODE_PREFERENCE_DONE){
+    		/* Return from Preference activity */
+    		if(resultCode == RESULT_OK){
+    			/* Reload preference */
+    			MainFragment f = (MainFragment) fragmentManager.findFragmentById(R.id.fragment_Main);
+    			f.loadPreferences();
+    		}
+    	}
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

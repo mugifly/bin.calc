@@ -129,11 +129,18 @@ public class MainFragment extends SherlockFragment implements OnClickListener, O
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 		
 		/* loading preferences */
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		pref_keyVibration = pref.getBoolean(getResources().getString(R.string.pref_item_keyVibration_key), false);
+		loadPreferences();
 		
 		/* return inflated view */
 		return v;
+	}
+	
+	/**
+	 * Load preferences
+	 */
+	public void loadPreferences(){
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		pref_keyVibration = pref.getBoolean(getResources().getString(R.string.pref_item_keyVibration_key), false);
 	}
 	
 	/**
