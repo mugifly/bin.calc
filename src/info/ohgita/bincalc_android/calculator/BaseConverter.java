@@ -19,8 +19,9 @@ public class BaseConverter {
 	 * @param num	Source decimal number
 	 * @param n_adic N-adic number
 	 * @return converted number
+	 * @throws Exception 
 	 */
-	public String decToN(double num, int n_adic){
+	public String decToN(double num, int n_adic) throws Exception{
 		Log.d("binCalc", "BaseConverter.decToN("+num+", "+n_adic+")");
 		logClear();
 		
@@ -30,6 +31,11 @@ public class BaseConverter {
 		/* Separate fraction part */
 		int num_int = (int) num; // base-10 number integer-part
 		double num_dec = num % 1.0; // base-10 number decimal-places-part
+		
+		/* Integer overflow check */
+		if(num_int >= Integer.MAX_VALUE){
+			throw new Exception();
+		}
 		
 		/* Process for integer part */
 		Integer value;

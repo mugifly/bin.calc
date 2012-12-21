@@ -85,8 +85,9 @@ public class Calculator {
 	 * @param fromNBase Source base
 	 * @param destNBase Destination base
 	 * @return Converted result
+	 * @throws Exception 
 	 */
-	public String listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ){
+	public String listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ) throws Exception{
 		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNBase+", "+destNBase+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
@@ -165,7 +166,9 @@ public class Calculator {
 				if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
 					Double d = Double.parseDouble(chunk);
 					if(isDecimalFraction(chunk) == false){
-						chunk = d.intValue() + "";
+						if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
+							chunk = d.intValue() + "";
+						}
 					}
 				}
 			}
