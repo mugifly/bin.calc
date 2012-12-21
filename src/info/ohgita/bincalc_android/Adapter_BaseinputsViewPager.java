@@ -120,10 +120,9 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			mainFragment.baseConvert();
 			Log.d("binCalc","Load History done."+ currentPage);
 		}else{
+			mainFragment.baseinputsViewPager_LinearLayout = ll;
 			mainFragment.init();
 		}
-		
-		mainFragment.baseinputsViewPager_LinearLayout = ll;
 		
 		Log.i("binCalc", "ViewPager instantiateItem complete.");
 		return ll;
