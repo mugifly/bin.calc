@@ -137,7 +137,7 @@ public class Activity_main extends SherlockFragmentActivity {
 			break;
 		case MENU_ID_PREF:
 			ret = false;
-			startActivity(new Intent(this, Activity_preference.class));
+			startActivityForResult(new Intent(this, Activity_preference.class), REQUEST_CODE_PREFERENCE_DONE);
 			break;
 		}
 		return ret;
