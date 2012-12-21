@@ -240,7 +240,9 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		/* Calculate */
 		try{
 			if(sourceBasetype == ID_BASETYPE_BIN){
-				et_bin.setText( calc.listToString( calc.listZeropadding( parsedList , 2) , 2)); // for zero-padding
+				et_bin.setText( calc.listToString(
+						calc.listZeropadding( parsedList , 2)
+				, 2) ); // for zero-padding && separate
 				et_dec.setText( calc.listBaseConv(parsedList, 2, 10) );
 				et_hex.setText( calc.listBaseConv(parsedList, 2, 16) );
 			}else if(sourceBasetype == ID_BASETYPE_DEC){

@@ -88,6 +88,22 @@ public class BaseConverter {
 	}
 	
 	/**
+	 * 4bit-separate for Binary number
+	 * @param num Binary number
+	 * @return 4bit separated number
+	 */
+	public String binSeparate(String num) {
+		StringBuilder ret = new StringBuilder();
+		for(int i=0;i<num.length();i++){
+			if(i % 4 == 0){
+				ret.append(",");
+			}
+			ret.append(num.charAt(i)+"");
+		}
+		return ret.toString();
+	}
+	
+	/**
 	 * Zero-padding for Binary number 
 	 * @param num Binary number
 	 * @return Zero-padding number

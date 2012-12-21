@@ -35,6 +35,11 @@ public class ExpParser {
 		for (int i = 0; i < exp.length(); i++) {
 			char c = exp.charAt(i);
 			
+			if(c == ','){
+				// if space ...
+				continue;
+			}
+			
 			if (c == ')') {
 				// if close-bracket...
 				

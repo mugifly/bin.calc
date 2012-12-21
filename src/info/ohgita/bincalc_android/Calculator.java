@@ -98,7 +98,8 @@ public class Calculator {
 			
 			String conv = null;
 			
-			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0)
+			{// if number
 				
 				if(fromNBase == 10){
 					/* Convert DEC(10) -> NADIC( 2 or 16 ) */
@@ -196,6 +197,28 @@ public class Calculator {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * Separate for LinkedList
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @param nBase Source base
+	 * @return Processed LinkedList
+	 */
+	public LinkedList<String> listSeparate(LinkedList<String> list, int nBase){
+		Log.d("binCalc", "Calculator.listSeparate(list, "+nBase+")");
+		LinkedList<String> ret_list = new LinkedList<String>(); 
+		for(int i=0;i<list.size();i++){
+			String chunk = list.get(i);
+			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+				if(nBase == 2){ // binary
+					ret_list.set(i, baseConverter.binSeparate(chunk));
+					continue;
+				}
+			}
+			ret_list.set(i, chunk);
+		}
+		return ret_list;
 	}
 	
 	public void historyAdd(HistoryItem history) {
