@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.R;
@@ -168,11 +169,14 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public void calculate(){
 		Log.d("binCalc", "calculate()");
-		String value = getCurrent_Baseinput_EditText().getText().toString();
 		
-		/* Calculate */
+		/* Before Base convert */
+		baseConvert();
+		
+		/* Calculate (using Decimal) */
+		String dec_value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec)).getText().toString();
 		try{
-			value = calc.calc(value);
+			dec_value = calc.calc(dec_value);
 		}catch(NullPointerException e){
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}catch(NumberFormatException e){
@@ -182,25 +186,37 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		/* Save current calculator, into histories list */
 		HistoryItem hist = new HistoryItem();
 		hist.basetype = selectedBasetypeId;
-		hist.value = value;
+		hist.value = getCurrent_Baseinput_EditText().getText().toString();
 		calc.historyAdd(hist);
 		
 		/* Scroll Base-inputs (Viewpager (history)) */
 		baseinputsViewPager.setCurrentItem(calc.getHistoryNums());
 		
-		/* Set caluculate result to Base-input */
-		getCurrent_Baseinput_EditText().setText(value);
+		/* Set caluculate result to Decimal EditText */
+		((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec)).setText(dec_value);
 		
-		/* Base convert */
-		baseConvert();
+		/* After Base convert */
+		baseConvert(ID_BASETYPE_DEC);
 	}
 	
 	/**
 	 * Convert input base-number
 	 */
 	public void baseConvert(){
+		baseConvert(selectedBasetypeId);
+	}
+	
+	public void baseConvert(int sourceBasetype){
 		Log.d("binCalc", "baseConvert()");
-		String value = getCurrent_Baseinput_EditText().getText().toString();
+		
+		String value = null;
+		if(sourceBasetype == ID_BASETYPE_BIN){
+			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin)).getText().toString();
+		}else if(sourceBasetype == ID_BASETYPE_DEC){
+			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec)).getText().toString();
+		}else if(sourceBasetype == ID_BASETYPE_HEX){
+			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex)).getText().toString();
+		}
 		
 		EditText et_bin = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
@@ -224,13 +240,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		
 		/* Calculate */
 		try{
-			if(selectedBasetypeId == ID_BASETYPE_BIN){
+			if(sourceBasetype == ID_BASETYPE_BIN){
 				et_dec.setText( calc.listBaseConv(parsedList, 2, 10) );
 				et_hex.setText( calc.listBaseConv(parsedList, 2, 16) );
-			}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			}else if(sourceBasetype == ID_BASETYPE_DEC){
 				et_bin.setText( calc.listBaseConv(parsedList, 10, 2) );
 				et_hex.setText( calc.listBaseConv(parsedList, 10, 16) );
-			}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			}else if(sourceBasetype == ID_BASETYPE_HEX){
 				et_bin.setText( calc.listBaseConv(parsedList, 16, 2) );
 				et_dec.setText( calc.listBaseConv(parsedList, 16, 10) );
 			}
