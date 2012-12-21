@@ -9,7 +9,6 @@ import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +24,11 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public Fragment_main mainFragment;
 	private TableLayout tv;
 	private LinearLayout ll;
-	private ViewPager selfContainer;
-	private View currentView;
 	private static int currentPage;
 	
-	static int ID_BASETYPE_BIN =	100;
-	static int ID_BASETYPE_DEC =	200;
-	static int ID_BASETYPE_HEX =	300;
+	final static int ID_BASETYPE_BIN =	100;
+	final static int ID_BASETYPE_DEC =	200;
+	final static int ID_BASETYPE_HEX =	300;
 	
 	public Adapter_BaseinputsViewPager(Context c, Fragment_main fragment) {
 		super();
@@ -54,8 +51,6 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			currentPage++;
 		}
 		Log.d("binCalc","currentPage = "+currentPage);
-		
-		selfContainer = (ViewPager) container;
 		
 		/* LinearLayout inflating */
 		ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
@@ -111,13 +106,13 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			Log.d("binCalc","  history.basetype = " + history.basetype);
 			mainFragment.selectedBasetypeId = history.basetype;
 			switch (history.basetype){
-				case 100:
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
 					et_bin.setText(history.value);
 					break;
-				case 200:
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_DEC:
 					et_dec.setText(history.value);
 					break;
-				case 300:
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_HEX:
 					et_hex.setText(history.value);
 					break;
 			};
