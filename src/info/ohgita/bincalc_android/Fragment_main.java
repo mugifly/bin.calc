@@ -497,7 +497,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	public void switchBasetype(int basetypeId){
 		selectedBasetypeId = basetypeId;
 		
-		if(baseinputsViewPager == null){
+		if(getCurrent_Baseinputs_ViewPager() == null){
 			return;
 		}
 		
@@ -678,9 +678,10 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
      */
 	public void init() {
 		if(is_init == false){
+			Log.d("binCalc","Fragment - init()");
 			is_init = true;
 			inputAllClear();
-			switchBasetype(ID_BASETYPE_BIN);
+			switchBasetype(selectedBasetypeId);
 		}
 	}
 }

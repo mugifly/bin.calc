@@ -48,6 +48,7 @@ public class Activity_main extends SherlockFragmentActivity {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		Log.d("binCalc","Activity - onSaveInstanceState()");
 
 		Fragment_main f = (Fragment_main) fragmentManager
 				.findFragmentById(R.id.fragment_Main);
@@ -61,6 +62,7 @@ public class Activity_main extends SherlockFragmentActivity {
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
+		Log.d("binCalc","Activity - onRestoreInstanceState()");
 		Fragment_main f = (Fragment_main) fragmentManager
 				.findFragmentById(R.id.fragment_Main);
 
@@ -68,11 +70,10 @@ public class Activity_main extends SherlockFragmentActivity {
 		if (basetype != -1) {
 			f.selectedBasetypeId = basetype;
 		}
-		f.selectedBasetypeId = 300;
 		
 		String value = savedInstanceState.getString(STATE_KEY_BASEINPUT_VALUE); 
 		if(value != null){
-			//f.setValue(value); // DEBUG!!
+			// DEBUG!! 値のリストアは未実装
 		}
 	}
 
