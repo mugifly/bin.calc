@@ -119,8 +119,13 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			mainFragment.switchBasetype(history.basetype);
 			mainFragment.baseConvert();
 			Log.d("binCalc","Load History done."+ currentPage);
+		}else{
+			mainFragment.init();
 		}
 		
+		mainFragment.baseinputsViewPager_LinearLayout = ll;
+		
+		Log.i("binCalc", "ViewPager instantiateItem complete.");
 		return ll;
     }
 	

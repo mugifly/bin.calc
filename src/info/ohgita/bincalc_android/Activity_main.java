@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.actionbarsherlock.R;
@@ -40,6 +41,8 @@ public class Activity_main extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		fragmentManager = getSupportFragmentManager();
+		
+		Log.i("binCalc", "Activity - onCreated");
 	}
 
 	@Override

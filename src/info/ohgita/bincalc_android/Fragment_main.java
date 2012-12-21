@@ -24,6 +24,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
@@ -31,10 +32,13 @@ import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragment;
 
 final public class Fragment_main extends SherlockFragment implements OnClickListener, OnLongClickListener {
-	int selectedBasetypeId = -1; 
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
 	static int ID_BASETYPE_HEX =	300;
+	
+	boolean is_init = false;
+	
+	int selectedBasetypeId = ID_BASETYPE_BIN; 
 	
 	int currentOperationModeId = -1;
 	static int ID_OPRMODE_PLUS = 1;
@@ -54,11 +58,16 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	Vibrator vib;
 	
 	ViewPager baseinputsViewPager;
+	public LinearLayout baseinputsViewPager_LinearLayout;
 	static int baseinputsViewPager_pageNum;
 	
 	@SuppressLint("NewApi")
 	@Override
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {	
+	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		Log.d("binCalc","Fragment - onCreateView()");
+		
+		is_init = false;
+		
 		/* inflating Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
@@ -241,12 +250,16 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		baseConvert();
 	}
 	
+	
 	/** 
 	 * All-Clear calculator
 	 * ( with Inputs, Memories, others... )
 	 */
 	public void inputAllClear(){
+		Log.d("binCalc","Fragment - inputAllClear()");
 		EditText et = getCurrent_Baseinput_EditText();
+		if(et == null)
+			return;
 		et.setText("0");
 		baseConvert();
 	}
@@ -391,7 +404,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
 			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex);
 		}
-		return null;
+		return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 	}
 
 	/**
@@ -403,6 +416,12 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		if(2 <= currentItem){
 			currentItem = 1;
 		}
+		Log.d("binCalc","  currentItem = "+currentItem);
+		if(baseinputsViewPager.getChildAt(currentItem) == null){
+			Log.d("binCalc","  ViewPager is null");
+			return (View) baseinputsViewPager_LinearLayout;
+		}
+		
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			return (View) baseinputsViewPager.getChildAt(currentItem);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
@@ -410,6 +429,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
 			return (View) baseinputsViewPager.getChildAt(currentItem);
 		}
+		
 		return null;
 	}
 
@@ -533,6 +553,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	@Override
 	public void onActivityCreated(Bundle bundle){
 		super.onActivityCreated(bundle);
+		Log.i("binCalc", "Fragment - onActivityCreated");
 	}
 	
 	/* Event-handler for onStart */
@@ -645,8 +666,21 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	/* Event-handler for Viewpager */
     private class PageListener extends SimpleOnPageChangeListener{
         public void onPageSelected(int position) {
+        	Log.d("binCalc","Fragment - PageListener - onPageSelected()");
         	baseinputsViewPager_pageNum = position;
         	baseConvert();
         }
     }
+
+    /* 
+     Initialize process
+    	(It has call when ViewPager has just completed a instantiateItem() method.)
+     */
+	public void init() {
+		if(is_init == false){
+			is_init = true;
+			inputAllClear();
+			switchBasetype(ID_BASETYPE_BIN);
+		}
+	}
 }
