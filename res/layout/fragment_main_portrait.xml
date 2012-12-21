@@ -355,6 +355,7 @@
 	            android:id="@+id/keyButton2"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
+	            android:width="0dp"
 	            android:background="@drawable/button_keynum"
 	            android:text="2"
 	            style="@style/main_keyButtons" />
