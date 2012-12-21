@@ -67,6 +67,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
+				Log.d("binCalc","onFocus...BIN");
 		        if(isFocus)
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_BIN);
 		    }
@@ -74,6 +75,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		et_dec.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
+				Log.d("binCalc","onFocus...DEC");
 		        if(isFocus)
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_DEC);
 		    }
@@ -81,6 +83,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		et_hex.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
+				Log.d("binCalc","onFocus...HEX");
 		        if(isFocus)
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_HEX);
 		    }

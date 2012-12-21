@@ -68,9 +68,7 @@ public class BaseConverter {
 		
 		/* Zero padding */
 		if(n_adic == 2){
-			while(ret_int.length() %4 != 0){
-				ret_int = "0"+ret_int;
-			}
+			ret_int = binZeroPadding(ret_int);
 		}
 		
 		/* Make return value */
@@ -83,6 +81,24 @@ public class BaseConverter {
 		return ret.toString();
 	}
 	
+	/**
+	 * Zero-padding for Binary number 
+	 * @param num Binary number
+	 * @return Zero-padding number
+	 */
+	public String binZeroPadding(String num) {
+		while(num.length() %4 != 0){
+			num = "0" + num;
+		}
+		while(num.indexOf("0000") == 0){
+			num = num.substring(4);
+		}
+		if(num.length() == 0){
+			num = "0000";
+		}
+		return num;
+	}
+
 	/**
 	 * Binary to decimal number
 	 * @param bin	Source binary number (String)

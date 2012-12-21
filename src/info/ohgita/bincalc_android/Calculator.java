@@ -98,28 +98,41 @@ public class Calculator {
 			String conv = null;
 			
 			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+				
 				if(fromNBase == 10){
 					/* Convert DEC(10) -> NADIC( 2 or 16 ) */
 					conv = baseConverter.decToN(Double.parseDouble(chunk), destNBase);
 					
 				}else if(fromNBase == 2){
+					
 					if(destNBase == 10){
 						/* Convert BIN(2) -> DEC(10) */
-						conv = baseConverter.binToDec(chunk).toString();
+						Double d =baseConverter.binToDec(chunk);
+						if(isDecimalFraction(chunk) == true){
+							conv = d.toString();
+						}else{
+							conv = d.intValue() + "";
+						}
 					}else if(destNBase == 16){
 						/* Convert BIN(2) -> DEC(16) */
 						conv = baseConverter.decToN( baseConverter.binToDec(chunk), 16);
 					}
 					
 				}else if(fromNBase == 16){
+					
 					if(destNBase == 2){
 						/* Convert HEX(16) -> BIN(2) */
 						conv = baseConverter.decToN( baseConverter.hexToDec(chunk), 2);
 					}else if(destNBase == 10){
 						/* Convert HEX(16) -> DEC(10) */
-						conv = baseConverter.hexToDec(chunk).toString();
+						Double d = baseConverter.hexToDec(chunk);
+						if(isDecimalFraction(chunk) == true){
+							conv = d.toString();
+						}else{
+							conv = d.intValue() + "";
+						}
 					}
-					
+				
 				}else{
 					conv = chunk;
 				}
@@ -133,6 +146,55 @@ public class Calculator {
 		return resultExp.toString();
 	}
 	
+	
+	/**
+	 * Convert LinkedList to String (Numerical formula) 
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @param nBase Source base
+	 * @return Numerical formula string
+	 */
+	public String listToString(LinkedList<String> list, int nBase){
+		Log.d("binCalc", "Calculator.listToString(list, "+nBase+")");
+		Iterator<String> iter = list.iterator();
+		StringBuilder resultExp = new StringBuilder();
+		
+		while(iter.hasNext()){
+			String chunk = iter.next();
+			
+			if(nBase == 10){ // for Remove a decimal point
+				if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+					Double d = Double.parseDouble(chunk);
+					if(isDecimalFraction(chunk) == false){
+						chunk = d.intValue() + "";
+					}
+				}
+			}
+			
+			resultExp.append(chunk);
+		}
+		Log.d("binCalc", "  => "+resultExp.toString());
+		return resultExp.toString();
+	}
+	
+	/**
+	 * Zero-padding for LinkedList
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @param nBase Source base
+	 * @return Processed LinkedList
+	 */
+	public LinkedList<String> listZeropadding(LinkedList<String> list, int nBase){
+		Log.d("binCalc", "Calculator.listZeropadding(list, "+nBase+")");
+		for(int i=0;i<list.size();i++){
+			String chunk = list.get(i);
+			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+				if(nBase == 2){ // binary
+					list.set(i, baseConverter.binZeroPadding(chunk));
+				}
+			}
+		}
+		return list;
+	}
+	
 	public void historyAdd(HistoryItem history) {
 		Log.d("binCalc","historyAdd(history)");
 		histories.add(history);
@@ -141,6 +203,16 @@ public class Calculator {
 	public int getHistoryNums(){
 		return histories.size();
 	}
-
+	
+	protected boolean isDecimalFraction(String dec){
+		if(dec.charAt(dec.length() -1) == '.'){ // ex: "1."
+			return true;
+		}
+		Double d = Double.parseDouble(dec);
+		if(d % 1.0 == 0.0){
+			return false; // Integer number
+		}
+		return true; // Fraction number
+	}
 
 }

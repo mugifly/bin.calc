@@ -26,7 +26,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.R;
@@ -241,10 +240,12 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		/* Calculate */
 		try{
 			if(sourceBasetype == ID_BASETYPE_BIN){
+				et_bin.setText( calc.listToString( calc.listZeropadding( parsedList , 2) , 2)); // for zero-padding
 				et_dec.setText( calc.listBaseConv(parsedList, 2, 10) );
 				et_hex.setText( calc.listBaseConv(parsedList, 2, 16) );
 			}else if(sourceBasetype == ID_BASETYPE_DEC){
 				et_bin.setText( calc.listBaseConv(parsedList, 10, 2) );
+				et_dec.setText( calc.listToString(parsedList, 10));
 				et_hex.setText( calc.listBaseConv(parsedList, 10, 16) );
 			}else if(sourceBasetype == ID_BASETYPE_HEX){
 				et_bin.setText( calc.listBaseConv(parsedList, 16, 2) );
@@ -273,11 +274,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public void inputAllClear(){
 		Log.d("binCalc","Fragment - inputAllClear()");
-		EditText et = getCurrent_Baseinput_EditText();
-		if(et == null)
-			return;
-		et.setText("0");
-		baseConvert();
+		// TODO Implement process for memory function.
+		inputClear();
 	}
 	
 	/** 
@@ -285,7 +283,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public void inputClear(){
 		EditText et = getCurrent_Baseinput_EditText();
-		et.setText("0");
+		if(et == null)
+			return;
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			et.setText("0000");
+		}else{
+			et.setText("0");
+		}
 		baseConvert();
 	}
 	
@@ -319,6 +323,43 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	}
 	
 	/**
+	 * input Backspace key
+	 */
+	public void inputBackspace() {
+		Log.i("binCalc","MainFragment - inputBackspace()...");
+		EditText et = getCurrent_Baseinput_EditText();
+		String value = et.getText().toString();
+
+		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			
+			if(value.contentEquals("0000") || value.contentEquals("0001")){
+				// Zero reset
+				inputClear();
+			}else{
+				// Delete a last character
+				if(value.substring(value.length() - 4).contentEquals("0000")){
+					et.setText(value.substring(0, value.length() - 4));
+				}else{
+					et.setText(value.substring(0, value.length() - 1));
+				}
+				baseConvert();
+			}
+			
+		}else{
+			
+			if(value.length() <= 1){
+				// Zero reset
+				inputClear();
+			}else{
+				// Delete a last character
+				et.setText(value.substring(0, value.length() - 1));
+				baseConvert();
+			}
+			
+		}
+	}
+	
+	/**
 	 * input Operation key
 	 */
 	public void inputOpr(int oprmodeId){
@@ -348,23 +389,6 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public void inputEquall(){
 		calculate();
-	}
-	
-	/**
-	 * input Backspace key
-	 */
-	public void inputBackspace() {
-		Log.i("binCalc","MainFragment - inputBackspace()...");
-		EditText et = getCurrent_Baseinput_EditText();
-		String value = et.getText().toString();
-		if(!(value.contentEquals("0"))){
-			if(value.length() <= 1){
-				et.setText("0");
-			}else{
-				et.setText(value.substring(0, value.length() - 1));
-			}
-		}
-		baseConvert();
 	}
 
 	/**
