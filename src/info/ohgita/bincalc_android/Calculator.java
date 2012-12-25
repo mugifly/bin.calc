@@ -110,10 +110,10 @@ public class Calculator {
 					if(destNBase == 10){
 						/* Convert BIN(2) -> DEC(10) */
 						Double d =baseConverter.binToDec(chunk);
-						if(isDecimalFraction(chunk) == true){
+						if(isDecimalFraction(2, chunk) == true){
 							conv = d.toString();
 						}else{
-							conv = d.intValue() + "";
+							conv = d.intValue() + ""; // Remove the decimal fraction point
 						}
 					}else if(destNBase == 16){
 						/* Convert BIN(2) -> DEC(16) */
@@ -128,10 +128,10 @@ public class Calculator {
 					}else if(destNBase == 10){
 						/* Convert HEX(16) -> DEC(10) */
 						Double d = baseConverter.hexToDec(chunk);
-						if(isDecimalFraction(chunk) == true){
+						if(isDecimalFraction(16, chunk) == true){
 							conv = d.toString();
 						}else{
-							conv = d.intValue() + "";
+							conv = d.intValue() + ""; // Remove the decimal fraction point
 						}
 					}
 				
@@ -166,7 +166,7 @@ public class Calculator {
 			if(nBase == 10){ // for Remove a decimal point
 				if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
 					Double d = Double.parseDouble(chunk);
-					if(isDecimalFraction(chunk) == false){
+					if(isDecimalFraction(nBase, chunk) == false){
 						if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
 							chunk = d.intValue() + "";
 						}
@@ -249,13 +249,19 @@ public class Calculator {
 		return histories.size();
 	}
 	
-	protected boolean isDecimalFraction(String dec){
-		if(dec.charAt(dec.length() -1) == '.'){ // ex: "1."
+	protected boolean isDecimalFraction(int nBase, String dec){
+		if(dec.charAt(dec.length() -1) == '.'){ // If last char is point... (ex: "1.")
 			return true;
 		}
-		Double d = Double.parseDouble(dec);
-		if(d % 1.0 == 0.0){
-			return false; // Integer number
+		
+		if(nBase == 16){ // HEX
+			if (dec.indexOf('.') == -1)
+				return false;
+		
+		} else{ // BIN or DEC
+			Double d = Double.parseDouble(dec);
+			if(d % 1.0 == 0.0)
+				return false; // Integer number
 		}
 		return true; // Fraction number
 	}

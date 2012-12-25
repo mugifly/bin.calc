@@ -230,10 +230,10 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		try{
 			parsedList = calc.parseToList(value);
 		}catch(NullPointerException e){
-			Log.d("binCalc", e.toString());
+			Log.e("binCalc", e.toString(), e);
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}catch(NumberFormatException e){
-			Log.d("binCalc", e.toString());
+			Log.e("binCalc", e.toString(), e);
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
@@ -254,7 +254,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 				et_dec.setText( calc.listBaseConv(parsedList, 16, 10) );
 			}
 		}catch (Exception e){
-			Log.e("binCalc", "listBaseConv error..."+e.toString());
+			Log.e("binCalc", e.toString(), e);
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		}
 	}
