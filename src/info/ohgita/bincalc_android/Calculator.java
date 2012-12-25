@@ -37,6 +37,9 @@ public class Calculator {
 		
 		histories = new ArrayList<HistoryItem>();
 		
+		/* Initialize sort for binarySearch */
+		Arrays.sort(EXP_SYMBOLS);
+		
 	}
 	
 	/**
