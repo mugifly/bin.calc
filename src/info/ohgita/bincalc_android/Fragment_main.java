@@ -309,8 +309,9 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}
 		
 		/* point */
-		if(et.getText().toString().contentEquals(".")){
+		if(str.contentEquals(".")){
 			et.setText(et.getText().toString() + ".");
+			return;
 		}
 		
 		/* general number */
