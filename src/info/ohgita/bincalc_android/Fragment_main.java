@@ -38,7 +38,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	
 	boolean is_init = false;
 	
-	int selectedBasetypeId = ID_BASETYPE_HEX; // Default base-type 
+	int selectedBasetypeId = ID_BASETYPE_DEC; // Default base-type 
 	
 	int currentOperationModeId = -1;
 	static int ID_OPRMODE_PLUS = 1;
@@ -385,7 +385,9 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}
 		
 		if(et.getText().toString().contentEquals("0")){
-			
+			if(str.contentEquals("-")){
+				et.setText(str + et.getText().toString());
+			}
 		}else{
 			et.setText(et.getText().toString() + str);
 		}
