@@ -250,7 +250,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 				et_hex.setText( calc.listBaseConv(parsedList, 2, 16) );
 			}else if(sourceBasetype == ID_BASETYPE_DEC){
 				et_bin.setText( calc.listBaseConv(parsedList, 10, 2) );
-				et_dec.setText( calc.listToString(parsedList, 10));
+				et_dec.setText( calc.listToString(parsedList, 10));//for Remove a decimal point
 				et_hex.setText( calc.listBaseConv(parsedList, 10, 16) );
 			}else if(sourceBasetype == ID_BASETYPE_HEX){
 				et_bin.setText( calc.listBaseConv(parsedList, 16, 2) );
@@ -733,7 +733,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			Log.d("binCalc","Fragment_main - init()");
 			is_init = true;
 			inputAllClear();
-			//switchBasetype(selectedBasetypeId);
+			switchBasetype(selectedBasetypeId);
 		}
 	}
 }

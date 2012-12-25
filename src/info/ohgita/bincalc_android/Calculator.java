@@ -97,7 +97,6 @@ public class Calculator {
 		
 		while(iter.hasNext()){
 			String chunk = iter.next();
-			Log.d("binCalc", "  chunk = "+chunk);
 			
 			String conv = null;
 			
@@ -165,13 +164,17 @@ public class Calculator {
 		
 		while(iter.hasNext()){
 			String chunk = iter.next();
-			
+			Log.i("binCalc", chunk);
 			if(nBase == 10){ // for Remove a decimal point
 				if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
-					Double d = Double.parseDouble(chunk);
-					if(isDecimalFraction(nBase, chunk) == false){
-						if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
-							chunk = d.intValue() + "";
+					if(chunk.contentEquals("-0")){
+						
+					}else{
+						Double d = Double.parseDouble(chunk);
+						if(isDecimalFraction(nBase, chunk) == false){
+							if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
+								chunk = d.intValue() + "";
+							}
 						}
 					}
 				}

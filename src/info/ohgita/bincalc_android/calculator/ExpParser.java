@@ -74,6 +74,11 @@ public class ExpParser {
 					buf += "(";
 					_bufPush();
 					flagInBracket++;
+				}else if (buf.length() == 0 && list.size() == 0){
+					// start bracket (for FIRST number (negative-number))
+					buf += "(";
+					_bufPush();
+					flagInBracket++;
 				}
 				_bufPush();
 				
