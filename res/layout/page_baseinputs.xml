@@ -22,10 +22,8 @@
             android:gravity="center_vertical"
             android:inputType="numberDecimal"
             android:scrollbarStyle="outsideOverlay"
-            android:textSize="@dimen/main_baseinput_dec" >
-
-            <requestFocus />
-        </EditText>
+            android:textSize="@dimen/main_baseinput_dec" />
+        
     </TableRow>
 
     <TableRow

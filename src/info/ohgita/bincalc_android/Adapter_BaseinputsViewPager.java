@@ -41,7 +41,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	@SuppressLint("NewApi")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		Log.d("binCalc","instantiateItem(container, "+position+")");
+		Log.d("binCalc","BaseinputsViewPager - instantiateItem(container, "+position+")");
 		
 		if(position == 0 && currentPage !=0 ){
 			currentPage--;
@@ -50,7 +50,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		}else{
 			currentPage++;
 		}
-		Log.d("binCalc","currentPage = "+currentPage);
+		Log.d("binCalc","BaseinputsViewPager - currentPage = "+currentPage);
 		
 		/* LinearLayout inflating */
 		ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
@@ -67,25 +67,28 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
-				Log.d("binCalc","onFocus...BIN");
-		        if(isFocus)
+		        if(isFocus){
+		        	Log.d("binCalc","BaseinputsViewPager - EditText onFocus = true ... BIN");
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_BIN);
+		        }
 		    }
 		});
 		et_dec.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
-				Log.d("binCalc","onFocus...DEC");
-		        if(isFocus)
+		        if(isFocus){
+		        	Log.d("binCalc","BaseinputsViewPager - EditText onFocus = true ... DEC");
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_DEC);
+		        }
 		    }
 		});
 		et_hex.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
-				Log.d("binCalc","onFocus...HEX");
-		        if(isFocus)
+		        if(isFocus){
+		        	Log.d("binCalc","BaseinputsViewPager - EditText onFocus = true ... HEX");
 		        	mainFragment.switchBasetype(Fragment_main.ID_BASETYPE_HEX);
+		        }
 		    }
 		});
 		
@@ -100,13 +103,14 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		    et_hex.setInputType(0);
 		}
 		
+		
 		/* Load history */
-		Log.d("binCalc","History num = "+ mainFragment.calc.histories.size());
+		Log.d("binCalc","BaseinputsViewPager - History num = "+ mainFragment.calc.histories.size());
 		if(currentPage < mainFragment.calc.histories.size()){
-			Log.d("binCalc","Load History..."+ currentPage);
+			Log.d("binCalc","  Load History..."+ currentPage);
 			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(currentPage);
-			Log.d("binCalc","  history.value = " + history.value);
-			Log.d("binCalc","  history.basetype = " + history.basetype);
+			Log.d("binCalc","    history.value = " + history.value);
+			Log.d("binCalc","    history.basetype = " + history.basetype);
 			mainFragment.selectedBasetypeId = history.basetype;
 			switch (history.basetype){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
@@ -121,13 +125,26 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			};
 			mainFragment.switchBasetype(history.basetype);
 			mainFragment.baseConvert();
-			Log.d("binCalc","Load History done."+ currentPage);
+			Log.d("binCalc","  Load History done."+ currentPage);
 		}else{
+			// Set focus
+			switch (mainFragment.selectedBasetypeId){
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
+					et_bin.requestFocus();
+					break;
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_DEC:
+					et_dec.requestFocus();
+					break;
+				case Adapter_BaseinputsViewPager.ID_BASETYPE_HEX:
+					et_hex.requestFocus();
+					break;
+			};
+			
 			mainFragment.baseinputsViewPager_LinearLayout = ll;
 			mainFragment.init();
 		}
 		
-		Log.i("binCalc", "ViewPager instantiateItem complete.");
+		Log.i("binCalc", "BaseinputsViewPager - instantiateItem complete.");
 		return ll;
     }
 	

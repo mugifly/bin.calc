@@ -38,7 +38,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	
 	boolean is_init = false;
 	
-	int selectedBasetypeId = ID_BASETYPE_BIN; 
+	int selectedBasetypeId = ID_BASETYPE_HEX; // Default base-type 
 	
 	int currentOperationModeId = -1;
 	static int ID_OPRMODE_PLUS = 1;
@@ -64,7 +64,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	@SuppressLint("NewApi")
 	@Override
 	 public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.d("binCalc","Fragment - onCreateView()");
+		Log.d("binCalc","Fragment_main - onCreateView()");
 		
 		is_init = false;
 		
@@ -85,6 +85,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		tb_bin.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
+					Log.d("binCalc","Fragment_main - ToggleButton onCheckedChanged = true ... BIN");
 					switchBasetype(ID_BASETYPE_BIN);
 				}else if(selectedBasetypeId == ID_BASETYPE_BIN){
 					buttonView.setChecked(true);
@@ -94,6 +95,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		tb_dec.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
+					Log.d("binCalc","Fragment_main - ToggleButton onCheckedChanged = true ... DEC");
 					switchBasetype(ID_BASETYPE_DEC);
 				}else if(selectedBasetypeId == ID_BASETYPE_DEC){
 					buttonView.setChecked(true);
@@ -103,6 +105,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		tb_hex.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked == true){
+					Log.d("binCalc","Fragment_main - ToggleButton onCheckedChanged = true ... HEX");
 					switchBasetype(ID_BASETYPE_HEX);
 				}else if(selectedBasetypeId == ID_BASETYPE_HEX){
 					buttonView.setChecked(true);
@@ -275,7 +278,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 * ( with Inputs, Memories, others... )
 	 */
 	public void inputAllClear(){
-		Log.d("binCalc","Fragment - inputAllClear()");
+		Log.d("binCalc","Fragment_main - inputAllClear()");
 		// TODO Implement process for memory function.
 		inputClear();
 	}
@@ -330,7 +333,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 * input Backspace key
 	 */
 	public void inputBackspace() {
-		Log.i("binCalc","MainFragment - inputBackspace()...");
+		Log.i("binCalc","Fragment_main - inputBackspace()...");
 		EditText et = getCurrent_Baseinput_EditText();
 		
 		String value = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
@@ -456,14 +459,14 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 * get current base-inputs ViewPager object
 	 */
 	public View getCurrent_Baseinputs_ViewPager(){
-		Log.d("binCalc","getCurrent_Baseinputs_ViewPager..."+baseinputsViewPager_pageNum);
+		Log.d("binCalc","Fragment_main - getCurrent_Baseinputs_ViewPager..."+baseinputsViewPager_pageNum);
 		int currentItem = baseinputsViewPager_pageNum;//baseinputsViewPager.getCurrentItem();
 		if(2 <= currentItem){
 			currentItem = 1;
 		}
-		Log.d("binCalc","  currentItem = "+currentItem);
+		Log.d("binCalc","    currentItem = "+currentItem);
 		if(baseinputsViewPager.getChildAt(currentItem) == null){
-			Log.d("binCalc","  ViewPager is null");
+			Log.d("binCalc","    ViewPager is null");
 			return (View) baseinputsViewPager_LinearLayout;
 		}
 		
@@ -540,6 +543,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 * @param basetypeId	Base-type ID number
 	 */
 	public void switchBasetype(int basetypeId){
+		Log.d("binCalc","Fragment_main - switchBasetype("+basetypeId+")");
+		
 		selectedBasetypeId = basetypeId;
 		
 		if(getCurrent_Baseinputs_ViewPager() == null){
@@ -598,7 +603,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	@Override
 	public void onActivityCreated(Bundle bundle){
 		super.onActivityCreated(bundle);
-		Log.i("binCalc", "Fragment - onActivityCreated");
+		Log.i("binCalc", "Fragment_main - onActivityCreated");
 	}
 	
 	/* Event-handler for onStart */
@@ -711,7 +716,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	/* Event-handler for Viewpager */
     private class PageListener extends SimpleOnPageChangeListener{
         public void onPageSelected(int position) {
-        	Log.d("binCalc","Fragment - PageListener - onPageSelected()");
+        	Log.d("binCalc","Fragment_main - PageListener - onPageSelected()");
         	baseinputsViewPager_pageNum = position;
         	baseConvert();
         }
@@ -723,10 +728,10 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
      */
 	public void init() {
 		if(is_init == false){
-			Log.d("binCalc","Fragment - init()");
+			Log.d("binCalc","Fragment_main - init()");
 			is_init = true;
 			inputAllClear();
-			switchBasetype(selectedBasetypeId);
+			//switchBasetype(selectedBasetypeId);
 		}
 	}
 }
