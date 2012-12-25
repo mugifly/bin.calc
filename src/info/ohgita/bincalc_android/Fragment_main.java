@@ -319,7 +319,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}else if(et.getText().toString().contentEquals("0000")){
 			et.setText(str);
 		}else{
-			et.setText(et.getText().toString() + str);
+			String res = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
+			et.setText(res + str);
 		}
 		baseConvert();
 	}
@@ -330,8 +331,9 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	public void inputBackspace() {
 		Log.i("binCalc","MainFragment - inputBackspace()...");
 		EditText et = getCurrent_Baseinput_EditText();
-		String value = et.getText().toString();
-
+		
+		String value = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
+		
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
 			
 			if(value.contentEquals("0000") || value.contentEquals("0001")){

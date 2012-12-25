@@ -179,6 +179,25 @@ public class Calculator {
 		Log.d("binCalc", "  => "+resultExp.toString());
 		return resultExp.toString();
 	}
+
+	/**
+	 * Remove parenthesis for LinkedList
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @return Processed LinkedList
+	 */
+	public LinkedList<String> removeParentheses(LinkedList<String> list){
+		Log.d("binCalc", "Calculator.removeParentheses(list)");
+		LinkedList<String> ret_list = new LinkedList<String>(); 
+		for(int i=0;i<list.size();i++){
+			String chunk = list.get(i);
+			if(chunk.contentEquals("(") == false && chunk.contentEquals(")") == false){
+				// if NOT parenthesis...
+				ret_list.add(chunk);
+			}
+		}
+		return ret_list;
+	}
+	
 	
 	/**
 	 * Zero-padding for LinkedList
