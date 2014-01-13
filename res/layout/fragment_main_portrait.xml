@@ -9,7 +9,6 @@
         android:layout_height="150dp" >
 
         <TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/tableLayout_basetypes"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -74,7 +73,6 @@
 		    android:layout_weight="0" >
 
 			<TableLayout
-			    xmlns:android="http://schemas.android.com/apk/res/android"
 			    android:id="@+id/tableLayout_baseinputBss"
 			    android:layout_width="60dip"
 			    android:layout_height="match_parent"
@@ -143,7 +141,6 @@
     </LinearLayout>
 
 	<TableLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/KeyTableLayout0"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -221,7 +218,6 @@
 	</TableLayout>
 
 	<TableLayout
-	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/KeyTableLayout1"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"

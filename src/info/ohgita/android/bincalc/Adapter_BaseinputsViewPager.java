@@ -35,7 +35,6 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	@SuppressLint("NewApi")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		// 例: 2ページ目にスクロールされた場合、さらに次の3ページ目の描画が行われる？
 		Log.d("binCalc","BaseinputsViewPager - instantiateItem - pos = " + position);
 		
 		/* Inflate the LinearLayout */
@@ -47,10 +46,22 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		
 		TableLayout tv = (TableLayout) ll.findViewById(R.id.tableLayout_baseinputs);
 		
-		/* Set event-handler to Base-input EditText */
 		EditText et_bin = (EditText) tv.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) tv.findViewById(R.id.editText_baseinput_dec);
 		EditText et_hex = (EditText) tv.findViewById(R.id.editText_baseinput_hex);
+		
+		/* Hide a on-screen keyboard on Base-input EditText */
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	    	et_bin.setTextIsSelectable(true);
+	    	et_dec.setTextIsSelectable(true);
+	    	et_hex.setTextIsSelectable(true);
+		} else {
+		    et_bin.setInputType(0);
+		    et_dec.setInputType(0);
+		    et_hex.setInputType(0);
+		}
+
+		/* Set event-handler to Base-input EditText */
 		et_bin.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 		    public void onFocusChange(View v, boolean isFocus) {
@@ -79,23 +90,11 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		    }
 		});
 		
-		/* Hide a on-screen keyboard on Base-input EditText */
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-	    	et_bin.setTextIsSelectable(true);
-	    	et_dec.setTextIsSelectable(true);
-	    	et_hex.setTextIsSelectable(true);
-		} else {
-		    et_bin.setInputType(0);
-		    et_dec.setInputType(0);
-		    et_hex.setInputType(0);
-		}
-		
-		
 		/* Load history */
 		Log.d("binCalc","BaseinputsViewPager - instantiateItem - Load history = " + position);
 		if(position < mainFragment.calc.histories.size()){
 			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(position);
-			mainFragment.selectedBasetypeId = history.basetype;
+			//mainFragment.selectedBasetypeId = history.basetype;
 			switch (history.basetype){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
 					et_bin.setText(history.value);
@@ -107,10 +106,11 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 					et_hex.setText(history.value);
 					break;
 			};
-			mainFragment.switchBasetype(history.basetype);
+			//mainFragment.switchBasetype(history.basetype);
 			mainFragment.baseConvert();
 		}else{
 			Log.d("binCalc","BaseinputsViewPager - instantiateItem - Initialize");
+			Log.d("binCalc","BaseinputsViewPager - instantiateItem - selectedBasetypeId = " + mainFragment.selectedBasetypeId);
 			// Set focus
 			switch (mainFragment.selectedBasetypeId){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:

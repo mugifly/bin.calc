@@ -67,14 +67,15 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		
 		is_init = false;
 		
-		/* inflating Fragment */
+		/* Inflate a Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
-		/* baseinputsViewPager */
+		/* Initialize the baseinputsViewPager */
 		baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
 		PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext(), this);
 		baseinputsViewPager.setAdapter(mPagerAdapter);
-		/* Set a listener for baseinputsViewPager */
+		
+		/* Set a listener for the baseinputsViewPager */
        PageListener pageListener = new PageListener();
        baseinputsViewPager.setOnPageChangeListener(pageListener);
 		
@@ -189,6 +190,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		}
 		
 		/* Scroll the ViewPager of Base-inputs */
+		Log.d("binCalc", "calculate() - Scrolling");
 		baseinputsViewPager.arrowScroll(View.FOCUS_RIGHT);
 		int new_page = baseinputsViewPager.getCurrentItem();
 		Log.d("binCalc", "calculate() - Scrolled page to: " + new_page);
@@ -442,10 +444,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public ToggleButton getCurrent_Basetype_ToggleButton(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			//Log.d("binCalc", "Fragment_main - getCurrent_Basetype_ToggleButton - ID_BASETYPE_BIN");
 			return (ToggleButton) v.findViewById(R.id.toggle_basetype_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			//Log.d("binCalc", "Fragment_main - getCurrent_Basetype_ToggleButton - ID_BASETYPE_DEC");
 			return (ToggleButton) v.findViewById(R.id.toggle_basetype_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			//Log.d("binCalc", "Fragment_main - getCurrent_Basetype_ToggleButton - ID_BASETYPE_HEX");
 			return (ToggleButton) v.findViewById(R.id.toggle_basetype_hex);
 		}
 		return null;
@@ -470,12 +475,16 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public EditText getCurrent_Baseinput_EditText(){
 		if(selectedBasetypeId == ID_BASETYPE_BIN){
+			Log.d("binCalc", "Fragment_main - getCurrent_Baseinput_EditText - ID_BASETYPE_BIN");
 			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
+			Log.d("binCalc", "Fragment_main - getCurrent_Baseinput_EditText - ID_BASETYPE_DEC");
 			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
 		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
+			Log.d("binCalc", "Fragment_main - getCurrent_Baseinput_EditText - ID_BASETYPE_HEX");
 			return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex);
 		}
+		Log.d("binCalc", "Fragment_main - getCurrent_Baseinput_EditText - Default");
 		return (EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin);
 	}
 
