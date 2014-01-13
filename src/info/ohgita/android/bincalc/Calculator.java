@@ -5,6 +5,7 @@ import info.ohgita.android.bincalc.calculator.BasicArithOperator;
 import info.ohgita.android.bincalc.calculator.ExpParser;
 import info.ohgita.android.bincalc.calculator.HistoryItem;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -100,9 +101,7 @@ public class Calculator {
 			String chunk = iter.next();
 			
 			String conv = null;
-			
-			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0)
-			{// if number
+			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){ // if number
 				
 				if(fromNBase == 10){
 					/* Convert DEC(10) -> NADIC( 2 or 16 ) */
@@ -138,11 +137,14 @@ public class Calculator {
 						}
 					}
 				
-				}else{
+				} else {
 					conv = chunk;
 				}
 				
-			}else{// if symbols(ex: operator)
+				/* Insert the separator to number */
+				conv = insertSeparator(conv, destNBase);
+				
+			} else {// if symbols(ex: operator)
 				conv = chunk;
 			}
 			
@@ -150,7 +152,6 @@ public class Calculator {
 		}
 		return resultExp.toString();
 	}
-	
 	
 	/**
 	 * Convert LinkedList to String (Numerical formula) 
@@ -166,18 +167,27 @@ public class Calculator {
 		while(iter.hasNext()){
 			String chunk = iter.next();
 			Log.i("binCalc", chunk);
-			if(nBase == 10){ // for Remove a decimal point
-				if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
-					if(chunk.contentEquals("-0")){
+			if (nBase == 10) { // Decimal
+				if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+					if (chunk.contentEquals("-0")){
 						
-					}else{
+					} else {
+						/* Remove a decimal point */
 						Double d = Double.parseDouble(chunk);
 						if(isDecimalFraction(nBase, chunk) == false){
 							if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
 								chunk = d.intValue() + "";
 							}
 						}
+						
+						/* Insert the separator to number */
+						chunk = insertSeparator(chunk, nBase);
 					}
+				}
+			} else if (nBase == 2) { // Binary
+				if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+					/* Insert the separator to number */
+					chunk = insertSeparator(chunk, nBase);
 				}
 			}
 			
@@ -186,7 +196,7 @@ public class Calculator {
 		Log.d("binCalc", "  => "+resultExp.toString());
 		return resultExp.toString();
 	}
-
+	
 	/**
 	 * Remove parenthesis for LinkedList
 	 * @param list LinkedList (Parsed numerical formula)
@@ -204,7 +214,6 @@ public class Calculator {
 		}
 		return ret_list;
 	}
-	
 	
 	/**
 	 * Zero-padding for LinkedList
@@ -231,7 +240,7 @@ public class Calculator {
 	 * @param nBase Source base
 	 * @return Processed LinkedList
 	 */
-	public LinkedList<String> listSeparate(LinkedList<String> list, int nBase){
+	/*public LinkedList<String> listSeparate(LinkedList<String> list, int nBase){
 		Log.d("binCalc", "Calculator.listSeparate(list, "+nBase+")");
 		LinkedList<String> ret_list = new LinkedList<String>(); 
 		for(int i=0;i<list.size();i++){
@@ -245,7 +254,7 @@ public class Calculator {
 			ret_list.set(i, chunk);
 		}
 		return ret_list;
-	}
+	}*/
 	
 	/**
 	 * Add a history of calculator
@@ -289,5 +298,30 @@ public class Calculator {
 		}
 		return true; // Fraction number
 	}
-
+	
+	/**
+	 * Insert the digit-separator into number
+	 * @param number Source number string
+	 * @param NBase
+	 * @return Result number string
+	 */
+	protected String insertSeparator(String number, int nBase) {
+		Log.d("binCalc", "Calculator.insertSeparator("+number+")");
+		if (nBase == 2) { // Binary
+			String r = "";
+			int c = 0;
+			for (int i = 0; i < number.length(); i++) {
+				if (c % 4 == 0) {
+					r += " ";
+				}
+				r += number.charAt(i);
+				c++;
+			}
+			return r;
+		} else if (nBase == 10) { // Decimal
+			DecimalFormat formatter = new DecimalFormat("#,###");
+			return formatter.format(Integer.parseInt(number));
+		}
+		return number;
+	}
 }

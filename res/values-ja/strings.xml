@@ -4,16 +4,18 @@
     <string name="menu_about">このアプリについて</string>
     <string name="activity_about_name">bin.Calcについて</string>
     <string name="activity_pref_name">bin.Calcの設定</string>
+    
+    <string name="pref_category_general">一般</string>
+    <string name="pref_item_stateSave_title">状態の保持</string>
+    <string name="pref_item_stateSave_summary">アプリを閉じたときの状態を保持</string>
+    
     <string name="pref_category_feedback">操作のフィードバック</string>
-    <string name="pref_item_keyVibration_key">keyVibration</string>
     <string name="pref_item_keyVibration_title">キーのバイブレーション</string>
     
     <string name="pref_category_experimental">実験的な機能</string>
-    <string name="pref_item_shuffle_clear_key">shuffleClear</string>
     <string name="pref_item_shuffle_clear_title">シャッフルでAC</string>
     <string name="pref_item_shuffle_clear_summary">端末を振ることでオールクリア(AC)</string>
     
-    <string name="pref_item_bigdecimal_key">bigdecimalMode</string>
     <string name="pref_item_bigdecimal_title">BigDecimal モード</string>
     <string name="pref_item_bigdecimal_summary">Double型の代わりにBigDecimal型を使用して小数の精度を向上</string>
     

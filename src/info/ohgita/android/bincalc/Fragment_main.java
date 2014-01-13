@@ -8,6 +8,7 @@ import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -52,7 +53,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	
 	int DEFAULT_VIBRATION_MSEC = 25;
 	
-	boolean pref_keyVibration = false;
+	boolean prefKeyVibration = false;
+	boolean prefSaveState = false;
 	
 	Calculator calc;
 	BaseConverter baseconv;
@@ -70,9 +72,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		Log.d("binCalc","Fragment_main - onCreateView()");
 		
 		is_init = false;
+
+		/* Load preferences */
+		loadPreferences();
 		
-		/* Load a state from the savedInstanceState */
+		/* Load default value */
 		if (savedInstanceState != null) {
+			/* Load a state from the savedInstanceState */
 			// Base-type
 			selectedBasetypeId = savedInstanceState.getInt(STATE_KEY_BASETYPE);
 			Log.d("binCalc","Fragment_main - onCreateView() - Default BasetypeId: " + selectedBasetypeId);
@@ -80,7 +86,15 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			defaultValue = savedInstanceState.getString(STATE_KEY_BASEINPUT_VALUE);
 			Log.d("binCalc","Fragment_main - onCreateView() - Default value: " + defaultValue);
 		} else {
-			defaultValue = null;
+			/* Load a state from kept state */
+			if (prefSaveState) {
+				SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+				// Base-type
+				selectedBasetypeId = pref.getInt("STATE_KEY_BASETYPE", selectedBasetypeId);
+				// Value
+				defaultValue = pref.getString("STATE_KEY_BASEINPUT_VALUE", null);
+				Log.d("binCalc","Fragment_main - onCreateView() - Default value: " + defaultValue);
+			}
 		}
 		
 		/* Inflate a Fragment */
@@ -168,9 +182,6 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		/* initialize vibration */
 		vib = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 		
-		/* loading preferences */
-		loadPreferences();
-		
 		/* return inflated view */
 		return v;
 	}
@@ -189,11 +200,29 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	}
 	
 	/**
+	 * OnPause (Fragment has paused. It maybe fragment has pop out from a stack.)
+	 */
+	@Override
+	public void onPause() {
+		if (prefSaveState) {
+			Log.d("binCalc", "Fragment_main - onPause - Keep state");
+			// Keep state
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+			Editor e = pref.edit();
+			e.putInt("STATE_KEY_BASETYPE", selectedBasetypeId);
+			e.putString("STATE_KEY_BASEINPUT_VALUE", getCurrent_Baseinput_EditText().getEditableText().toString());
+			e.commit();
+		}
+		super.onPause();
+	}
+	
+	/**
 	 * Load preferences
 	 */
 	public void loadPreferences(){
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-		pref_keyVibration = pref.getBoolean(getResources().getString(R.string.pref_item_keyVibration_key), false);
+		prefKeyVibration = pref.getBoolean(getResources().getString(R.string.pref_item_keyVibration_key), false);
+		prefSaveState = pref.getBoolean(getResources().getString(R.string.pref_item_stateSave_key), true);
 	}
 	
 	/**
@@ -377,6 +406,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			et.setText(str);
 		}else{
 			String res = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
+			Log.e("binCalc", res);
 			et.setText(res + str);
 		}
 		baseConvert();
@@ -666,7 +696,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	/* Event-handler for buttons */
 	@Override
 	public void onClick(View v) {
-		if(pref_keyVibration){
+		if(prefKeyVibration){
 			vib.vibrate(DEFAULT_VIBRATION_MSEC);
 		}
 		switch(v.getId()){
@@ -752,7 +782,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	/* Event-handler for buttons (Long-click) */
 	@Override
 	public boolean onLongClick(View v) {
-		if(pref_keyVibration){
+		if(prefKeyVibration){
 			vib.vibrate(DEFAULT_VIBRATION_MSEC);
 		}
 		switch(v.getId()){

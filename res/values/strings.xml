@@ -11,6 +11,11 @@
     <string name="activity_about_name">About</string>
     <string name="activity_pref_name">Preferences</string>
     
+    <string name="pref_category_general">General</string>
+    <string name="pref_item_stateSave_key">stateSave</string>
+    <string name="pref_item_stateSave_title">Keep state</string>
+    <string name="pref_item_stateSave_summary">Keep state when app has closed</string>
+    
     <string name="pref_category_feedback">Feedback</string>
     <string name="pref_item_keyVibration_key">keyVibration</string>
     <string name="pref_item_keyVibration_title">Key vibration</string>

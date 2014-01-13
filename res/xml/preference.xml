@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:title="@string/activity_pref_name">
-    <PreferenceCategory android:title="@string/pref_category_feedback">
-        <CheckBoxPreference android:title="@string/pref_item_keyVibration_title" android:key="@string/pref_item_keyVibration_key"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/activity_pref_name" >
+	
+    <PreferenceCategory android:title="@string/pref_category_general" >
+        <CheckBoxPreference
+            android:key="@string/pref_item_stateSave_key"
+            android:summary="@string/pref_item_stateSave_summary"
+            android:title="@string/pref_item_stateSave_title"
+            android:defaultValue="true" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_category_experimental">
+    
+    <PreferenceCategory android:title="@string/pref_category_feedback" >
+        <CheckBoxPreference
+            android:key="@string/pref_item_keyVibration_key"
+            android:title="@string/pref_item_keyVibration_title" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/pref_category_experimental" >
+
+        <!--
         <CheckBoxPreference android:key="@string/pref_item_shuffle_clear_key" android:title="@string/pref_item_shuffle_clear_title" android:summary="@string/pref_item_shuffle_clear_summary"/>
         <CheckBoxPreference android:title="@string/pref_item_bigdecimal_title" android:summary="@string/pref_item_bigdecimal_summary" android:key="@string/pref_item_bigdecimal_key"/>
+        -->
     </PreferenceCategory>
-    
-    
 
 </PreferenceScreen>
