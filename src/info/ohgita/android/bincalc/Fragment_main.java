@@ -35,10 +35,14 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	static int ID_BASETYPE_BIN =	100;
 	static int ID_BASETYPE_DEC =	200;
 	static int ID_BASETYPE_HEX =	300;
+
+	private static final String STATE_KEY_BASETYPE = "BASETYPE";
+	private static final String STATE_KEY_BASEINPUT_VALUE = "BASEINP_VAL";
 	
 	boolean is_init = false;
 	
-	int selectedBasetypeId = ID_BASETYPE_DEC; // Default base-type 
+	String defaultValue;
+	int selectedBasetypeId = ID_BASETYPE_DEC;
 	
 	int currentOperationModeId = -1;
 	static int ID_OPRMODE_PLUS = 1;
@@ -66,6 +70,18 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		Log.d("binCalc","Fragment_main - onCreateView()");
 		
 		is_init = false;
+		
+		/* Load a state from the savedInstanceState */
+		if (savedInstanceState != null) {
+			// Base-type
+			selectedBasetypeId = savedInstanceState.getInt(STATE_KEY_BASETYPE);
+			Log.d("binCalc","Fragment_main - onCreateView() - Default BasetypeId: " + selectedBasetypeId);
+			// Value
+			defaultValue = savedInstanceState.getString(STATE_KEY_BASEINPUT_VALUE);
+			Log.d("binCalc","Fragment_main - onCreateView() - Default value: " + defaultValue);
+		} else {
+			defaultValue = null;
+		}
 		
 		/* Inflate a Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
@@ -157,6 +173,19 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		
 		/* return inflated view */
 		return v;
+	}
+	
+	/**
+	 * OnSave instance state
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		Log.d("binCalc","Fragment_main - onSaveInstanceState()");
+		// Base-type ID
+		outState.putInt(STATE_KEY_BASETYPE, selectedBasetypeId);
+		// Value
+		outState.putString(STATE_KEY_BASEINPUT_VALUE, getCurrent_Baseinput_EditText().getEditableText().toString());
 	}
 	
 	/**
@@ -555,7 +584,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	}
 	
 	/**
-	 * Switch base-type
+	 * Switch the base-type
 	 * @param basetypeId	Base-type ID number
 	 */
 	public void switchBasetype(int basetypeId){
@@ -613,7 +642,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		getCurrent_Baseinput_Backspace_ImageView().setImageDrawable(getResources().getDrawable(R.drawable.image_backspace_active));
 		getCurrent_Baseinput_Backspace_ImageView().setBackgroundDrawable(getResources().getDrawable(R.drawable.image_backspace_background_active));
 	}
-
+	
+	/**
+	 * Re-apply the base-type
+	 */
+	public void reApplyBasetype() {
+		switchBasetype(selectedBasetypeId);
+	}
 	
 	/* Event-handler for Parent activity has created */
 	@Override
@@ -743,6 +778,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
         	Log.d("binCalc", "Fragment_main - PageListener - onPageSelected - Restore a history("+position+") = " + history.value);
         	getCurrent_Baseinput_EditText().setText(history.value);
         	baseConvert();
+        	
+        	reApplyBasetype();
         }
     }
     
@@ -751,11 +788,17 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
     	(It has call when ViewPager has just completed a instantiateItem() method.)
      */
 	public void init() {
-		if(is_init == false){
+		if(is_init == false){ // If not yet initialized
 			Log.d("binCalc","Fragment_main - init()");
 			is_init = true;
 			inputAllClear();
+			
+			/* Load default value */
 			switchBasetype(selectedBasetypeId);
+			if (defaultValue != null) {
+				getCurrent_Baseinput_EditText().setText(defaultValue);
+				baseConvert();
+			}
 			
 			/* Save initialized calculator, into histories list */
 			HistoryItem history = new HistoryItem();

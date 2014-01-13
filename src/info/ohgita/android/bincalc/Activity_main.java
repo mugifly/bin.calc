@@ -26,10 +26,7 @@ public class Activity_main extends SherlockFragmentActivity {
 	private static final int MENU_ID_PREF = 400;
 
 	private static final int REQUEST_CODE_PREFERENCE_DONE = 1000;
-
-	private static final String STATE_KEY_BASETYPE = "BASETYPE";
-	private static final String STATE_KEY_BASEINPUT_VALUE = "BASEINP_VAL";
-
+	
 	FragmentManager fragmentManager;
 
 	@Override
@@ -52,11 +49,6 @@ public class Activity_main extends SherlockFragmentActivity {
 
 		Fragment_main f = (Fragment_main) fragmentManager
 				.findFragmentById(R.id.fragment_Main);
-
-		outState.putInt(STATE_KEY_BASETYPE, f.selectedBasetypeId);
-		outState.putString(STATE_KEY_BASEINPUT_VALUE, f
-				.getCurrent_Baseinput_EditText().getText().toString());
-
 	}
 
 	@Override
@@ -65,16 +57,6 @@ public class Activity_main extends SherlockFragmentActivity {
 		Log.d("binCalc","Activity - onRestoreInstanceState()");
 		Fragment_main f = (Fragment_main) fragmentManager
 				.findFragmentById(R.id.fragment_Main);
-
-		int basetype = savedInstanceState.getInt(STATE_KEY_BASETYPE);
-		if (basetype != -1) {
-			f.selectedBasetypeId = basetype;
-		}
-		
-		String value = savedInstanceState.getString(STATE_KEY_BASEINPUT_VALUE); 
-		if(value != null){
-			// DEBUG!! 値のリストアは未実装
-		}
 	}
 
 	@Override
