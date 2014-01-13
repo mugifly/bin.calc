@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">bin.Calc</string>
     <string name="app_version">1.0.0</string>
-    <string name="app_author">(C)Masanori Ohgita (mugifly) - 2012.</string>
+    <string name="app_author">&#169;Masanori Ohgita (mugifly) - 2013.</string>
     <string name="baseMode_dec">dec</string>
     <string name="baseMode_bin">bin</string>
     <string name="baseMode_hex">hex</string>
@@ -36,38 +36,5 @@
     <string name="main_baseInput_bin_fontSize">10sp</string>
     <string name="main_baseInput_dec_fontSize">10sp</string>
     <string name="main_baseInput_hex_fontSize">10sp</string>
-    
-    <string name="app_name">bin.Calc</string>
-    <string name="app_version">1.0.0</string>
-    <string name="app_author">(C)Masanori Ohgita (mugifly) - 2012.</string>
-    <string name="baseMode_dec">dec</string>
-    <string name="baseMode_bin">bin</string>
-    <string name="baseMode_hex">hex</string>
-    <string name="menu_pref">Preferences</string>
-    <string name="menu_log">History</string>
-    <string name="menu_about">About</string>
-    <string name="activity_about_name">About</string>
-    <string name="activity_pref_name">Preferences</string>
-    
-    <string name="pref_category_feedback">Feedback</string>
-    <string name="pref_item_keyVibration_key">keyVibration</string>
-    <string name="pref_item_keyVibration_title">Key vibration</string>
-    
-    <string name="pref_category_experimental">Experimentals</string>
-    <string name="pref_item_shuffle_clear_key">shuffleClear</string>
-    <string name="pref_item_shuffle_clear_title">Shuffle all-clear</string>
-    <string name="pref_item_shuffle_clear_summary">When shuffled a device, all-clear (AC).</string>
-    
-    <string name="pref_item_bigdecimal_key">bigdecimalMode</string>
-    <string name="pref_item_bigdecimal_title">BigDecimal mode</string>
-    <string name="pref_item_bigdecimal_summary">Use BigDecimal class</string>
-    
-    <string name="main_keyButtonOpPl_text">+</string>
-    <string name="main_keyButtonOpMi_text">-</string>
-    <string name="main_keyButtonOpMp_text">*</string>
-    <string name="main_keyButtonOpDi_text">/</string>
-    <string name="main_keyButtonEq_text">=</string>
-    <string name="main_keyButtonPM_text">+/-</string>
-    <string name="main_keyButtonPo_text">.</string>
     
 </resources>

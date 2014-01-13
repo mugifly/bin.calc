@@ -1,4 +1,4 @@
-package info.ohgita.bincalc_android.calculator;
+package info.ohgita.android.bincalc.calculator;
 
 import java.util.Iterator;
 import java.util.LinkedList;

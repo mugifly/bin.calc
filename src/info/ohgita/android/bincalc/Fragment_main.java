@@ -1,9 +1,10 @@
-package info.ohgita.bincalc_android;
+package info.ohgita.android.bincalc;
 
 import java.util.LinkedList;
 
-import info.ohgita.bincalc_android.calculator.BaseConverter;
-import info.ohgita.bincalc_android.calculator.HistoryItem;
+import info.ohgita.android.bincalc.calculator.BaseConverter;
+import info.ohgita.android.bincalc.calculator.HistoryItem;
+import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.ToggleButton;
 
-import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragment;
 
 final public class Fragment_main extends SherlockFragment implements OnClickListener, OnLongClickListener {
@@ -59,7 +59,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	
 	ViewPager baseinputsViewPager;
 	public LinearLayout baseinputsViewPager_LinearLayout;
-	static int baseinputsViewPager_pageNum;
+	static int baseinputsViewPagerPageId;
+	static int baseinputsViewPagerBeforePage;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -67,14 +68,17 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		Log.d("binCalc","Fragment_main - onCreateView()");
 		
 		is_init = false;
+		baseinputsViewPagerPageId = 0;
+		baseinputsViewPagerBeforePage = 0;
 		
 		/* inflating Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 		
 		/* baseinputsViewPager */
 		baseinputsViewPager = (ViewPager)v.findViewById(R.id.baseinputsViewPager);
-       PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext(),this);
-       baseinputsViewPager.setAdapter(mPagerAdapter);
+		PagerAdapter mPagerAdapter = new Adapter_BaseinputsViewPager(v.getContext(), this);
+		baseinputsViewPager.setAdapter(mPagerAdapter);
+		/* Set a listener for baseinputsViewPager */
        PageListener pageListener = new PageListener();
        baseinputsViewPager.setOnPageChangeListener(pageListener);
 		
@@ -172,6 +176,30 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	public void calculate(){
 		Log.d("binCalc", "calculate()");
 		
+		/* Backup a current value of the before before-inputs */
+		int before_page = baseinputsViewPager.getCurrentItem();
+		String before_value = getCurrent_Baseinput_EditText().getText().toString();
+		
+		/* Pre-Restore a before value to the before Base-inputs */
+		HistoryItem before_history = calc.getHistory(before_page);
+		if (before_history == null) {
+			Log.d("binCalc", "calculate() - Pre-restore before value("+before_page+") = NULL");
+			getCurrent_Baseinput_EditText().setText("0");
+			baseConvert();
+		} else {
+			Log.d("binCalc", "calculate() - Pre-restore before value("+before_page+") = " + before_history.value);
+			getCurrent_Baseinput_EditText().setText(before_history.value);
+			baseConvert();
+		}
+		
+		/* Scroll the ViewPager of Base-inputs */
+		baseinputsViewPager.arrowScroll(View.FOCUS_RIGHT);
+		int new_page = baseinputsViewPager.getCurrentItem();
+		Log.d("binCalc", "calculate() - Scrolled page to: " + new_page);
+		
+		/* Copy a before value to the new base-inputs */
+		getCurrent_Baseinput_EditText().setText(before_value);
+		
 		/* Before Base convert */
 		baseConvert();
 		
@@ -185,20 +213,18 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			getCurrent_Baseinput_EditText().setTextColor(getResources().getColor(R.color.main_editText_baseinput_TextColor_error));
 		};
 		
-		/* Save current calculator, into histories list */
-		HistoryItem hist = new HistoryItem();
-		hist.basetype = selectedBasetypeId;
-		hist.value = getCurrent_Baseinput_EditText().getText().toString();
-		calc.historyAdd(hist);
-		
-		/* Scroll Base-inputs (Viewpager (history)) */
-		baseinputsViewPager.setCurrentItem(calc.getHistoryNums());
-		
 		/* Set caluculate result to Decimal EditText */
 		((EditText) getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec)).setText(dec_value);
 		
 		/* After Base convert */
 		baseConvert(ID_BASETYPE_DEC);
+		
+		/* Save current calculator, into histories list */
+		HistoryItem history = new HistoryItem();
+		history.basetype = selectedBasetypeId;
+		history.value = getCurrent_Baseinput_EditText().getText().toString();
+		int history_id = calc.addHistory(history);
+		Log.d("binCalc", "calculate() - Save a history("+history_id+") = " + history.value);
 	}
 	
 	/**
@@ -461,26 +487,12 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 * get current base-inputs ViewPager object
 	 */
 	public View getCurrent_Baseinputs_ViewPager(){
-		Log.d("binCalc","Fragment_main - getCurrent_Baseinputs_ViewPager..."+baseinputsViewPager_pageNum);
-		int currentItem = baseinputsViewPager_pageNum;//baseinputsViewPager.getCurrentItem();
-		if(2 <= currentItem){
-			currentItem = 1;
-		}
-		Log.d("binCalc","    currentItem = "+currentItem);
-		if(baseinputsViewPager.getChildAt(currentItem) == null){
-			Log.d("binCalc","    ViewPager is null");
-			return (View) baseinputsViewPager_LinearLayout;
-		}
-		
-		if(selectedBasetypeId == ID_BASETYPE_BIN){
-			return (View) baseinputsViewPager.getChildAt(currentItem);
-		}else if(selectedBasetypeId == ID_BASETYPE_DEC){
-			return (View) baseinputsViewPager.getChildAt(currentItem);
-		}else if(selectedBasetypeId == ID_BASETYPE_HEX){
-			return (View) baseinputsViewPager.getChildAt(currentItem);
-		}
-		
-		return null;
+		int item = baseinputsViewPager.getCurrentItem(); // History id
+		Log.d("binCalc","Fragment_main - getCurrent_Baseinputs_ViewPager - pageId = " + baseinputsViewPagerPageId);
+		/*if (2 <= item) {
+			return (View) baseinputsViewPager.getChildAt(1);
+		}*/
+		return (View) baseinputsViewPager.getChildAt(baseinputsViewPagerPageId);
 	}
 
 	/**
@@ -718,12 +730,38 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	/* Event-handler for Viewpager */
     private class PageListener extends SimpleOnPageChangeListener{
         public void onPageSelected(int position) {
-        	Log.d("binCalc","Fragment_main - PageListener - onPageSelected()");
-        	baseinputsViewPager_pageNum = position;
+        	Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Position = " + position);
+        	//int page = baseinputsViewPager.getCurrentItem(); // TODO: Same with position ?
+        	//Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Page = " + page);
+        	
+        	if(position < baseinputsViewPagerBeforePage) {
+        		// Changed to before page 
+        		baseinputsViewPagerPageId = 2;
+        		Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Detected as before page");
+        	} else {
+        		baseinputsViewPagerPageId = 1;
+        		Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Detected as current page");
+        	}
+        	
+        	/* Restore for when change to before pages */
+        	
+        	// Get a history
+        	HistoryItem history = calc.getHistory(position);
+        	if (history == null) {
+        		Log.e("binCalc", "Fragment_main - PageListener - onPageSelected - Page not found");
+        		return;
+        	}
+        	
+        	// Reflect a history to the target base-input field
+        	Log.d("binCalc", "Fragment_main - PageListener - onPageSelected - Restore a history("+position+") = " + history.value);
+        	getCurrent_Baseinput_EditText().setText(history.value);
         	baseConvert();
+        	//getCurrent_Baseinput_EditText().setText("okay!");
+        	
+        	baseinputsViewPagerBeforePage = position;
         }
     }
-
+    
     /* 
      Initialize process
     	(It has call when ViewPager has just completed a instantiateItem() method.)
@@ -734,6 +772,13 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			is_init = true;
 			inputAllClear();
 			switchBasetype(selectedBasetypeId);
+			
+			/* Save initialized calculator, into histories list */
+			HistoryItem history = new HistoryItem();
+			history.basetype = selectedBasetypeId;
+			history.value = getCurrent_Baseinput_EditText().getText().toString();
+			int history_id = calc.addHistory(history);
+			Log.d("binCalc", "calculate() - Save a history("+history_id+") = " + history.value);
 		}
 	}
 }

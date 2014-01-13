@@ -1,10 +1,4 @@
 <resources>
-    <string name="app_name">bin.Calc</string>
-    <string name="app_version">1.0.0</string>
-    <string name="app_author">(C)Masanori Ohgita (mugifly) - 2012.</string>
-    <string name="baseMode_dec">dec</string>
-    <string name="baseMode_bin">bin</string>
-    <string name="baseMode_hex">hex</string>
     <string name="menu_pref">設定</string>
     <string name="menu_log">履歴</string>
     <string name="menu_about">このアプリについて</string>

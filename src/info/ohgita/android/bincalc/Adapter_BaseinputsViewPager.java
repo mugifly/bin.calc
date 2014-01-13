@@ -1,9 +1,7 @@
-package info.ohgita.bincalc_android;
+package info.ohgita.android.bincalc;
 
-import info.ohgita.bincalc_android.calculator.HistoryItem;
-
-import com.actionbarsherlock.R;
-
+import info.ohgita.android.bincalc.calculator.HistoryItem;
+import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
@@ -22,9 +20,6 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	public LayoutInflater inflater;
 	public Context context;
 	public Fragment_main mainFragment;
-	private TableLayout tv;
-	private LinearLayout ll;
-	private static int currentPage;
 	
 	final static int ID_BASETYPE_BIN =	100;
 	final static int ID_BASETYPE_DEC =	200;
@@ -35,30 +30,21 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		context = c;
 		mainFragment = fragment;
 		inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		currentPage = 0;
 	}
 
 	@SuppressLint("NewApi")
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		Log.d("binCalc","BaseinputsViewPager - instantiateItem(container, "+position+")");
+		// 例: 2ページ目にスクロールされた場合、さらに次の3ページ目の描画が行われる？
+		Log.d("binCalc","BaseinputsViewPager - instantiateItem - pos = " + position);
 		
-		if(position == 0 && currentPage !=0 ){
-			currentPage--;
-		}else if(position == 0 && currentPage == 0){
-			currentPage = 0;
-		}else{
-			currentPage++;
-		}
-		Log.d("binCalc","BaseinputsViewPager - currentPage = "+currentPage);
+		/* Inflate the LinearLayout */
+		LinearLayout ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
 		
-		/* LinearLayout inflating */
-		ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
-		
-		/* LinearLayout into container */
+		/* Add a layout into the ViewPager */
 		container.addView(ll);
 		
-		tv = (TableLayout) ll.findViewById(R.id.tableLayout_baseinputs);
+		TableLayout tv = (TableLayout) ll.findViewById(R.id.tableLayout_baseinputs);
 		
 		/* Set event-handler to Base-input EditText */
 		EditText et_bin = (EditText) tv.findViewById(R.id.editText_baseinput_bin);
@@ -105,12 +91,9 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		
 		
 		/* Load history */
-		Log.d("binCalc","BaseinputsViewPager - History num = "+ mainFragment.calc.histories.size());
-		if(currentPage < mainFragment.calc.histories.size()){
-			Log.d("binCalc","  Load History..."+ currentPage);
-			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(currentPage);
-			Log.d("binCalc","    history.value = " + history.value);
-			Log.d("binCalc","    history.basetype = " + history.basetype);
+		Log.d("binCalc","BaseinputsViewPager - instantiateItem - Load history = " + position);
+		if(position < mainFragment.calc.histories.size()){
+			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(position);
 			mainFragment.selectedBasetypeId = history.basetype;
 			switch (history.basetype){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
@@ -125,8 +108,8 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			};
 			mainFragment.switchBasetype(history.basetype);
 			mainFragment.baseConvert();
-			Log.d("binCalc","  Load History done."+ currentPage);
 		}else{
+			Log.d("binCalc","BaseinputsViewPager - instantiateItem - Initialize");
 			// Set focus
 			switch (mainFragment.selectedBasetypeId){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
@@ -144,27 +127,25 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 			mainFragment.init();
 		}
 		
-		Log.i("binCalc", "BaseinputsViewPager - instantiateItem complete.");
+		Log.i("binCalc", "BaseinputsViewPager - instantiateItem - Done.");
 		return ll;
     }
 	
 	@Override
-	public int getItemPosition(Object object) {
-		return POSITION_NONE;
-	}
-	
-	@Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+		Log.d("binCalc","BaseinputsViewPager - destroyItem - pos = " + position);
         ((ViewPager)container).removeView((View)object);
     }
 	
 	@Override
 	public int getCount() {
-		return mainFragment.calc.histories.size() + 1;
+		return 5000;
+		//return mainFragment.calc.histories.size() + 1000;
 	}
 
 	@Override
 	public boolean isViewFromObject(View view, Object obj) {
 		return view.equals(obj);
 	}
+	
 }

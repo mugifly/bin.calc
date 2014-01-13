@@ -1,9 +1,10 @@
-package info.ohgita.bincalc_android;
+package info.ohgita.android.bincalc;
 
+import info.ohgita.bincalc_android.R;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.webkit.WebView;
-import com.actionbarsherlock.R;
+
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 

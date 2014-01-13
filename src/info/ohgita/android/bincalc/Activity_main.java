@@ -1,10 +1,11 @@
-package info.ohgita.bincalc_android;
+package info.ohgita.android.bincalc;
 
 /**
  * Bin.Calc - MainActivity
  * @author Masanori Ohgita
  */
 
+import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;

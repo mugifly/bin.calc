@@ -1,8 +1,9 @@
-package info.ohgita.bincalc_android;
+package info.ohgita.android.bincalc;
 
+import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import com.actionbarsherlock.R;
+
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.MenuItem;
 

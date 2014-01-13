@@ -1,4 +1,4 @@
-package info.ohgita.bincalc_android.calculator;
+package info.ohgita.android.bincalc.calculator;
 
 public class HistoryItem {
 	public String log;
