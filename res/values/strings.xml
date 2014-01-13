@@ -29,13 +29,13 @@
     <string name="pref_item_bigdecimal_title">BigDecimal mode</string>
     <string name="pref_item_bigdecimal_summary">Use BigDecimal class</string>
     
-    <string name="main_keyButtonOpPl_text">+</string>
-    <string name="main_keyButtonOpMi_text">-</string>
-    <string name="main_keyButtonOpMp_text">*</string>
-    <string name="main_keyButtonOpDi_text">/</string>
-    <string name="main_keyButtonEq_text">=</string>
+    <string name="main_keyButtonOpPl_text">&#x2B;</string>
+    <string name="main_keyButtonOpMi_text">&#x2212;</string>
+    <string name="main_keyButtonOpMp_text">&#xD7;</string>
+    <string name="main_keyButtonOpDi_text">&#x2F;</string>
+    <string name="main_keyButtonEq_text">&#x3D;</string>
     <string name="main_keyButtonPM_text">+/-</string>
-    <string name="main_keyButtonPo_text">.</string>
+    <string name="main_keyButtonPo_text">&#xB7;</string>
     
     <string name="main_keyButton_fontSize">20sp</string>
     <string name="main_baseInput_bin_fontSize">10sp</string>

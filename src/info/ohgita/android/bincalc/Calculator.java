@@ -337,6 +337,11 @@ public class Calculator {
 			return r;
 		} else if (nBase == 10) { // Decimal
 			DecimalFormat formatter = new DecimalFormat("#,###");
+			if (number.indexOf(".") != -1) {
+				int i = number.indexOf(".");
+				String n = number.substring(0, i);
+				return formatter.format(Integer.parseInt(n)) + number.substring(i, number.length());
+			}
 			return formatter.format(Integer.parseInt(number));
 		}
 		return number;
