@@ -40,6 +40,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		
 		/* Inflate the LinearLayout */
 		LinearLayout ll = (LinearLayout)inflater.inflate(R.layout.page_baseinputs, null);
+		ll.setTag(position);
 		
 		/* Add a layout into the ViewPager */
 		container.addView(ll);
@@ -139,8 +140,7 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	
 	@Override
 	public int getCount() {
-		return 5000;
-		//return mainFragment.calc.histories.size() + 1000;
+		return mainFragment.calc.histories.size() + 1;
 	}
 
 	@Override

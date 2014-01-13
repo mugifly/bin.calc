@@ -59,8 +59,6 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	
 	ViewPager baseinputsViewPager;
 	public LinearLayout baseinputsViewPager_LinearLayout;
-	static int baseinputsViewPagerPageId;
-	static int baseinputsViewPagerBeforePage;
 	
 	@SuppressLint("NewApi")
 	@Override
@@ -68,8 +66,6 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		Log.d("binCalc","Fragment_main - onCreateView()");
 		
 		is_init = false;
-		baseinputsViewPagerPageId = 0;
-		baseinputsViewPagerBeforePage = 0;
 		
 		/* inflating Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
@@ -488,11 +484,8 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 	 */
 	public View getCurrent_Baseinputs_ViewPager(){
 		int item = baseinputsViewPager.getCurrentItem(); // History id
-		Log.d("binCalc","Fragment_main - getCurrent_Baseinputs_ViewPager - pageId = " + baseinputsViewPagerPageId);
-		/*if (2 <= item) {
-			return (View) baseinputsViewPager.getChildAt(1);
-		}*/
-		return (View) baseinputsViewPager.getChildAt(baseinputsViewPagerPageId);
+		Log.d("binCalc","Fragment_main - getCurrent_Baseinputs_ViewPager - page = " + item);
+		return (View) baseinputsViewPager.findViewWithTag(item);
 	}
 
 	/**
@@ -731,34 +724,16 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
     private class PageListener extends SimpleOnPageChangeListener{
         public void onPageSelected(int position) {
         	Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Position = " + position);
-        	//int page = baseinputsViewPager.getCurrentItem(); // TODO: Same with position ?
-        	//Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Page = " + page);
-        	
-        	if(position < baseinputsViewPagerBeforePage) {
-        		// Changed to before page 
-        		baseinputsViewPagerPageId = 2;
-        		Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Detected as before page");
-        	} else {
-        		baseinputsViewPagerPageId = 1;
-        		Log.d("binCalc","Fragment_main - PageListener - onPageSelected - Detected as current page");
-        	}
         	
         	/* Restore for when change to before pages */
-        	
-        	// Get a history
         	HistoryItem history = calc.getHistory(position);
         	if (history == null) {
         		Log.e("binCalc", "Fragment_main - PageListener - onPageSelected - Page not found");
         		return;
         	}
-        	
-        	// Reflect a history to the target base-input field
         	Log.d("binCalc", "Fragment_main - PageListener - onPageSelected - Restore a history("+position+") = " + history.value);
         	getCurrent_Baseinput_EditText().setText(history.value);
         	baseConvert();
-        	//getCurrent_Baseinput_EditText().setText("okay!");
-        	
-        	baseinputsViewPagerBeforePage = position;
         }
     }
     
