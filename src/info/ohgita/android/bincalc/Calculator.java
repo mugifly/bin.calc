@@ -260,8 +260,25 @@ public class Calculator {
 	 * Add a history of calculator
 	 * @param history item
 	 */
-	public int addHistory(HistoryItem history) {
+	public int putHistory(HistoryItem history) {
 		Log.d("binCalc","historyAdd(history)");
+		/* Push a history */
+		histories.add(history);
+		return histories.size() - 1;
+	}
+	
+	/**
+	 * Add (insert and overwrite) a history of calculator
+	 * @param id	Insert destination Id (Later items will be removed.)
+	 * @param history item
+	 */
+	public int putHistory(int id, HistoryItem history) {
+		Log.d("binCalc","historyAdd(history)");
+		/* Remove histories of later than it */
+		while (id < histories.size()) {
+			histories.remove(histories.size() - 1);
+		}
+		/* Push a history */
 		histories.add(history);
 		return histories.size() - 1;
 	}

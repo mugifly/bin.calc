@@ -140,7 +140,12 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 	
 	@Override
 	public int getCount() {
-		return mainFragment.calc.histories.size() + 1;
+		int n = mainFragment.calc.histories.size();
+		if (n == 0) {
+			n = 1;
+		}
+		Log.d("binCalc","BaseinputsViewPager - getCount - " + n);
+		return n;
 	}
 
 	@Override

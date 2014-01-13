@@ -247,10 +247,16 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			baseConvert();
 		}
 		
+		/* Pre-Save new history (It is provisional history for scroll to next page.  */
+		int new_page = before_page + 1;
+		HistoryItem history = new HistoryItem();
+		history.basetype = selectedBasetypeId;
+		history.value = ""; // Provisonal value
+		calc.putHistory(new_page, history);
+		
 		/* Scroll the ViewPager of Base-inputs */
 		Log.d("binCalc", "calculate() - Scrolling");
 		baseinputsViewPager.arrowScroll(View.FOCUS_RIGHT);
-		int new_page = baseinputsViewPager.getCurrentItem();
 		Log.d("binCalc", "calculate() - Scrolled page to: " + new_page);
 		
 		/* Copy a before value to the new base-inputs */
@@ -275,11 +281,9 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 		/* After Base convert */
 		baseConvert(ID_BASETYPE_DEC);
 		
-		/* Save current calculator, into histories list */
-		HistoryItem history = new HistoryItem();
-		history.basetype = selectedBasetypeId;
+		/* Re-Save new history */
 		history.value = getCurrent_Baseinput_EditText().getText().toString();
-		int history_id = calc.addHistory(history);
+		int history_id = calc.putHistory(new_page, history);
 		Log.d("binCalc", "calculate() - Save a history("+history_id+") = " + history.value);
 	}
 	
@@ -834,7 +838,7 @@ final public class Fragment_main extends SherlockFragment implements OnClickList
 			HistoryItem history = new HistoryItem();
 			history.basetype = selectedBasetypeId;
 			history.value = getCurrent_Baseinput_EditText().getText().toString();
-			int history_id = calc.addHistory(history);
+			int history_id = calc.putHistory(history);
 			Log.d("binCalc", "calculate() - Save a history("+history_id+") = " + history.value);
 		}
 	}
