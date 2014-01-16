@@ -463,7 +463,9 @@ final public class Fragment_main extends SherlockFragment implements
 
 		/* point */
 		if (str.contentEquals(".")) {
-			et.setText(et.getText().toString() + ".");
+			if (et.getText().toString().indexOf('.') == -1) {
+				et.setText(et.getText().toString() + ".");
+			}
 			return;
 		}
 
