@@ -17,7 +17,7 @@
 
     <TableRow
         android:id="@+id/tableRow_baseinput_dec"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp" >
 
         <EditText
@@ -36,24 +36,32 @@
 
     <TableRow
         android:id="@+id/tableRow_baseinput_bin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp" >
 
         <EditText
             android:id="@+id/editText_baseinput_bin"
-            android:layout_width="match_parent"
+            android:layout_width="100dip"
             android:layout_height="50dp"
             android:background="@drawable/edittext_baseinput_default"
             android:cursorVisible="false"
             android:editable="true"
-            android:inputType="number"
-            android:textSize="@dimen/main_baseinput_bin" />
+            android:gravity="center_vertical"
+            android:minLines="2"
+            android:maxLines="2"
+            android:layout_marginBottom="0px"
+            android:layout_marginTop="0px"
+            android:paddingBottom="0px"
+            android:paddingTop="0px"
+            android:text="123455555555555555555555555555555512311115555555555555555555555"
+            android:textSize="@dimen/main_baseinput_bin"
+            android:includeFontPadding="false" />
 
     </TableRow>
 
     <TableRow
         android:id="@+id/tableRow_baseinput_hex"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp" >
 
         <EditText
