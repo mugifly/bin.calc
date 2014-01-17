@@ -95,15 +95,15 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 		if(position < mainFragment.calc.histories.size()){
 			HistoryItem history = (HistoryItem) mainFragment.calc.histories.get(position);
 			//mainFragment.selectedBasetypeId = history.basetype;
-			switch (history.basetype){
+			switch (history.getBaseType()){
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_BIN:
-					et_bin.setText(history.value);
+					et_bin.setText(history.getNumberString());
 					break;
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_DEC:
-					et_dec.setText(history.value);
+					et_dec.setText(history.getNumberString());
 					break;
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_HEX:
-					et_hex.setText(history.value);
+					et_hex.setText(history.getBaseType());
 					break;
 			};
 			//mainFragment.switchBasetype(history.basetype);

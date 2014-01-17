@@ -2,6 +2,7 @@ package info.ohgita.android.bincalc;
 
 import java.util.LinkedList;
 
+import info.ohgita.android.bincalc.calculator.BaseConvResult;
 import info.ohgita.android.bincalc.calculator.BaseConverter;
 import info.ohgita.android.bincalc.calculator.HistoryItem;
 import info.ohgita.bincalc_android.R;
@@ -284,10 +285,10 @@ final public class Fragment_main extends SherlockFragment implements
 		 */
 		int new_page = before_page + 1;
 		HistoryItem history = new HistoryItem();
-		history.basetype = current_base_type;
-		history.value = ""; // Provisonal value
+		history.setBaseType(current_base_type);
+		history.setNumberString(""); // Provisional value
 		calc.putHistory(new_page, history);
-
+		
 		/* Scroll the ViewPager of Base-inputs */
 		Log.d("binCalc", "calculate() - Scrolling");
 		baseinputsViewPager.arrowScroll(View.FOCUS_RIGHT);
@@ -321,25 +322,26 @@ final public class Fragment_main extends SherlockFragment implements
 				R.id.editText_baseinput_dec)).setText(dec_value);
 
 		/* After Base convert */
-		baseConvert(ID_BASETYPE_DEC);
+		history = baseConvert(ID_BASETYPE_DEC);
 
 		/* Re-Save new history */
-		history.value = getCurrent_Baseinput_EditText().getText().toString();
+		history.setBaseType(current_base_type);
 		int history_id = calc.putHistory(new_page, history);
 		Log.d("binCalc", "calculate() - Save a history(" + history_id + ") = "
-				+ history.value);
+				+ history.getNumberString());
 	}
 
 	/**
 	 * Convert input base-number
 	 */
-	public void baseConvert() {
-		baseConvert(selectedBasetypeId);
+	public HistoryItem baseConvert() {
+		return baseConvert(selectedBasetypeId);
 	}
 
-	public void baseConvert(int sourceBasetype) {
+	public HistoryItem baseConvert(int sourceBasetype) {
 		Log.d("binCalc", "baseConvert()");
-
+		
+		/* Fetch a string of a source number */		
 		String value = null;
 		if (sourceBasetype == ID_BASETYPE_BIN) {
 			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(
@@ -351,7 +353,7 @@ final public class Fragment_main extends SherlockFragment implements
 			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(
 					R.id.editText_baseinput_hex)).getText().toString();
 		}
-
+		
 		EditText et_bin = (EditText) getCurrent_Baseinputs_ViewPager()
 				.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) getCurrent_Baseinputs_ViewPager()
@@ -365,7 +367,12 @@ final public class Fragment_main extends SherlockFragment implements
 				R.color.main_editText_baseinput_TextColor_default));
 		et_hex.setTextColor(getResources().getColor(
 				R.color.main_editText_baseinput_TextColor_default));
-
+		
+		/* Make an item of the history */
+		HistoryItem history = new HistoryItem();
+		history.setBaseType(sourceBasetype);
+		history.setNumberString(value);
+		
 		/* Parse formula */
 		LinkedList<String> parsedList = null;
 		try {
@@ -383,25 +390,40 @@ final public class Fragment_main extends SherlockFragment implements
 		}
 		;
 
-		/* Calculate */
+		/* Convert */
 		try {
 			if (sourceBasetype == ID_BASETYPE_BIN) {
-				et_bin.setText(calc.listToString(
-						calc.listZeropadding(parsedList, 2), 2)); // for
-																	// zero-padding
-																	// &&
-																	// separate
-				et_dec.setText(calc.listBaseConv(parsedList, 2, 10));
-				et_hex.setText(calc.listBaseConv(parsedList, 2, 16));
+				et_bin.setText(calc.listToString(calc.listZeropadding(parsedList, 2), 2)); // for zero-padding && separate
+				BaseConvResult dec = calc.listBaseConv(parsedList, 2, 10);
+				et_dec.setText(dec.value);
+				BaseConvResult hex = calc.listBaseConv(parsedList, 2, 16);
+				et_hex.setText(hex.value);
+				
+				/* Set a value into the history */
+				history.setNumberString(ID_BASETYPE_DEC, dec.value);
+				history.setNumberString(ID_BASETYPE_HEX, hex.value);
+				
 			} else if (sourceBasetype == ID_BASETYPE_DEC) {
-				et_bin.setText(calc.listBaseConv(parsedList, 10, 2));
-				et_dec.setText(calc.listToString(parsedList, 10));// for Remove
-																	// a decimal
-																	// point
-				et_hex.setText(calc.listBaseConv(parsedList, 10, 16));
+				BaseConvResult bin = calc.listBaseConv(parsedList, 10, 2);
+				et_bin.setText(bin.value);
+				et_dec.setText(calc.listToString(parsedList, 10));// for Remove a decimal point
+				BaseConvResult hex = calc.listBaseConv(parsedList, 10, 16);
+				et_hex.setText(hex.value);
+				
+				/* Set a value into the history */
+				history.setNumberString(ID_BASETYPE_BIN, bin.value);
+				history.setNumberString(ID_BASETYPE_HEX, hex.value);
+				
 			} else if (sourceBasetype == ID_BASETYPE_HEX) {
-				et_bin.setText(calc.listBaseConv(parsedList, 16, 2));
-				et_dec.setText(calc.listBaseConv(parsedList, 16, 10));
+				BaseConvResult bin = calc.listBaseConv(parsedList, 16, 2);
+				et_bin.setText(bin.value);
+				BaseConvResult dec = calc.listBaseConv(parsedList, 16, 10);
+				et_dec.setText(dec.value);
+				
+				/* Set a value into the history */
+				history.setNumberString(ID_BASETYPE_BIN, bin.value);
+				history.setNumberString(ID_BASETYPE_DEC, dec.value);
+				
 			}
 		} catch (Exception e) {
 			Log.e("binCalc", e.toString(), e);
@@ -409,6 +431,8 @@ final public class Fragment_main extends SherlockFragment implements
 					getResources().getColor(
 							R.color.main_editText_baseinput_TextColor_error));
 		}
+		
+		return history;
 	}
 
 	/**
@@ -816,9 +840,9 @@ final public class Fragment_main extends SherlockFragment implements
 		
 		Log.d("binCalc",
 			"Fragment_main - restoreBaseInputsFromHistory - Restore a history("
-					+ history_id + ") = " + history.value);
-		switchBasetype(history.basetype);
-		getCurrent_Baseinput_EditText().setText(history.value);
+					+ history_id + ") = " + history.getNumberString());
+		switchBasetype(history.getBaseType());
+		getCurrent_Baseinput_EditText().setText(history.getNumberString());
 		
 		baseConvert();
 		reApplyBasetype();
@@ -972,12 +996,11 @@ final public class Fragment_main extends SherlockFragment implements
 
 			/* Save initialized calculator, into histories list */
 			HistoryItem history = new HistoryItem();
-			history.basetype = selectedBasetypeId;
-			history.value = getCurrent_Baseinput_EditText().getText()
-					.toString();
+			history.setBaseType(selectedBasetypeId);
+			history.setNumberString(getCurrent_Baseinput_EditText().getText().toString());
 			int history_id = calc.putHistory(history);
 			Log.d("binCalc", "calculate() - Save a history(" + history_id
-					+ ") = " + history.value);
+					+ ") = " + history.getNumberString());
 		}
 	}
 }

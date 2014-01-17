@@ -1,6 +1,7 @@
 package info.ohgita.android.bincalc;
 
 import info.ohgita.android.bincalc.calculator.BaseConverter;
+import info.ohgita.android.bincalc.calculator.BaseConvResult;
 import info.ohgita.android.bincalc.calculator.BasicArithOperator;
 import info.ohgita.android.bincalc.calculator.ExpParser;
 import info.ohgita.android.bincalc.calculator.HistoryItem;
@@ -92,7 +93,7 @@ public class Calculator {
 	 * @return Converted result
 	 * @throws Exception 
 	 */
-	public String listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ) throws Exception{
+	public BaseConvResult listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ) throws Exception{
 		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNBase+", "+destNBase+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
@@ -150,7 +151,10 @@ public class Calculator {
 			
 			resultExp.append(conv);
 		}
-		return resultExp.toString();
+		
+		BaseConvResult result = new BaseConvResult(); 
+		result.value = resultExp.toString();
+		return result;
 	}
 	
 	/**
