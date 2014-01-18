@@ -1,7 +1,6 @@
 package info.ohgita.android.bincalc;
 
 import info.ohgita.android.bincalc.calculator.BaseConverter;
-import info.ohgita.android.bincalc.calculator.BaseConvResult;
 import info.ohgita.android.bincalc.calculator.BasicArithOperator;
 import info.ohgita.android.bincalc.calculator.ExpParser;
 import info.ohgita.android.bincalc.calculator.HistoryItem;
@@ -35,7 +34,7 @@ public class Calculator {
 	 * @param arith_round_scale	Rounding scale for BasicArithOperator
 	 */
 	public Calculator(int arith_round_scale){
-		/* Initialize objects */
+		/* Initialize instances */
 		expParser = new ExpParser();
 		basicArithOperator = new BasicArithOperator(arith_round_scale);
 		baseConverter = new BaseConverter();
@@ -109,8 +108,9 @@ public class Calculator {
 	 * @return Converted result
 	 * @throws Exception 
 	 */
-	public BaseConvResult listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ) throws Exception{
+	public CalculatorBaseConvResult listBaseConv(LinkedList<String> list, int fromNBase, int destNBase ) throws Exception{
 		Log.d("binCalc", "Calculator.listBaseConv(list, "+fromNBase+", "+destNBase+")");
+		baseConverter = new BaseConverter();
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
 		
@@ -167,7 +167,8 @@ public class Calculator {
 			resultExp.append(conv);
 		}
 		
-		BaseConvResult result = new BaseConvResult(); 
+		CalculatorBaseConvResult result = new CalculatorBaseConvResult(); 
+		result.logs = baseConverter.getLogs();
 		result.value = resultExp.toString();
 		return result;
 	}

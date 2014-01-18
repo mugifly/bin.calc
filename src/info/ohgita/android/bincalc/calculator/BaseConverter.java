@@ -12,7 +12,14 @@ import java.util.ArrayList;
  * 
  */
 public class BaseConverter {
-	public ArrayList<String> logs;
+	protected ArrayList<String> logs;
+	
+	/**
+	 * Constructor
+	 */
+	public BaseConverter() {
+		logs = new ArrayList<String>();
+	}
 	
 	/**
 	 * Decimal number to N-adic number
@@ -23,7 +30,7 @@ public class BaseConverter {
 	 */
 	public String decToN(double num, int n_adic) throws Exception{
 		//Log.d("binCalc", "BaseConverter.decToN("+num+", "+n_adic+")");
-		logClear();
+		log("-- 10 to " + n_adic + " --");
 		
 		String ret_int = ""; // converted n-Adic number integer-part
 		String ret_dec = "";// converted n-Adic number decimal-places-part (binary/hexadecimal fraction part)
@@ -117,47 +124,13 @@ public class BaseConverter {
 	}
 	
 	/**
-	 * 4bit-separate for Binary number
-	 * @param num Binary number
-	 * @return 4bit separated number
-	 */
-	public String binSeparate(String num) {
-		StringBuilder ret = new StringBuilder();
-		for(int i=0;i<num.length();i++){
-			if(i % 4 == 0){
-				ret.append(",");
-			}
-			ret.append(num.charAt(i)+"");
-		}
-		return ret.toString();
-	}
-	
-	/**
-	 * Zero-padding for Binary number 
-	 * @param num Binary number
-	 * @return Zero-padding number
-	 */
-	public String binZeroPadding(String num) {
-		while (num.length() %4 != 0) {
-			num = "0" + num;
-		}
-		while (num.indexOf("0000") == 0) {
-			num = num.substring(4);
-		}
-		if (num.length() == 0) {
-			num = "0000";
-		}
-		return num;
-	}
-
-	/**
 	 * Binary to decimal number
 	 * @param bin	Source binary number (String)
 	 * @return converted number
 	 */
 	public Double binToDec(String bin){
 		//Log.d("binCalc", "BaseConverter.binToDec("+bin+")");
-		logClear();
+		log("-- 2 to 10 --");
 		
 		double ret = 0; // converted base-10 number
 		
@@ -195,14 +168,48 @@ public class BaseConverter {
 	}
 	
 	/**
+	 * 4bit-separate for Binary number
+	 * @param num Binary number
+	 * @return 4bit separated number
+	 */
+	public String binSeparate(String num) {
+		StringBuilder ret = new StringBuilder();
+		for(int i=0;i<num.length();i++){
+			if(i % 4 == 0){
+				ret.append(",");
+			}
+			ret.append(num.charAt(i)+"");
+		}
+		return ret.toString();
+	}
+
+	/**
+	 * Zero-padding for Binary number 
+	 * @param num Binary number
+	 * @return Zero-padding number
+	 */
+	public String binZeroPadding(String num) {
+		while (num.length() %4 != 0) {
+			num = "0" + num;
+		}
+		while (num.indexOf("0000") == 0) {
+			num = num.substring(4);
+		}
+		if (num.length() == 0) {
+			num = "0000";
+		}
+		return num;
+	}
+
+	/**
 	 * Hexadecimal to decimal number
 	 * @param hex	Source hexadecimal number (String)
 	 * @return converted number
 	 */
 	public Double hexToDec(String hex){
 		//Log.d("binCalc", "BaseConverter.hexToDec("+hex+")");
-		logClear();
-
+		log("-- 16 to 10 --");
+		
 		double ret = 0.0;
 		
 		/* Separate fraction part */
@@ -236,6 +243,14 @@ public class BaseConverter {
 
 		log("=> "+ret+"(10)");
 		return ret;
+	}
+	
+	/**
+	 * Get logs
+	 * @return logs
+	 */
+	public ArrayList<String> getLogs(){
+		return logs;
 	}
 	
 	/**

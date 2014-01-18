@@ -1,9 +1,11 @@
 <resources>
     <string name="menu_pref">設定</string>
-    <string name="menu_log">履歴</string>
+    <string name="menu_convert_log">進数変換の履歴</string>
     <string name="menu_about">このアプリについて</string>
     <string name="activity_about_name">bin.Calcについて</string>
     <string name="activity_pref_name">bin.Calcの設定</string>
+    
+    <string name="general_convert_log_title">最新の進数変換の履歴</string>
     
     <string name="pref_category_general">一般</string>
     <string name="pref_item_stateSave_title">状態の保持</string>

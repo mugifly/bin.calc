@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import info.ohgita.android.bincalc.calculator.BaseConvResult;
 import info.ohgita.android.bincalc.calculator.BaseConverter;
 import info.ohgita.android.bincalc.calculator.HistoryItem;
 import info.ohgita.bincalc_android.R;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -76,6 +76,7 @@ final public class Fragment_main extends SherlockFragment implements
 	String defaultValue;
 	int selectedBasetypeId = ID_BASETYPE_DEC;
 	int currentOperationModeId = -1;
+	String convertLog;
 	
 	/* Instances */
 	Calculator calc;
@@ -92,6 +93,7 @@ final public class Fragment_main extends SherlockFragment implements
 		Log.d("binCalc", "Fragment_main - onCreateView()");
 
 		is_init = false;
+		convertLog = null;
 		
 		/* Initialize user-hints */
 		stateUserHints = new HashMap<String, Boolean>();
@@ -502,38 +504,47 @@ final public class Fragment_main extends SherlockFragment implements
 			if (sourceBasetype == ID_BASETYPE_BIN) {
 				et_bin.setText(calc.listToString(calc.listZeropadding(parsedList, 2), 2));
 				
-				BaseConvResult dec = calc.listBaseConv(parsedList, 2, 10);
+				CalculatorBaseConvResult dec = calc.listBaseConv(parsedList, 2, 10);
 				et_dec.setText(dec.value);
-				BaseConvResult hex = calc.listBaseConv(parsedList, 2, 16);
+				CalculatorBaseConvResult hex = calc.listBaseConv(parsedList, 2, 16);
 				et_hex.setText(hex.value);
 
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_DEC, dec.value);
 				history.setNumberString(ID_BASETYPE_HEX, hex.value);
-
+				
+				/* Update a log */
+				updateLatestBaseConvertLog(null, dec, hex);
+				
 			} else if (sourceBasetype == ID_BASETYPE_DEC) {
 				et_dec.setText(calc.listToString(parsedList, 10));
 				
-				BaseConvResult bin = calc.listBaseConv(parsedList, 10, 2);
+				CalculatorBaseConvResult bin = calc.listBaseConv(parsedList, 10, 2);
 				et_bin.setText(bin.value);
-				BaseConvResult hex = calc.listBaseConv(parsedList, 10, 16);
+				CalculatorBaseConvResult hex = calc.listBaseConv(parsedList, 10, 16);
 				et_hex.setText(hex.value);
 
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_BIN, bin.value);
 				history.setNumberString(ID_BASETYPE_HEX, hex.value);
+				
+				/* Update a log */
+				updateLatestBaseConvertLog(bin, null, hex);
 
 			} else if (sourceBasetype == ID_BASETYPE_HEX) {
 				et_hex.setText(calc.listToString(parsedList, 16));
 				
-				BaseConvResult bin = calc.listBaseConv(parsedList, 16, 2);
+				CalculatorBaseConvResult bin = calc.listBaseConv(parsedList, 16, 2);
 				et_bin.setText(bin.value);
-				BaseConvResult dec = calc.listBaseConv(parsedList, 16, 10);
+				CalculatorBaseConvResult dec = calc.listBaseConv(parsedList, 16, 10);
 				et_dec.setText(dec.value);
 
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_BIN, bin.value);
 				history.setNumberString(ID_BASETYPE_DEC, dec.value);
+				
+				/* Update a log */
+				updateLatestBaseConvertLog(bin, dec, null);
 
 			}
 		} catch (Exception e) {
@@ -839,7 +850,46 @@ final public class Fragment_main extends SherlockFragment implements
 	public void inputEquall() {
 		calculate();
 	}
-
+	
+	/**
+	 * Show the base-convert log
+	 */
+	public void showLatestBaseConvertLog() {
+		 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		 builder.setTitle(R.string.general_convert_log_title);
+		 builder.setMessage(convertLog);
+		 AlertDialog dialog = builder.create();
+		 dialog.show();
+	}
+	
+	/**
+	 * Update the base-convert log
+	 */
+	protected void updateLatestBaseConvertLog(CalculatorBaseConvResult bin, CalculatorBaseConvResult dec, CalculatorBaseConvResult hex) {
+		convertLog = "";
+		if (bin != null) {
+			convertLog += "[" + getResources().getString(R.string.baseMode_bin) + "]\n";
+			for (int i = 0, l = bin.logs.size(); i < l; i++) {
+				convertLog += "* " + bin.logs.get(i) + "\n";
+			}
+			convertLog += "\n----------\n";
+		}
+		if (dec != null) {
+			convertLog += "[" + getResources().getString(R.string.baseMode_dec) + "]\n";
+			for (int i = 0, l = dec.logs.size(); i < l; i++) {
+				convertLog += "* " + dec.logs.get(i) + "\n";
+			}
+			convertLog += "\n----------\n";
+		}
+		if (hex != null) {
+			convertLog += "[" + getResources().getString(R.string.baseMode_hex) + "]\n";
+			for (int i = 0, l = hex.logs.size(); i < l; i++) {
+				convertLog += "* " + hex.logs.get(i) + "\n";
+			}
+			convertLog += "\n----------\n";
+		}
+	}
+	
 	/**
 	 * get current base-type(container) TableRow object
 	 */

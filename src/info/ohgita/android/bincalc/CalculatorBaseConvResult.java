@@ -1,12 +1,13 @@
-package info.ohgita.android.bincalc.calculator;
+package info.ohgita.android.bincalc;
 
 import java.util.ArrayList;
+
 import android.util.Log;
 
 /**
  * Result container for BaseConverter class 
  */
-public class BaseConvResult {
+public class CalculatorBaseConvResult {
 	public String value;
-	public String log;
+	public ArrayList<String> logs;
 }

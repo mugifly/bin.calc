@@ -5,10 +5,12 @@
     <string name="baseMode_bin">bin</string>
     <string name="baseMode_hex">hex</string>
     <string name="menu_pref">Preferences</string>
-    <string name="menu_log">History</string>
+    <string name="menu_convert_log">Base-convert History</string>
     <string name="menu_about">About</string>
     <string name="activity_about_name">About</string>
     <string name="activity_pref_name">Preferences</string>
+    
+    <string name="general_convert_log_title">Latest Base-convert History</string>
     
     <string name="pref_category_general">General</string>
     <string name="pref_item_stateSave_key">stateSave</string>

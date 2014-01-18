@@ -20,7 +20,7 @@ import com.actionbarsherlock.view.SubMenu;
 
 public class Activity_main extends SherlockFragmentActivity {
 
-	private static final int MENU_ID_LOG = 100;
+	private static final int MENU_ID_CONVERT_LOG = 100;
 	private static final int MENU_ID_ABOUT = 200;
 	private static final int MENU_ID_ALLCLEAR = 300;
 	private static final int MENU_ID_PREF = 400;
@@ -80,7 +80,7 @@ public class Activity_main extends SherlockFragmentActivity {
 		sub_menu.getItem().setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		/* SubMenu > Log button */
-		sub_menu.add(Menu.NONE, MENU_ID_LOG, Menu.NONE, R.string.menu_log);
+		sub_menu.add(Menu.NONE, MENU_ID_CONVERT_LOG, Menu.NONE, R.string.menu_convert_log);
 
 		/* SubMenu > Preference button */
 		sub_menu.add(Menu.NONE, MENU_ID_PREF, Menu.NONE, R.string.menu_pref);
@@ -100,12 +100,17 @@ public class Activity_main extends SherlockFragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean ret = true;
+		
+		Fragment_main f = (Fragment_main) fragmentManager
+				.findFragmentById(R.id.fragment_Main);
+		
 		switch (item.getItemId()) {
 		default:
 			ret = super.onOptionsItemSelected(item);
 			break;
-		case MENU_ID_LOG:
-			ret = true;
+		case MENU_ID_CONVERT_LOG:
+			ret = false;
+			f.showLatestBaseConvertLog();
 			break;
 		case MENU_ID_ABOUT:
 			ret = false;
@@ -113,8 +118,6 @@ public class Activity_main extends SherlockFragmentActivity {
 			break;
 		case MENU_ID_ALLCLEAR:
 			ret = false;
-			Fragment_main f = (Fragment_main) fragmentManager
-					.findFragmentById(R.id.fragment_Main);
 			f.inputAllClear();
 			break;
 		case MENU_ID_PREF:
