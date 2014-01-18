@@ -363,16 +363,21 @@ final public class Fragment_main extends SherlockFragment implements
 				.toString();
 		try {
 			dec_value = calc.calc(dec_value);
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			getCurrent_Baseinput_EditText().setTextColor(
 					getResources().getColor(
 							R.color.main_editText_baseinput_TextColor_error));
-		} catch (NumberFormatException e) {
-			getCurrent_Baseinput_EditText().setTextColor(
-					getResources().getColor(
-							R.color.main_editText_baseinput_TextColor_error));
+		};
+		
+		/* Remove decimal point */
+		if (dec_value.indexOf(".0") != -1) {
+			if(calc.isDecimalFraction(10, dec_value) == false){
+				Double d = Double.parseDouble(dec_value);
+				if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
+					dec_value = d.intValue() + "";
+				}
+			}
 		}
-		;
 
 		/* Set caluculate result to Decimal EditText */
 		((EditText) getCurrent_Baseinputs_ViewPager().findViewById(
@@ -463,7 +468,7 @@ final public class Fragment_main extends SherlockFragment implements
 			} else if (sourceBasetype == ID_BASETYPE_DEC) {
 				BaseConvResult bin = calc.listBaseConv(parsedList, 10, 2);
 				et_bin.setText(bin.value);
-				et_dec.setText(calc.listToString(parsedList, 10));// for Remove a decimal point
+				et_dec.setText(calc.listToString(parsedList, 10));
 				BaseConvResult hex = calc.listBaseConv(parsedList, 10, 16);
 				et_hex.setText(hex.value);
 				
@@ -545,9 +550,9 @@ final public class Fragment_main extends SherlockFragment implements
 
 		/* point */
 		if (str.contentEquals(".")) {
-			if (et.getText().toString().indexOf('.') == -1) {
+			//if (et.getText().toString().indexOf('.') == -1) {
 				et.setText(et.getText().toString() + ".");
-			}
+			//}
 			return;
 		}
 
@@ -638,8 +643,9 @@ final public class Fragment_main extends SherlockFragment implements
 		} else if (oprmodeId == ID_OPRMODE_MEMORY_IN) {
 			/* Calculate */
 			EditText et_dec = (EditText)getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
-			String value = calc.calc(et_dec.getEditableText().toString());
+			String value = "";
 			try {
+				value = calc.calc(et_dec.getEditableText().toString());
 				value = baseconv.decToN(Double.parseDouble(value), selectedBasetypeId);
 				/* Memory in */
 				calc.InMemory(selectedBasetypeId, value);

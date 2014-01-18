@@ -76,7 +76,7 @@ public class Calculator {
 	 * @param exp Numerical formula (Decimal numbers)
 	 * @return Calculated result
 	 */
-	public String calc(String exp){
+	public String calc(String exp) throws Exception {
 		Log.d("binCalc", "calc("+exp+")");
 		
 		/* Parse a numerical formula */
@@ -183,17 +183,7 @@ public class Calculator {
 			Log.i("binCalc", chunk);
 			if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){ // If number
 				if (nBase == 10) { // Decimal
-					if (chunk.contentEquals("-0")){
-						
-					} else {
-						/* Remove a decimal point */
-						Double d = Double.parseDouble(chunk);
-						if(isDecimalFraction(nBase, chunk) == false){
-							if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
-								chunk = d.intValue() + "";
-							}
-						}
-						
+					if (chunk.contentEquals("-0") == false){ // Not minus zero
 						/* Insert the separator to number */
 						chunk = insertSeparator(chunk, nBase);
 					}
@@ -289,7 +279,7 @@ public class Calculator {
 		return histories.size();
 	}
 	
-	protected boolean isDecimalFraction(int nBase, String dec){
+	public boolean isDecimalFraction(int nBase, String dec){
 		if(dec.charAt(dec.length() -1) == '.'){ // If last char is point... (ex: "1.")
 			return true;
 		}
