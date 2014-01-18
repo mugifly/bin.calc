@@ -349,12 +349,21 @@ public class Calculator {
 		} else if (nBase == 10) { // Decimal
 			DecimalFormat formatter = new DecimalFormat("#,###");
 			
+			boolean is_negative = false;
+			if (number.charAt(0) == '-') {
+				is_negative = true;
+			}
+			
 			if (number.indexOf(".") != -1) {
 				int i = number.indexOf(".");
 				String n = number.substring(0, i);
 				number = formatter.format(Integer.parseInt(n)) + number.substring(i, number.length());
 			} else {
 				number = formatter.format(Integer.parseInt(number));
+			}
+			
+			if (number.charAt(0) == '0' && is_negative) {
+				number = "-" + number;
 			}
 		}
 		return number;
