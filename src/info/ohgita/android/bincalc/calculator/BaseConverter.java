@@ -62,7 +62,7 @@ public class BaseConverter {
 		Integer value;
 		do {
 			value =  num_int % n_adic;
-			if (n_adic == 16 && value >= 10) { // if hex A-F...
+			if (n_adic == 16 && 10 <= value) { // if hex A-F...
 				log(num_int + " / " + n_adic + " ... " + value + " (" + (Character.toString((char) ('A'+ (value-10)))) + ")");
 				ret_int = (Character.toString((char) ('A'+ (value-10)))) + ret_int;
 			} else { // other number...
@@ -74,10 +74,10 @@ public class BaseConverter {
 		
 		if (num_int != 0) {
 			log("... "+num_int);
-			if (n_adic == 16 && value >= 10) { // If hex A-F ...
-				ret_int = (Character.toString((char) ('A'+ (value-10)))) + ret_int;
+			if (n_adic == 16 && 10 <= num_int) { // If hex A-F ...
+				ret_int = (Character.toString((char) ('A'+ (num_int-10)))) + ret_int;
 			} else {
-				ret_int = num_int + ret_int;
+				ret_int = num_int + "" + ret_int;
 			}
 		}
 		
@@ -87,7 +87,7 @@ public class BaseConverter {
 		}
 		while (num_dec != 0.0) {
 			value = (int) (num_dec * (double)n_adic);
-			if (n_adic == 16 && value >= 10) { // if hex A-F...
+			if (n_adic == 16 && 10 <= value) { // if hex A-F...
 				log(num_dec + " * " + n_adic + "  =  " + value + " (" + (Character.toString((char) ('A'+ (value-10)))) + ")");
 				ret_dec += (Character.toString((char) ('A'+ (value-10))));
 			} else { // other number...

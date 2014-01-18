@@ -20,6 +20,7 @@ public class BaseConverterTest extends TestCase {
 		assertEquals("010000000000.1", bcon.decToN(1024.5, 2));
 		// Dec to Hex
 		assertEquals("400.8", bcon.decToN(1024.5, 16));
+		assertEquals("2A", bcon.decToN(42, 16));
 		// Bin to Dec
 		assertEquals(1024.5, bcon.binToDec("010000000000.1"));
 		// Hex to Dec
