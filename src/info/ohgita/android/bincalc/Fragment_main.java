@@ -395,7 +395,7 @@ final public class Fragment_main extends SherlockFragment implements
 		try {
 			/* Copy a before expression to new expression for new base-inputs */
 			// Parse the expression, and cleanup it
-			String new_exp = calc.listToString(calc.removeParentheses(calc.parseToList(before_value)), 2);
+			String new_exp = calc.listToString(calc.listRemoveParentheses(calc.parseToList(before_value)), 2);
 			getCurrentBaseinputEditText().setText(new_exp);
 			
 			/* Before Base convert */
@@ -603,9 +603,9 @@ final public class Fragment_main extends SherlockFragment implements
 			Log.i("binCalc", exp);
 			
 			// Parse a current expression, and remove parentheses
-			LinkedList<String> list = calc.removeParentheses(calc.parseToList(exp));
+			LinkedList<String> list = calc.listRemoveParentheses(calc.parseToList(exp));
 			// Find last number-chunk
-			int number_chunk_i = calc.indexOfLastNumberChunkFromList(list);
+			int number_chunk_i = calc.indexOfListLastNumberChunk(list);
 			if (number_chunk_i != -1) {	
 				String chunk = list.get(number_chunk_i);
 				if (str.contentEquals(".")) { // Insert a point
@@ -648,10 +648,12 @@ final public class Fragment_main extends SherlockFragment implements
 		/* general number */
 		if (exp.contentEquals("0") || exp.contentEquals("0000")) {
 			et.setText(str);
+		} else if (exp.contentEquals("(-0)")) {
+			et.setText("-" + str+"");
 		} else {
 			try {
 				String res = calc.listToString(
-						calc.removeParentheses(calc.parseToList(exp)),
+						calc.listRemoveParentheses(calc.parseToList(exp)),
 						selectedBasetypeId);
 				et.setText(res + str);
 			} catch (Exception e) {
@@ -676,7 +678,7 @@ final public class Fragment_main extends SherlockFragment implements
 
 		String value = "";
 		try {
-			value = calc.listToString(calc.removeParentheses(calc
+			value = calc.listToString(calc.listRemoveParentheses(calc
 					.parseToList(et.getText().toString())), selectedBasetypeId);
 		} catch (Exception e) {
 			getCurrentBaseinputEditText().setTextColor(
@@ -797,8 +799,8 @@ final public class Fragment_main extends SherlockFragment implements
 				// Insert a value into after of last number-chunk
 				LinkedList<String> list;
 				try {
-					list = calc.removeParentheses(calc.parseToList(et.getText().toString()));
-					int number_chunk_i = calc.indexOfLastNumberChunkFromList(list);
+					list = calc.listRemoveParentheses(calc.parseToList(et.getText().toString()));
+					int number_chunk_i = calc.indexOfListLastNumberChunk(list);
 					if (number_chunk_i == -1) {
 						return;
 					}
@@ -1323,7 +1325,7 @@ final public class Fragment_main extends SherlockFragment implements
 			switchBasetype(selectedBasetypeId);
 			if (defaultValue != null) {
 				try {
-					String value = calc.listToString(calc.removeParentheses(calc.parseToList(defaultValue)), selectedBasetypeId);
+					String value = calc.listToString(calc.listRemoveParentheses(calc.parseToList(defaultValue)), selectedBasetypeId);
 					getCurrentBaseinputEditText().setText(value);
 					baseConvert();
 				} catch (Exception e) {

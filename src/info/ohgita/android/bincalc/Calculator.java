@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * bin.Calc Internal calculator class
@@ -172,25 +173,6 @@ public class Calculator {
 	}
 	
 	/**
-	 * Find Last number-chunk from the list
-	 * @param list LinkedList (Parsed numerical formula)
-	 * @return Found chunk (Last number-chunk)
-	 */
-	public int indexOfLastNumberChunkFromList(LinkedList<String> list) {
-		if (list.isEmpty() == false) {
-			// Find last number-chunk
-			for (int i = list.size() - 1; 0 <= i; i--) {
-				String chunk = list.get(i);
-				if (0 < chunk.length() && chunk.contentEquals("(") == false
-						&& chunk.contentEquals(")") == false) {
-					return i;
-				}
-			}
-		}
-		return -1;
-	}
-	
-	/**
 	 * Convert LinkedList to String (Numerical formula) 
 	 * @param list LinkedList (Parsed numerical formula)
 	 * @param nBase Source base
@@ -230,7 +212,7 @@ public class Calculator {
 	 * @param list LinkedList (Parsed numerical formula)
 	 * @return Processed LinkedList
 	 */
-	public LinkedList<String> removeParentheses(LinkedList<String> list){
+	public LinkedList<String> listRemoveParentheses(LinkedList<String> list){
 		Log.d("binCalc", "Calculator.removeParentheses(list)");
 		LinkedList<String> ret_list = new LinkedList<String>(); 
 		for(int i=0;i<list.size();i++){
@@ -260,6 +242,25 @@ public class Calculator {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * Find Last number-chunk from the list
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @return Found chunk (Last number-chunk)
+	 */
+	public int indexOfListLastNumberChunk(LinkedList<String> list) {
+		if (list.isEmpty() == false) {
+			// Find last number-chunk
+			for (int i = list.size() - 1; 0 <= i; i--) {
+				String chunk = list.get(i);
+				if (0 < chunk.length() && chunk.contentEquals("(") == false
+						&& chunk.contentEquals(")") == false) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 	
 	/**
@@ -346,12 +347,14 @@ public class Calculator {
 			return r;
 		} else if (nBase == 10) { // Decimal
 			DecimalFormat formatter = new DecimalFormat("#,###");
+			
 			if (number.indexOf(".") != -1) {
 				int i = number.indexOf(".");
 				String n = number.substring(0, i);
-				return formatter.format(Integer.parseInt(n)) + number.substring(i, number.length());
+				number = formatter.format(Integer.parseInt(n)) + number.substring(i, number.length());
+			} else {
+				number = formatter.format(Integer.parseInt(number));
 			}
-			return formatter.format(Integer.parseInt(number));
 		}
 		return number;
 	}
