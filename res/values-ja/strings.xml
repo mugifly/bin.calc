@@ -9,6 +9,9 @@
     <string name="pref_item_stateSave_title">状態の保持</string>
     <string name="pref_item_stateSave_summary">アプリを閉じたときの状態を保持</string>
     
+    <string name="pref_item_arithRoundScale_title">丸め処理の桁数</string>
+    <string name="pref_item_arithRoundScale_summary">割り算での小数丸め処理を行う桁数</string>
+    
     <string name="pref_category_feedback">操作のフィードバック</string>
     <string name="pref_item_keyVibration_title">キーのバイブレーション</string>
     
@@ -19,6 +22,7 @@
     <string name="pref_item_bigdecimal_title">BigDecimal モード</string>
     <string name="pref_item_bigdecimal_summary">Double型の代わりにBigDecimal型を使用して小数の精度を向上</string>
     
+    <string name="main_baseinputBackspaceBtn_clearHint">このバックスペースボタンを押し続けると、入力をクリアできます</string>
     <string name="main_keyButtonOpDi_text">÷</string>
     <string name="main_keyButtonPM_text">±</string>
     <string name="main_keyButtonPo_text">・</string>

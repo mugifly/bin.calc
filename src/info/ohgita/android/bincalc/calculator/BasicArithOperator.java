@@ -16,6 +16,19 @@ import android.util.Log;
  */
 public class BasicArithOperator {
 	protected LinkedList<String> list;
+	protected int roundingScale;
+	
+	/**
+	 * Constructor
+	 * @param round_scale Rounding scale
+	 */
+	public BasicArithOperator(int round_scale) {
+		roundingScale = round_scale;
+	}
+	
+	public BasicArithOperator() {
+		roundingScale = 2; // second digit
+	}
 	
 	/**
 	 * Calculate a numerical formula
@@ -59,7 +72,8 @@ public class BasicArithOperator {
 				result = result.multiply(new BigDecimal(str));
 			}else if(beforeStr.contentEquals("/")){
 				Log.i("BasicArithOperator","    * "+result+" /= "+str);
-				result = result.divide(new BigDecimal(str));
+				BigDecimal bd = new BigDecimal(str);
+				result = result.divide(bd, roundingScale, BigDecimal.ROUND_HALF_UP);
 			}else if(beforeStr.length() == 0){
 				Log.i("BasicArithOperator","    * "+result+" = "+str);
 				result = new BigDecimal(str);

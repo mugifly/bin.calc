@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">bin.Calc</string>
-    <string name="app_version">1.0.0</string>
     <string name="app_author">&#169;Masanori Ohgita (mugifly) - 2013.</string>
     <string name="baseMode_dec">dec</string>
     <string name="baseMode_bin">bin</string>
@@ -16,6 +15,11 @@
     <string name="pref_item_stateSave_title">Keep state</string>
     <string name="pref_item_stateSave_summary">Keep state when app has closed</string>
     
+    <string name="pref_item_arithRoundScale_key">roundScale</string>
+    <string name="pref_item_arithRoundScale_title">Round scale</string>
+    <string name="pref_item_arithRoundScale_summary">Scale of rounding on division calculation</string>
+    <integer name="pref_item_arithRoundScale_defaultValue">2</integer>
+    
     <string name="pref_category_feedback">Feedback</string>
     <string name="pref_item_keyVibration_key">keyVibration</string>
     <string name="pref_item_keyVibration_title">Key vibration</string>
@@ -29,6 +33,7 @@
     <string name="pref_item_bigdecimal_title">BigDecimal mode</string>
     <string name="pref_item_bigdecimal_summary">Use BigDecimal class</string>
     
+    <string name="main_baseinputBackspaceBtn_clearHint">To clear input, hold this backspace button.</string>
     <string name="main_keyButtonOpPl_text">&#x2B;</string>
     <string name="main_keyButtonOpMi_text">&#x2212;</string>
     <string name="main_keyButtonOpMp_text">&#xD7;</string>

@@ -31,11 +31,12 @@ public class Calculator {
 	
 	/**
 	 * Constructor
+	 * @param arith_round_scale	Rounding scale for BasicArithOperator
 	 */
-	public Calculator(){
+	public Calculator(int arith_round_scale){
 		/* Initialize objects */
 		expParser = new ExpParser();
-		basicArithOperator = new BasicArithOperator();
+		basicArithOperator = new BasicArithOperator(arith_round_scale);
 		baseConverter = new BaseConverter();
 		
 		histories = new ArrayList<HistoryItem>();
@@ -77,13 +78,15 @@ public class Calculator {
 	 * @return Calculated result
 	 */
 	public String calc(String exp) throws Exception {
-		Log.d("binCalc", "calc("+exp+")");
+		Log.d("binCalc", "Calculator - calc("+exp+")");
 		
 		/* Parse a numerical formula */
 		LinkedList<String> list = parseToList(exp);
 		
 		/* Calculate formula */
 		String res = basicArithOperator.calculate(list);
+
+		Log.d("binCalc", "Calculator - calc - Answer: "+res);
 		return res;
 	}
 	
@@ -153,6 +156,8 @@ public class Calculator {
 				
 				/* Insert the separator into number */
 				conv = insertSeparator(conv, destNBase);
+				/* Insert space for a point */
+				//conv = insertSpaceForPoint(conv);
 				
 			} else {
 				conv = chunk;
@@ -164,6 +169,25 @@ public class Calculator {
 		BaseConvResult result = new BaseConvResult(); 
 		result.value = resultExp.toString();
 		return result;
+	}
+	
+	/**
+	 * Find Last number-chunk from the list
+	 * @param list LinkedList (Parsed numerical formula)
+	 * @return Found chunk (Last number-chunk)
+	 */
+	public int indexOfLastNumberChunkFromList(LinkedList<String> list) {
+		if (list.isEmpty() == false) {
+			// Find last number-chunk
+			for (int i = list.size() - 1; 0 <= i; i--) {
+				String chunk = list.get(i);
+				if (0 < chunk.length() && chunk.contentEquals("(") == false
+						&& chunk.contentEquals(")") == false) {
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 	
 	/**
@@ -190,6 +214,8 @@ public class Calculator {
 				} else if (nBase == 2) { // Binary
 					/* Insert the separator to number */
 					chunk = insertSeparator(chunk, nBase);
+					/* Insert space for a point */
+					//chunk = insertSpaceForPoint(chunk);
 				}
 			}
 			
@@ -306,13 +332,16 @@ public class Calculator {
 		Log.d("binCalc", "Calculator.insertSeparator("+number+")");
 		if (nBase == 2) { // Binary
 			String r = "";
-			int c = 0;
+			int count = 0;
 			for (int i = 0; i < number.length(); i++) {
-				if (c != 0 && c % 4 == 0) {
-					r += " ";
+				char c = number.charAt(i);
+				if (c != '.') {
+					if (count != 0 && count % 4 == 0) {
+						r += " ";
+					}
+					count++;
 				}
-				r += number.charAt(i);
-				c++;
+				r += c;
 			}
 			return r;
 		} else if (nBase == 10) { // Decimal
@@ -325,5 +354,27 @@ public class Calculator {
 			return formatter.format(Integer.parseInt(number));
 		}
 		return number;
+	}
+	
+	/**
+	 * Insert space into surround a point
+	 * @param number
+	 * @return Processed number string
+	 */
+	protected String insertSpaceForPoint(String number) {
+		if (number == null || number.indexOf(".") == -1) {
+			return number;
+		}
+		
+		String r = "";
+		for (int i = 0, l = number.length(); i < l; i++) {
+			char c = number.charAt(i);
+			if (c == '.') {
+				r += "　.　";
+			} else {
+				r += number.charAt(i);
+			}
+		}
+		return r;
 	}
 }

@@ -8,6 +8,14 @@
             android:summary="@string/pref_item_stateSave_summary"
             android:title="@string/pref_item_stateSave_title"
             android:defaultValue="true" />
+        <ListPreference
+            android:key="@string/pref_item_arithRoundScale_key"
+            android:summary="@string/pref_item_arithRoundScale_summary"
+            android:title="@string/pref_item_arithRoundScale_title"
+            android:entries="@array/pref_item_arithRoundScale_items"
+            android:entryValues="@array/pref_item_arithRoundScale_items"
+            android:defaultValue="@integer/pref_item_arithRoundScale_defaultValue"
+            android:dialogTitle="@string/pref_item_arithRoundScale_title" />
     </PreferenceCategory>
     
     <PreferenceCategory android:title="@string/pref_category_feedback" >
