@@ -259,14 +259,33 @@
 	            android:text="9"
 	            style="@style/main_keyButtons" />
 
-	        <Button
-	            android:id="@+id/keyButtonMR"
+	        <FrameLayout
 	            android:layout_width="wrap_content"
-	            android:layout_height="match_parent"
-	            android:width="0dp"
-	            android:background="@drawable/button_keymem"
-	            android:text="MR"
-	            style="@style/main_keyButtons" />
+	            android:layout_height="match_parent" >
+			    
+		        <Button
+		            android:id="@+id/keyButtonMR"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:width="0dp"
+		            android:background="@drawable/button_keymem"
+		            android:text="@string/main_keyButtonOpMR_text"
+		            style="@style/main_keyButtons" />
+
+		        <TextView
+		            android:id="@+id/keyButtonMRText"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:ellipsize="end"
+		            android:layout_gravity="bottom"
+		            android:layout_marginLeft="2dip"
+		            android:layout_marginRight="2dip"
+		            android:layout_marginBottom="2dip"
+		            android:scrollHorizontally="true"
+		            android:maxLines="1"
+		            android:width="0dp" />
+
+	        </FrameLayout>
 
 	        <Button
 	            android:id="@+id/keyButtonOpDi"
@@ -313,12 +332,12 @@
 	            style="@style/main_keyButtons" />
 
 	        <Button
-	            android:id="@+id/keyButtonMC"
+	            android:id="@+id/keyButtonMin"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:width="0dp"
 	            android:background="@drawable/button_keymem"
-	            android:text="MC"
+	            android:text="@string/main_keyButtonOpMin_text"
 	            style="@style/main_keyButtons" />
 
 	        <Button
@@ -365,13 +384,14 @@
 	            android:text="3"
 	            style="@style/main_keyButtons" />
 
+
 	        <Button
-	            android:id="@+id/keyButtonMin"
+	            android:id="@+id/keyButtonMC"
 	            android:layout_width="wrap_content"
 	            android:layout_height="match_parent"
 	            android:width="0dp"
 	            android:background="@drawable/button_keymem"
-	            android:text="Min"
+	            android:text="@string/main_keyButtonOpMC_text"
 	            style="@style/main_keyButtons" />
 
 	        <Button

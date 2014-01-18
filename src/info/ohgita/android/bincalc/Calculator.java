@@ -25,7 +25,7 @@ public class Calculator {
 	
 	protected String EXP_SYMBOLS[] = {"(",")","*","/","+","-"};
 	
-	protected String memory;
+	protected CalculatorMemoryData memory;
 	
 	public ArrayList<HistoryItem> histories;
 	
@@ -39,6 +39,7 @@ public class Calculator {
 		baseConverter = new BaseConverter();
 		
 		histories = new ArrayList<HistoryItem>();
+		memory = null;
 		
 		/* Initialize sort for binarySearch */
 		Arrays.sort(EXP_SYMBOLS);
@@ -48,15 +49,26 @@ public class Calculator {
 	/**
 	 * MemoryIn method
 	 */
-	public void MemoryIn(){
-		
+	public void InMemory(int base_type, String value){
+		memory = new CalculatorMemoryData();
+		memory.base_type = base_type;
+		memory.value = value;
 	}
 	
 	/**
 	 * MemoryOut (Read) method
 	 */
-	public void MemoryOut(){
-		
+	public CalculatorMemoryData readMemory(){
+		if (memory != null)
+			return memory;
+		return null;
+	}
+	
+	/**
+	 * MemoryClear method
+	 */
+	public void clearMemory(){
+		memory = null;
 	}
 	
 	/**
@@ -137,15 +149,12 @@ public class Calculator {
 							conv = d.intValue() + ""; // Remove the decimal fraction point
 						}
 					}
-				
-				} else {
-					conv = chunk;
 				}
 				
-				/* Insert the separator to number */
+				/* Insert the separator into number */
 				conv = insertSeparator(conv, destNBase);
 				
-			} else {// if symbols(ex: operator)
+			} else {
 				conv = chunk;
 			}
 			
@@ -162,8 +171,9 @@ public class Calculator {
 	 * @param list LinkedList (Parsed numerical formula)
 	 * @param nBase Source base
 	 * @return Numerical formula string
+	 * @throws Exception 
 	 */
-	public String listToString(LinkedList<String> list, int nBase){
+	public String listToString(LinkedList<String> list, int nBase) throws Exception{
 		Log.d("binCalc", "Calculator.listToString(list, "+nBase+")");
 		Iterator<String> iter = list.iterator();
 		StringBuilder resultExp = new StringBuilder();
@@ -171,8 +181,8 @@ public class Calculator {
 		while(iter.hasNext()){
 			String chunk = iter.next();
 			Log.i("binCalc", chunk);
-			if (nBase == 10) { // Decimal
-				if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+			if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){ // If number
+				if (nBase == 10) { // Decimal
 					if (chunk.contentEquals("-0")){
 						
 					} else {
@@ -187,9 +197,7 @@ public class Calculator {
 						/* Insert the separator to number */
 						chunk = insertSeparator(chunk, nBase);
 					}
-				}
-			} else if (nBase == 2) { // Binary
-				if (Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
+				} else if (nBase == 2) { // Binary
 					/* Insert the separator to number */
 					chunk = insertSeparator(chunk, nBase);
 				}
@@ -237,28 +245,6 @@ public class Calculator {
 		}
 		return list;
 	}
-	
-	/**
-	 * Separate for LinkedList
-	 * @param list LinkedList (Parsed numerical formula)
-	 * @param nBase Source base
-	 * @return Processed LinkedList
-	 */
-	/*public LinkedList<String> listSeparate(LinkedList<String> list, int nBase){
-		Log.d("binCalc", "Calculator.listSeparate(list, "+nBase+")");
-		LinkedList<String> ret_list = new LinkedList<String>(); 
-		for(int i=0;i<list.size();i++){
-			String chunk = list.get(i);
-			if(Arrays.binarySearch(EXP_SYMBOLS, chunk) < 0){// if number
-				if(nBase == 2){ // binary
-					ret_list.set(i, baseConverter.binSeparate(chunk));
-					continue;
-				}
-			}
-			ret_list.set(i, chunk);
-		}
-		return ret_list;
-	}*/
 	
 	/**
 	 * Add a history of calculator
@@ -326,13 +312,13 @@ public class Calculator {
 	 * @param NBase
 	 * @return Result number string
 	 */
-	protected String insertSeparator(String number, int nBase) {
+	protected String insertSeparator(String number, int nBase) throws Exception {
 		Log.d("binCalc", "Calculator.insertSeparator("+number+")");
 		if (nBase == 2) { // Binary
 			String r = "";
 			int c = 0;
 			for (int i = 0; i < number.length(); i++) {
-				if (c % 4 == 0) {
+				if (c != 0 && c % 4 == 0) {
 					r += " ";
 				}
 				r += number.charAt(i);

@@ -103,10 +103,9 @@ public class Adapter_BaseinputsViewPager extends PagerAdapter {
 					et_dec.setText(history.getNumberString());
 					break;
 				case Adapter_BaseinputsViewPager.ID_BASETYPE_HEX:
-					et_hex.setText(history.getBaseType());
+					et_hex.setText(history.getNumberString());
 					break;
 			};
-			//mainFragment.switchBasetype(history.basetype);
 			mainFragment.baseConvert();
 		}else{
 			Log.d("binCalc","BaseinputsViewPager - instantiateItem - Initialize");

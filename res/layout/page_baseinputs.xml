@@ -53,7 +53,7 @@
             android:layout_marginTop="0px"
             android:paddingBottom="0px"
             android:paddingTop="0px"
-            android:text="123455555555555555555555555555555512311115555555555555555555555"
+            android:text=""
             android:textSize="@dimen/main_baseinput_bin"
             android:includeFontPadding="false" />
 

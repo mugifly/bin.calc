@@ -36,6 +36,9 @@
     <string name="main_keyButtonEq_text">&#x3D;</string>
     <string name="main_keyButtonPM_text">+/-</string>
     <string name="main_keyButtonPo_text">&#xB7;</string>
+    <string name="main_keyButtonOpMR_text">MR</string>
+    <string name="main_keyButtonOpMin_text">Min</string>
+    <string name="main_keyButtonOpMC_text">MC</string>
     
     <string name="main_keyButton_fontSize">20sp</string>
     <string name="main_baseInput_bin_fontSize">10sp</string>

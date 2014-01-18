@@ -31,5 +31,4 @@
         </activity>
         <activity android:label="@string/activity_pref_name" android:name="info.ohgita.android.bincalc.Activity_preference" android:theme="@style/Preference.PreferenceScreen" android:screenOrientation="portrait"></activity>
     </application>
-
 </manifest>

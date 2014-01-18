@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <dimen name="main_baseinput_dec">18dp</dimen>
+    <dimen name="main_baseinput_dec">18sp</dimen>
     <dimen name="main_baseinput_bin">11sp</dimen>
     <dimen name="main_baseinput_hex">16sp</dimen>
 </resources>
