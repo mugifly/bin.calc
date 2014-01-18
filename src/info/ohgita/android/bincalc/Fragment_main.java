@@ -60,7 +60,7 @@ final public class Fragment_main extends SherlockFragment implements
 	static int ID_OPRMODE_MEMORY_IN = 5;
 	static int ID_OPRMODE_MEMORY_CLEAR = 6;
 	static int ID_OPRMODE_MEMORY_READ = 7;
-	
+
 	int DEFAULT_VIBRATION_MSEC = 20;
 
 	boolean prefKeyVibration = false;
@@ -89,7 +89,7 @@ final public class Fragment_main extends SherlockFragment implements
 
 		/* initialize calculator class */
 		calc = new Calculator();
-		
+
 		/* Load default value */
 		if (savedInstanceState != null) {
 			/* Load a state from the savedInstanceState */
@@ -103,10 +103,12 @@ final public class Fragment_main extends SherlockFragment implements
 					.getString(STATE_KEY_BASEINPUT_VALUE);
 			Log.d("binCalc", "Fragment_main - onCreateView() - Default value: "
 					+ defaultValue);
-			
+
 			/* Memory data */
-			int memory_base_type = savedInstanceState.getInt(STATE_KEY_MEMORY_BASETYPE);
-			String memory_value = savedInstanceState.getString(STATE_KEY_MEMORY_VALUE);
+			int memory_base_type = savedInstanceState
+					.getInt(STATE_KEY_MEMORY_BASETYPE);
+			String memory_value = savedInstanceState
+					.getString(STATE_KEY_MEMORY_VALUE);
 			if (memory_base_type != -1 && memory_value != null) {
 				calc.InMemory(memory_base_type, memory_value);
 			}
@@ -120,21 +122,22 @@ final public class Fragment_main extends SherlockFragment implements
 				selectedBasetypeId = pref.getInt(STATE_KEY_BASETYPE,
 						selectedBasetypeId);
 				// Value
-				defaultValue = pref
-						.getString(STATE_KEY_BASEINPUT_VALUE, null);
+				defaultValue = pref.getString(STATE_KEY_BASEINPUT_VALUE, null);
 				Log.d("binCalc",
 						"Fragment_main - onCreateView() - Default value: "
 								+ defaultValue);
-				
+
 				/* Memory data */
-				int memory_base_type = pref.getInt(STATE_KEY_MEMORY_BASETYPE, -1);
-				String memory_value = pref.getString(STATE_KEY_MEMORY_VALUE, null);
+				int memory_base_type = pref.getInt(STATE_KEY_MEMORY_BASETYPE,
+						-1);
+				String memory_value = pref.getString(STATE_KEY_MEMORY_VALUE,
+						null);
 				if (memory_base_type != -1 && memory_value != null) {
 					calc.InMemory(memory_base_type, memory_value);
 				}
 			}
 		}
-		
+
 		/* Inflate a Fragment */
 		v = inflater.inflate(R.layout.fragment_main_portrait, container);
 
@@ -216,6 +219,7 @@ final public class Fragment_main extends SherlockFragment implements
 		v.findViewById(R.id.keyButtonOpDi).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonEq).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonPo).setOnClickListener(this);
+		v.findViewById(R.id.keyButtonPM).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonMC).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonMin).setOnClickListener(this);
 		v.findViewById(R.id.keyButtonMR).setOnClickListener(this);
@@ -249,7 +253,7 @@ final public class Fragment_main extends SherlockFragment implements
 		// Value
 		outState.putString(STATE_KEY_BASEINPUT_VALUE,
 				getCurrent_Baseinput_EditText().getEditableText().toString());
-		
+
 		/* Save a memory */
 		CalculatorMemoryData memory = calc.readMemory();
 		if (memory == null) {
@@ -278,14 +282,14 @@ final public class Fragment_main extends SherlockFragment implements
 					.getDefaultSharedPreferences(getActivity()
 							.getApplicationContext());
 			Editor e = pref.edit();
-			
+
 			// Base-type ID
 			e.putInt(STATE_KEY_BASETYPE, selectedBasetypeId);
 			// Value
 			e.putString(STATE_KEY_BASEINPUT_VALUE,
 					getCurrent_Baseinput_EditText().getEditableText()
 							.toString());
-			
+
 			/* Save a memory */
 			CalculatorMemoryData memory = calc.readMemory();
 			if (memory == null) {
@@ -299,7 +303,7 @@ final public class Fragment_main extends SherlockFragment implements
 				// Memory value
 				e.putString(STATE_KEY_MEMORY_VALUE, memory.value);
 			}
-			
+
 			e.commit();
 		}
 		super.onPause();
@@ -325,7 +329,7 @@ final public class Fragment_main extends SherlockFragment implements
 	 */
 	public void calculate() {
 		Log.d("binCalc", "calculate()");
-		
+
 		int current_base_type = selectedBasetypeId;
 
 		/* Backup a current value of the before before-inputs */
@@ -345,7 +349,7 @@ final public class Fragment_main extends SherlockFragment implements
 		history.setBaseType(current_base_type);
 		history.setNumberString(""); // Provisional value
 		calc.putHistory(new_page, history);
-		
+
 		/* Scroll the ViewPager of Base-inputs */
 		Log.d("binCalc", "calculate() - Scrolling");
 		baseinputsViewPager.arrowScroll(View.FOCUS_RIGHT);
@@ -367,13 +371,15 @@ final public class Fragment_main extends SherlockFragment implements
 			getCurrent_Baseinput_EditText().setTextColor(
 					getResources().getColor(
 							R.color.main_editText_baseinput_TextColor_error));
-		};
-		
+		}
+		;
+
 		/* Remove decimal point */
 		if (dec_value.indexOf(".0") != -1) {
-			if(calc.isDecimalFraction(10, dec_value) == false){
+			if (calc.isDecimalFraction(10, dec_value) == false) {
 				Double d = Double.parseDouble(dec_value);
-				if(! (d.intValue() >= Integer.MAX_VALUE)){ // If not overflow...
+				if (!(d.intValue() >= Integer.MAX_VALUE)) { // If not
+															// overflow...
 					dec_value = d.intValue() + "";
 				}
 			}
@@ -402,8 +408,8 @@ final public class Fragment_main extends SherlockFragment implements
 
 	public HistoryItem baseConvert(int sourceBasetype) {
 		Log.d("binCalc", "baseConvert()");
-		
-		/* Fetch a string of a source number */		
+
+		/* Fetch a string of a source number */
 		String value = null;
 		if (sourceBasetype == ID_BASETYPE_BIN) {
 			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(
@@ -415,7 +421,7 @@ final public class Fragment_main extends SherlockFragment implements
 			value = ((EditText) getCurrent_Baseinputs_ViewPager().findViewById(
 					R.id.editText_baseinput_hex)).getText().toString();
 		}
-		
+
 		EditText et_bin = (EditText) getCurrent_Baseinputs_ViewPager()
 				.findViewById(R.id.editText_baseinput_bin);
 		EditText et_dec = (EditText) getCurrent_Baseinputs_ViewPager()
@@ -429,12 +435,12 @@ final public class Fragment_main extends SherlockFragment implements
 				R.color.main_editText_baseinput_TextColor_default));
 		et_hex.setTextColor(getResources().getColor(
 				R.color.main_editText_baseinput_TextColor_default));
-		
+
 		/* Make an item of the history */
 		HistoryItem history = new HistoryItem();
 		history.setBaseType(sourceBasetype);
 		history.setNumberString(value);
-		
+
 		/* Parse formula */
 		LinkedList<String> parsedList = null;
 		try {
@@ -455,37 +461,41 @@ final public class Fragment_main extends SherlockFragment implements
 		/* Convert */
 		try {
 			if (sourceBasetype == ID_BASETYPE_BIN) {
-				et_bin.setText(calc.listToString(calc.listZeropadding(parsedList, 2), 2)); // for zero-padding && separate
+				et_bin.setText(calc.listToString(
+						calc.listZeropadding(parsedList, 2), 2)); // for
+																	// zero-padding
+																	// &&
+																	// separate
 				BaseConvResult dec = calc.listBaseConv(parsedList, 2, 10);
 				et_dec.setText(dec.value);
 				BaseConvResult hex = calc.listBaseConv(parsedList, 2, 16);
 				et_hex.setText(hex.value);
-				
+
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_DEC, dec.value);
 				history.setNumberString(ID_BASETYPE_HEX, hex.value);
-				
+
 			} else if (sourceBasetype == ID_BASETYPE_DEC) {
 				BaseConvResult bin = calc.listBaseConv(parsedList, 10, 2);
 				et_bin.setText(bin.value);
 				et_dec.setText(calc.listToString(parsedList, 10));
 				BaseConvResult hex = calc.listBaseConv(parsedList, 10, 16);
 				et_hex.setText(hex.value);
-				
+
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_BIN, bin.value);
 				history.setNumberString(ID_BASETYPE_HEX, hex.value);
-				
+
 			} else if (sourceBasetype == ID_BASETYPE_HEX) {
 				BaseConvResult bin = calc.listBaseConv(parsedList, 16, 2);
 				et_bin.setText(bin.value);
 				BaseConvResult dec = calc.listBaseConv(parsedList, 16, 10);
 				et_dec.setText(dec.value);
-				
+
 				/* Set a value into the history */
 				history.setNumberString(ID_BASETYPE_BIN, bin.value);
 				history.setNumberString(ID_BASETYPE_DEC, dec.value);
-				
+
 			}
 		} catch (Exception e) {
 			Log.e("binCalc", e.toString(), e);
@@ -493,7 +503,7 @@ final public class Fragment_main extends SherlockFragment implements
 					getResources().getColor(
 							R.color.main_editText_baseinput_TextColor_error));
 		}
-		
+
 		return history;
 	}
 
@@ -541,34 +551,93 @@ final public class Fragment_main extends SherlockFragment implements
 	 */
 	public void inputBasenumber(String str) {
 		EditText et = getCurrent_Baseinput_EditText();
+		String exp = et.getText().toString();
 
-		/* HEX alphabet */
+		/* Check for HEX alphabet */
 		if (str.charAt(0) >= 'A' && selectedBasetypeId != ID_BASETYPE_HEX) {
 			// if alphabet && BASETYPE is not HEX... cancel
 			return;
 		}
 
-		/* point */
-		if (str.contentEquals(".")) {
-			//if (et.getText().toString().indexOf('.') == -1) {
-				et.setText(et.getText().toString() + ".");
-			//}
-			return;
+		/* Point or Plus/minus(Switch positive or negative) */
+		if (str.contentEquals(".") || str.contentEquals("+-")) {
+			Log.i("binCalc", exp);
+			LinkedList<String> list = calc.parseToList(exp);
+			if (list.isEmpty() == false) {
+				// Find last number-chunk
+				int insertedIndex = -1;
+				
+				for (int i = list.size() - 1; 0 <= i; i--) {
+					String chunk = list.get(i);
+					if (0 < chunk.length() && chunk.contentEquals("(") == false
+							&& chunk.contentEquals(")") == false) {
+						if (str.contentEquals(".")) { // Insert a point
+							// Add point to last number-chunk
+							if (chunk.indexOf('.') == -1) {
+								chunk += ".";
+								list.set(i, chunk);
+								insertedIndex = i;
+							}
+						} else if (str.contentEquals("+-")) { // Switch positive
+																// or negative
+							// Switch plus or minus of last number-chunk
+							if (chunk.charAt(0) == '-') {
+								// To positive
+								chunk = chunk.substring(1, chunk.length());
+								list.set(i, chunk);
+								insertedIndex = i;
+								if (list.get(i + 1).contentEquals(")")) {
+									list.remove(i + 1);
+								}
+								if (list.get(i - 1).contentEquals("(")) {
+									list.remove(i - 1);
+								}
+								Log.i("binCalc", list.toString());
+							} else {
+								// To negative
+								Log.i("binCalc", list.toString());
+								list.set(i, "(");
+								insertedIndex = i;
+								list.add(i + 1, "-" + chunk);
+								list.add(i + 2, ")");
+								Log.i("binCalc", list.toString());
+							}
+						}
+						break;
+					}
+				}
+
+				// Re-output
+				try {
+					String res = calc.listToString(list, selectedBasetypeId);
+					et.setText(res);
+				} catch (Exception e) {
+					getCurrent_Baseinput_EditText()
+							.setTextColor(
+									getResources()
+											.getColor(
+													R.color.main_editText_baseinput_TextColor_error));
+					return;
+				}
+				return;
+			}
 		}
 
 		/* general number */
-		if (et.getText().toString().contentEquals("0")) {
-			et.setText(str);
-		} else if (et.getText().toString().contentEquals("0000")) {
+		if (exp.contentEquals("0") || exp.contentEquals("0000")) {
 			et.setText(str);
 		} else {
-			String res;
 			try {
-				res = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
+				String res = calc.listToString(
+						calc.removeParentheses(calc.parseToList(exp)),
+						selectedBasetypeId);
 				et.setText(res + str);
 			} catch (Exception e) {
-				getCurrent_Baseinput_EditText().setTextColor(
-						getResources().getColor(	R.color.main_editText_baseinput_TextColor_error));
+				getCurrent_Baseinput_EditText()
+						.setTextColor(
+								getResources()
+										.getColor(
+												R.color.main_editText_baseinput_TextColor_error));
 				return;
 			}
 		}
@@ -582,13 +651,15 @@ final public class Fragment_main extends SherlockFragment implements
 	public void inputBackspace() {
 		Log.i("binCalc", "Fragment_main - inputBackspace()...");
 		EditText et = getCurrent_Baseinput_EditText();
-		
+
 		String value = "";
 		try {
-			value = calc.listToString(calc.removeParentheses(calc.parseToList(et.getText().toString())), selectedBasetypeId);
+			value = calc.listToString(calc.removeParentheses(calc
+					.parseToList(et.getText().toString())), selectedBasetypeId);
 		} catch (Exception e) {
 			getCurrent_Baseinput_EditText().setTextColor(
-					getResources().getColor(	R.color.main_editText_baseinput_TextColor_error));
+					getResources().getColor(
+							R.color.main_editText_baseinput_TextColor_error));
 			value = et.getText().toString();
 		}
 
@@ -619,14 +690,15 @@ final public class Fragment_main extends SherlockFragment implements
 			}
 
 		}
-		
+
 		updateButtonsState();
 	}
 
 	/**
 	 * input Operation key
-	 * @throws Exception 
-	 * @throws NumberFormatException 
+	 * 
+	 * @throws Exception
+	 * @throws NumberFormatException
 	 */
 	public void inputOpr(int oprmodeId) {
 		EditText et = getCurrent_Baseinput_EditText();
@@ -642,11 +714,13 @@ final public class Fragment_main extends SherlockFragment implements
 			str = "/";
 		} else if (oprmodeId == ID_OPRMODE_MEMORY_IN) {
 			/* Calculate */
-			EditText et_dec = (EditText)getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec);
+			EditText et_dec = (EditText) getCurrent_Baseinputs_ViewPager()
+					.findViewById(R.id.editText_baseinput_dec);
 			String value = "";
 			try {
 				value = calc.calc(et_dec.getEditableText().toString());
-				value = baseconv.decToN(Double.parseDouble(value), selectedBasetypeId);
+				value = baseconv.decToN(Double.parseDouble(value),
+						selectedBasetypeId);
 				/* Memory in */
 				calc.InMemory(selectedBasetypeId, value);
 			} catch (Exception e) {
@@ -667,36 +741,40 @@ final public class Fragment_main extends SherlockFragment implements
 			String value = memory.value;
 			EditText et_ = null;
 			switch (memory.base_type) {
-				case ID_BASETYPE_BIN:
-					et_ = ((EditText)getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_bin));
-					break;
-				case ID_BASETYPE_DEC:
-					et_ = ((EditText)getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_dec));
-					break;
-				case ID_BASETYPE_HEX:
-					et_ = ((EditText)getCurrent_Baseinputs_ViewPager().findViewById(R.id.editText_baseinput_hex));
-					break;
-				default:
-					return;
-			};
-			
-			int current_base_type = selectedBasetypeId; 
+			case ID_BASETYPE_BIN:
+				et_ = ((EditText) getCurrent_Baseinputs_ViewPager()
+						.findViewById(R.id.editText_baseinput_bin));
+				break;
+			case ID_BASETYPE_DEC:
+				et_ = ((EditText) getCurrent_Baseinputs_ViewPager()
+						.findViewById(R.id.editText_baseinput_dec));
+				break;
+			case ID_BASETYPE_HEX:
+				et_ = ((EditText) getCurrent_Baseinputs_ViewPager()
+						.findViewById(R.id.editText_baseinput_hex));
+				break;
+			default:
+				return;
+			}
+			;
+
+			int current_base_type = selectedBasetypeId;
 			switchBasetype(memory.base_type);
-			
+
 			/* Set a value into Base-input */
-			if (et_.getText().toString().contentEquals("0000") || et_.getText().toString().contentEquals("0")) {
+			if (et_.getText().toString().contentEquals("0000")
+					|| et_.getText().toString().contentEquals("0")) {
 				et_.setText(value);
 			} else {
 				et_.setText(et_.getText().toString() + value);
 			}
-			
+
 			baseConvert();
-			
+
 			switchBasetype(current_base_type);
-			
+
 			return;
 		}
-
 
 		if (et.getText().toString().contentEquals("0")) {
 			if (str.contentEquals("-")) {
@@ -799,7 +877,7 @@ final public class Fragment_main extends SherlockFragment implements
 						+ item);
 		return (View) baseinputsViewPager.findViewWithTag(item);
 	}
-	
+
 	/**
 	 * get current base-input Backspace (ImageView) object
 	 */
@@ -816,18 +894,24 @@ final public class Fragment_main extends SherlockFragment implements
 		}
 		return null;
 	}
-	
+
 	public void updateButtonsState() {
 		/* buttons for negative numbers */
-		Button btn_pm = (Button)v.findViewById(R.id.keyButtonPM); // Plus/Minus button
-		Button btn_minus = (Button)v.findViewById(R.id.keyButtonOpMi); // Minus button
+		Button btn_pm = (Button) v.findViewById(R.id.keyButtonPM); // Plus/Minus
+																	// button
+		Button btn_minus = (Button) v.findViewById(R.id.keyButtonOpMi); // Minus
+																		// button
 		if (selectedBasetypeId != ID_BASETYPE_DEC) {
 			// Can't use the +/- button when mode is not Decimal.
 			btn_pm.setEnabled(false);
-			if (selectedBasetypeId == ID_BASETYPE_BIN && getCurrent_Baseinput_EditText().getText().toString().contentEquals("0000")) {
+			if (selectedBasetypeId == ID_BASETYPE_BIN
+					&& getCurrent_Baseinput_EditText().getText().toString()
+							.contentEquals("0000")) {
 				// Can't use the minus button when input-field has not inputted.
 				btn_minus.setEnabled(false);
-			} else if (selectedBasetypeId == ID_BASETYPE_HEX && getCurrent_Baseinput_EditText().getText().toString().contentEquals("0")) {
+			} else if (selectedBasetypeId == ID_BASETYPE_HEX
+					&& getCurrent_Baseinput_EditText().getText().toString()
+							.contentEquals("0")) {
 				// Can't use the minus button when input-field has not inputted.
 				btn_minus.setEnabled(false);
 			} else {
@@ -837,18 +921,22 @@ final public class Fragment_main extends SherlockFragment implements
 			btn_pm.setEnabled(true);
 			btn_minus.setEnabled(true);
 		}
-		
+
 		/* Memory buttons */
-		CalculatorMemoryData memory =  calc.readMemory();
-		Button btn_mr = (Button)v.findViewById(R.id.keyButtonMR); // Memory read button
-		Button btn_mc = (Button)v.findViewById(R.id.keyButtonMC); // Memory clear button
-		TextView text_mr = (TextView)v.findViewById(R.id.keyButtonMRText);
+		CalculatorMemoryData memory = calc.readMemory();
+		Button btn_mr = (Button) v.findViewById(R.id.keyButtonMR); // Memory
+																	// read
+																	// button
+		Button btn_mc = (Button) v.findViewById(R.id.keyButtonMC); // Memory
+																	// clear
+																	// button
+		TextView text_mr = (TextView) v.findViewById(R.id.keyButtonMRText);
 		if (memory == null) {
 			text_mr.setText("");
 			btn_mr.setEnabled(false);
 			btn_mc.setEnabled(false);
 		} else {
-			text_mr.setText("("+memory.base_type+")"+memory.value);
+			text_mr.setText("(" + memory.base_type + ")" + memory.value);
 			btn_mr.setEnabled(true);
 			btn_mc.setEnabled(true);
 		}
@@ -913,7 +1001,7 @@ final public class Fragment_main extends SherlockFragment implements
 		if (getCurrent_Baseinputs_ViewPager() == null) {
 			return;
 		}
-		
+
 		ToggleButton tb_type_bin = (ToggleButton) v
 				.findViewById(R.id.toggle_basetype_bin);
 		ImageView bs_bin = (ImageView) v
@@ -988,7 +1076,7 @@ final public class Fragment_main extends SherlockFragment implements
 		getCurrent_Baseinput_Backspace_ImageView().setBackgroundDrawable(
 				getResources().getDrawable(
 						R.drawable.image_backspace_background_active));
-		
+
 		updateButtonsState();
 	}
 
@@ -998,7 +1086,7 @@ final public class Fragment_main extends SherlockFragment implements
 	public void reApplyBasetype() {
 		switchBasetype(selectedBasetypeId);
 	}
-	
+
 	/**
 	 * Restore base-inputs from from a history
 	 */
@@ -1011,13 +1099,13 @@ final public class Fragment_main extends SherlockFragment implements
 			getCurrent_Baseinput_EditText().setText("0");
 			return false;
 		}
-		
+
 		Log.d("binCalc",
-			"Fragment_main - restoreBaseInputsFromHistory - Restore a history("
-					+ history_id + ") = " + history.getNumberString());
+				"Fragment_main - restoreBaseInputsFromHistory - Restore a history("
+						+ history_id + ") = " + history.getNumberString());
 		switchBasetype(history.getBaseType());
 		getCurrent_Baseinput_EditText().setText(history.getNumberString());
-		
+
 		baseConvert();
 		reApplyBasetype();
 		return true;
@@ -1100,6 +1188,9 @@ final public class Fragment_main extends SherlockFragment implements
 		case R.id.keyButtonPo:
 			inputBasenumber(".");
 			break;
+		case R.id.keyButtonPM:
+			inputBasenumber("+-");
+			break;
 
 		/* operator-button */
 		case R.id.keyButtonOpPl:
@@ -1114,7 +1205,7 @@ final public class Fragment_main extends SherlockFragment implements
 		case R.id.keyButtonOpDi:
 			inputOpr(ID_OPRMODE_DIVIS);
 			break;
-		
+
 		/* Memory button */
 		case R.id.keyButtonMin:
 			inputOpr(ID_OPRMODE_MEMORY_IN);
@@ -1182,11 +1273,12 @@ final public class Fragment_main extends SherlockFragment implements
 			/* Save initialized calculator, into histories list */
 			HistoryItem history = new HistoryItem();
 			history.setBaseType(selectedBasetypeId);
-			history.setNumberString(getCurrent_Baseinput_EditText().getText().toString());
+			history.setNumberString(getCurrent_Baseinput_EditText().getText()
+					.toString());
 			int history_id = calc.putHistory(history);
 			Log.d("binCalc", "calculate() - Save a history(" + history_id
 					+ ") = " + history.getNumberString());
-			
+
 			/* Initialize buttons state */
 			updateButtonsState();
 		}
