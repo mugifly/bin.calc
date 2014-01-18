@@ -562,11 +562,11 @@ final public class Fragment_main extends SherlockFragment implements
 		/* Point or Plus/minus(Switch positive or negative) */
 		if (str.contentEquals(".") || str.contentEquals("+-")) {
 			Log.i("binCalc", exp);
-			LinkedList<String> list = calc.parseToList(exp);
+			
+			// Parse a current expression, and remove parentheses
+			LinkedList<String> list = calc.removeParentheses(calc.parseToList(exp));
 			if (list.isEmpty() == false) {
 				// Find last number-chunk
-				int insertedIndex = -1;
-				
 				for (int i = list.size() - 1; 0 <= i; i--) {
 					String chunk = list.get(i);
 					if (0 < chunk.length() && chunk.contentEquals("(") == false
@@ -576,7 +576,6 @@ final public class Fragment_main extends SherlockFragment implements
 							if (chunk.indexOf('.') == -1) {
 								chunk += ".";
 								list.set(i, chunk);
-								insertedIndex = i;
 							}
 						} else if (str.contentEquals("+-")) { // Switch positive
 																// or negative
@@ -585,28 +584,15 @@ final public class Fragment_main extends SherlockFragment implements
 								// To positive
 								chunk = chunk.substring(1, chunk.length());
 								list.set(i, chunk);
-								insertedIndex = i;
-								if (list.get(i + 1).contentEquals(")")) {
-									list.remove(i + 1);
-								}
-								if (list.get(i - 1).contentEquals("(")) {
-									list.remove(i - 1);
-								}
-								Log.i("binCalc", list.toString());
 							} else {
 								// To negative
-								Log.i("binCalc", list.toString());
-								list.set(i, "(");
-								insertedIndex = i;
 								list.add(i + 1, "-" + chunk);
-								list.add(i + 2, ")");
-								Log.i("binCalc", list.toString());
 							}
 						}
 						break;
 					}
 				}
-
+				
 				// Re-output
 				try {
 					String res = calc.listToString(list, selectedBasetypeId);
