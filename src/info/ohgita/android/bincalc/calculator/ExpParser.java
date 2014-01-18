@@ -3,7 +3,7 @@ package info.ohgita.android.bincalc.calculator;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import android.util.Log;
+//import android.util.Log;
 
 /**
  * Numerical expression(formula) parser class
@@ -23,7 +23,7 @@ public class ExpParser {
 	 * @return Parsed LinkedList
 	 */
 	public LinkedList<String> parseToList(String exp) {
-		Log.d("binCalc", "ExpParser.parseToList("+exp+")");
+		//Log.d("binCalc", "ExpParser.parseToList("+exp+")");
 		// TODO I will rewrite it completely :p
 		
 		/* initialize list and buffer */
@@ -120,7 +120,7 @@ public class ExpParser {
 			_bufPush();
 		}
 		
-		Log.d("binCalc", "parseToList done.");
+		//Log.d("binCalc", "parseToList done.");
 		return list;
 	}
 	
